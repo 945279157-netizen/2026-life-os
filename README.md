@@ -50,7 +50,11 @@ Token 只存在这台设备的浏览器本机存储里，不会写进仓库，�
 }
 ```
 
-- `type`：`run` / `strength` / `fight` / `mixed` / `endurance` / `aerobic` / `complete` / `basic`
+- `type`：只有四类 —— `run` 跑步 / `strength` 力量训练 / `cardio` 耐力·有氧 / `yoga` 瑜伽恢复
+  - `cardio` 包含搏击、完整课程、综合体能、基础课程、耐力课程、战绳风暴、室内有氧
+  - `strength` 包含力量课程、塑形杠铃、核心塑造、全身抗阻等
+  - `yoga` 包含哈他瑜伽、理疗瑜伽、内观顺位、筋膜松解
+  - 具体课程名写在 `name` 里，日历和训练记录显示的是课程名，筛选和类型分布按四大类走
 - `status`：`completed` 已完成 / `planned` 计划
 - 可选字段：`maxHr`、`pace`、`best`、`climb`、`detail`
 - 同一天有几条就写几条，一天多练会在日历里全部展开

@@ -450,30 +450,76 @@ button{font:inherit}
       下面这份 DEFAULT_DATA 只是 data.json 读不到时的兜底。
    ========================================================== */
 const DEFAULT_DATA = {
-  extraMonths: ["2026-07"],
+  extraMonths: [],
   workouts: [
+    // ---------- 2026 年 7 月 ----------
+    {id:"w-20260704-1", date:"2026-07-04", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260704-2", date:"2026-07-04", type:"yoga",     name:"哈他瑜伽", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260713-1", date:"2026-07-13", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260713-2", date:"2026-07-13", type:"strength", name:"核心塑造", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260714-1", date:"2026-07-14", type:"strength", name:"塑形杠铃", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260714-2", date:"2026-07-14", type:"cardio",   name:"战绳风暴", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260714-3", date:"2026-07-14", type:"cardio",   name:"耐力课程", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260715-1", date:"2026-07-15", type:"strength", name:"塑形杠铃", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260718-1", date:"2026-07-18", type:"yoga",     name:"筋膜松解", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260719-1", date:"2026-07-19", type:"cardio",   name:"综合体能", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260719-2", date:"2026-07-19", type:"yoga",     name:"理疗瑜伽", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260719-3", date:"2026-07-19", type:"yoga",     name:"内观顺位", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260720-1", date:"2026-07-20", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260720-2", date:"2026-07-20", type:"strength", name:"全身抗阻", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260721-1", date:"2026-07-21", type:"cardio",   name:"耐力课程", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260722-1", date:"2026-07-22", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260724-1", date:"2026-07-24", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260724-2", date:"2026-07-24", type:"cardio",   name:"完整课程", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260725-1", date:"2026-07-25", type:"yoga",     name:"哈他瑜伽", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260725-2", date:"2026-07-25", type:"yoga",     name:"筋膜松解", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260727-1", date:"2026-07-27", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260728-1", date:"2026-07-28", type:"cardio",   name:"耐力课程", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260729-1", date:"2026-07-29", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260729-2", date:"2026-07-29", type:"yoga",     name:"筋膜松解", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260729-3", date:"2026-07-29", type:"strength", name:"塑形杠铃", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260730-1", date:"2026-07-30", type:"strength", name:"力量课程", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260730-2", date:"2026-07-30", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
+
+    {id:"w-20260731-1", date:"2026-07-31", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
+    {id:"w-20260731-2", date:"2026-07-31", type:"cardio",   name:"完整课程", duration:"", distance:null, calories:null, status:"completed"},
     // ---------- 2026 年 8 月 ----------
-    {id:"w-20260801-1", date:"2026-08-01", type:"run",       name:"跑步",     duration:"",      distance:5.25, calories:280, status:"completed"},
+    {id:"w-20260801-1", date:"2026-08-01", type:"run",      name:"跑步",     duration:"",      distance:5.25, calories:280, status:"completed"},
 
-    {id:"w-20260806-1", date:"2026-08-06", type:"strength",  name:"力量课程", duration:"",      distance:null, calories:null, status:"completed"},
-    {id:"w-20260806-2", date:"2026-08-06", type:"complete",  name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-20260806-1", date:"2026-08-06", type:"strength", name:"力量课程", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-20260806-2", date:"2026-08-06", type:"cardio",   name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
 
-    {id:"w-20260807-1", date:"2026-08-07", type:"fight",     name:"燃动搏击", duration:"",      distance:null, calories:null, status:"completed"},
-    {id:"w-20260807-2", date:"2026-08-07", type:"complete",  name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-20260807-1", date:"2026-08-07", type:"cardio",   name:"燃动搏击", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-20260807-2", date:"2026-08-07", type:"cardio",   name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
 
-    {id:"w-20260809-1", date:"2026-08-09", type:"mixed",     name:"综合体能", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-msnvhpxjemae", date:"2026-08-08", type:"strength", name:"臀腿训练", duration:"57",    distance:null, calories:234, status:"completed"},
 
-    {id:"w-20260810-1", date:"2026-08-10", type:"strength",  name:"背部力量", duration:"58:51", distance:null, calories:215, load:3,  avgHr:93,  maxHr:121, detail:"4 组 · 257 次", status:"completed"},
-    {id:"w-20260810-2", date:"2026-08-10", type:"run",       name:"跑步",     duration:"42:20", distance:6.01, calories:302, avgHr:166, pace:"7'03\"/km", climb:"20 m", best:"6'32\"", status:"completed"},
-    {id:"w-20260810-3", date:"2026-08-10", type:"aerobic",   name:"室内有氧", duration:"54:15", distance:null, calories:326, load:67, avgHr:129, status:"completed"},
+    {id:"w-20260809-1", date:"2026-08-09", type:"cardio",   name:"综合体能", duration:"",      distance:null, calories:null, status:"completed"},
 
-    {id:"w-20260811-1", date:"2026-08-11", type:"endurance", name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
+    {id:"w-20260810-1", date:"2026-08-10", type:"strength", name:"背部力量", duration:"58:51", distance:null, calories:215, load:3,  avgHr:93,  maxHr:121, detail:"4 组 · 257 次", status:"completed"},
+    {id:"w-20260810-2", date:"2026-08-10", type:"run",      name:"跑步",     duration:"42:20", distance:6.01, calories:302, avgHr:166, pace:"7'03\"/km", climb:"20 m", best:"6'32\"", status:"completed"},
+    {id:"w-20260810-3", date:"2026-08-10", type:"cardio",   name:"室内有氧", duration:"54:15", distance:null, calories:326, load:67, avgHr:129, status:"completed"},
 
-    {id:"w-20260812-1", date:"2026-08-12", type:"complete",  name:"战绳风暴", duration:"",      distance:null, calories:null, status:"planned"},
-    {id:"w-20260812-2", date:"2026-08-12", type:"strength",  name:"力量课程", duration:"",      distance:null, calories:null, status:"planned"},
 
-    {id:"w-20260813-1", date:"2026-08-13", type:"endurance", name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
-    {id:"w-20260813-2", date:"2026-08-13", type:"basic",     name:"基础课程", duration:"",      distance:null, calories:null, status:"planned"}
+    {id:"w-20260812-1", date:"2026-08-12", type:"cardio",   name:"战绳风暴", duration:"",      distance:null, calories:null, status:"planned"},
+    {id:"w-20260812-2", date:"2026-08-12", type:"strength", name:"力量课程", duration:"",      distance:null, calories:null, status:"planned"},
+
+    {id:"w-20260813-1", date:"2026-08-13", type:"cardio",   name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
+    {id:"w-20260813-2", date:"2026-08-13", type:"cardio",   name:"基础课程", duration:"",      distance:null, calories:null, status:"planned"}
   ],
   /* 身体数据：{date, weight, fat, note} */
   body: [],
@@ -489,28 +535,21 @@ let bodyData    = [];
 let goalData    = [];
 let EXTRA_MONTHS = [];
 
-/* 训练类型字典（DOM 与月报长图共用） */
+/* 训练类型字典：全部课程收成四大类，具体课程名写在每条记录的 name 里 */
 const TYPES = {
-  run:       {label:"跑步",     emoji:"🏃", cls:"run",       bg:"#dff1d8", fg:"#39743a"},
-  strength:  {label:"力量",     emoji:"💪", cls:"strength",  bg:"#f7d5e8", fg:"#963b76"},
-  fight:     {label:"搏击",     emoji:"🥊", cls:"fight",     bg:"#ffdcae", fg:"#965b19"},
-  mixed:     {label:"综合体能", emoji:"🔴", cls:"mixed",     bg:"#ffd6d6", fg:"#a14343"},
-  endurance: {label:"耐力课程", emoji:"🟢", cls:"end",       bg:"#d9efdc", fg:"#377a4b"},
-  aerobic:   {label:"室内有氧", emoji:"🧘", cls:"aerobic",   bg:"#dcebf8", fg:"#37658b"},
-  complete:  {label:"完整课程", emoji:"🟣", cls:"complete",  bg:"#e5d9ff", fg:"#69439b"},
-  basic:     {label:"基础课程", emoji:"🔵", cls:"basic",     bg:"#dbe6ff", fg:"#4565ad"}
+  run:      {label:"跑步",     emoji:"🏃", cls:"run",      bg:"#dff1d8", fg:"#39743a"},
+  strength: {label:"力量训练", emoji:"💪", cls:"strength", bg:"#f7d5e8", fg:"#963b76"},
+  cardio:   {label:"耐力/有氧", emoji:"🔥", cls:"cardio",   bg:"#ffdcae", fg:"#965b19"},
+  yoga:     {label:"瑜伽恢复", emoji:"🧘", cls:"yoga",     bg:"#dce9f7", fg:"#37658b"}
 };
 
-/* 日历筛选：耐力与有氧合并为一组 */
+/* 日历筛选：与四大类一一对应 */
 const FILTERS = [
   {key:"all",      label:"全部",         types:null},
   {key:"run",      label:"🏃 跑步",      types:["run"]},
-  {key:"strength", label:"💪 力量",      types:["strength"]},
-  {key:"fight",    label:"🥊 搏击",      types:["fight"]},
-  {key:"mixed",    label:"🔴 综合体能",  types:["mixed"]},
-  {key:"cardio",   label:"🟢 耐力/有氧", types:["endurance","aerobic"]},
-  {key:"complete", label:"🟣 完整课程",  types:["complete"]},
-  {key:"basic",    label:"🔵 基础课程",  types:["basic"]}
+  {key:"strength", label:"💪 力量训练",  types:["strength"]},
+  {key:"cardio",   label:"🔥 耐力/有氧", types:["cardio"]},
+  {key:"yoga",     label:"🧘 瑜伽恢复",  types:["yoga"]}
 ];
 
 /* 导航（已移除日记 / 旅行） */
@@ -563,9 +602,12 @@ let dataState = {source:"default", dirty:false, updatedAt:null, remoteAt:null};
 function sortWorkouts(list){
   return list.slice().sort((a,b) => a.date === b.date ? 0 : (a.date < b.date ? -1 : 1));
 }
+/* 旧数据兼容：以前的八个类型合并成四大类，本机旧草稿也能正常打开 */
+const LEGACY_TYPE = {fight:"cardio", mixed:"cardio", endurance:"cardio", aerobic:"cardio", complete:"cardio", basic:"cardio"};
+function normType(t){ return TYPES[t] ? t : (LEGACY_TYPE[t] || "cardio"); }
 function applyData(d){
   d = d || {};
-  workoutData  = sortWorkouts(d.workouts || []).map(w => Object.assign({}, w, {id: w.id || uid("w")}));
+  workoutData  = sortWorkouts(d.workouts || []).map(w => Object.assign({}, w, {id: w.id || uid("w"), type: normType(w.type)}));
   bodyData     = (d.body  || []).map(b => Object.assign({}, b, {id: b.id || uid("b")}));
   goalData     = (d.goals || []).map(g => Object.assign({}, g, {id: g.id || uid("g")}));
   EXTRA_MONTHS = d.extraMonths || [];
@@ -1334,12 +1376,12 @@ function syncName(){
   if(!n || !t) return;
   const labels = Object.keys(TYPES).map(k => TYPES[k].label);
   const v = n.value.trim();
-  if(!v || labels.indexOf(v) > -1) n.value = TYPES[t.value].label;
+  if(!v || labels.indexOf(v) > -1) n.value = TYPES[normType(t.value)].label;
 }
 function saveWorkout(){
   const date = valOf("f_date");
   if(!date){ alert("先选一个日期吧。"); return; }
-  const type = valOf("f_type");
+  const type = normType(valOf("f_type"));
   const rec = {
     id: editingId || uid("w"),
     date: date,
