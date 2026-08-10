@@ -1,0 +1,24 @@
+{
+  "updatedAt": "2026-08-11T00:00:00.000Z",
+  "extraMonths": ["2026-07"],
+  "workouts": [
+    {"id":"w-20260801-1","date":"2026-08-01","type":"run","name":"跑步","duration":"","distance":5.25,"calories":280,"status":"completed"},
+    {"id":"w-20260806-1","date":"2026-08-06","type":"strength","name":"力量课程","duration":"","distance":null,"calories":null,"status":"completed"},
+    {"id":"w-20260806-2","date":"2026-08-06","type":"complete","name":"完整课程","duration":"","distance":null,"calories":null,"status":"completed"},
+    {"id":"w-20260807-1","date":"2026-08-07","type":"fight","name":"燃动搏击","duration":"","distance":null,"calories":null,"status":"completed"},
+    {"id":"w-20260807-2","date":"2026-08-07","type":"complete","name":"完整课程","duration":"","distance":null,"calories":null,"status":"completed"},
+    {"id":"w-20260809-1","date":"2026-08-09","type":"mixed","name":"综合体能","duration":"","distance":null,"calories":null,"status":"completed"},
+    {"id":"w-20260810-1","date":"2026-08-10","type":"strength","name":"背部力量","duration":"58:51","distance":null,"calories":215,"load":3,"avgHr":93,"maxHr":121,"detail":"4 组 · 257 次","status":"completed"},
+    {"id":"w-20260810-2","date":"2026-08-10","type":"run","name":"跑步","duration":"42:20","distance":6.01,"calories":302,"avgHr":166,"pace":"7'03\"/km","climb":"20 m","best":"6'32\"","status":"completed"},
+    {"id":"w-20260810-3","date":"2026-08-10","type":"aerobic","name":"室内有氧","duration":"54:15","distance":null,"calories":326,"load":67,"avgHr":129,"status":"completed"},
+    {"id":"w-20260811-1","date":"2026-08-11","type":"endurance","name":"耐力课程","duration":"","distance":null,"calories":null,"status":"planned"},
+    {"id":"w-20260812-1","date":"2026-08-12","type":"complete","name":"战绳风暴","duration":"","distance":null,"calories":null,"status":"planned"},
+    {"id":"w-20260812-2","date":"2026-08-12","type":"strength","name":"力量课程","duration":"","distance":null,"calories":null,"status":"planned"},
+    {"id":"w-20260813-1","date":"2026-08-13","type":"endurance","name":"耐力课程","duration":"","distance":null,"calories":null,"status":"planned"},
+    {"id":"w-20260813-2","date":"2026-08-13","type":"basic","name":"基础课程","duration":"","distance":null,"calories":null,"status":"planned"}
+  ],
+  "body": [],
+  "goals": [
+    {"id":"g-202608","month":"2026-08","metric":"体脂率","target":"20%","current":null,"note":"当前数据待记录"}
+  ]
+}

@@ -113,6 +113,37 @@ button{font:inherit}
 .report-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
 .report-hint{font-size:11px;color:#8b8f99;margin:10px 0 0}
 .loading{padding:40px;color:#8b8f99;font-size:13px}
+
+/* ---------- 编辑 / 同步 ---------- */
+.fab{position:fixed;right:22px;bottom:22px;z-index:15;border:0;background:#17191f;color:#fff;padding:14px 20px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 10px 26px #00000026;transition:.15s}
+.fab:hover{background:#8b5cf6;transform:translateY(-1px)}
+.syncbar{display:none;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,#fffdf8,#f6f0ff);border:1px solid #e6dcff;border-radius:15px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#5b6070}
+.syncbar.show{display:flex}
+.syncbar b{color:#17191f}
+.syncbar .sp{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.syncbar .btn{padding:8px 15px;font-size:12px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.form .wide{grid-column:1/-1}
+.field label{display:block;font-size:11px;color:#8a8f99;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;border:1px solid #e1e3e8;background:#fff;border-radius:11px;padding:10px 12px;font-size:13px;font-family:inherit;color:#17191f;outline:none;transition:.15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#bba4ff;box-shadow:0 0 0 3px #8b5cf61a}
+.field textarea{resize:vertical;min-height:64px}
+.form-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid #f0f1f3}
+.form-actions .grow{margin-left:auto}
+.more-toggle{background:none;border:0;color:#6d43c8;font-size:12px;cursor:pointer;padding:12px 0 0}
+.mini{border:1px solid #e1e3e8;background:#fff;color:#5b6070;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;transition:.15s}
+.mini:hover{border-color:#c7b6ff;color:#6d43c8}
+.mini.danger:hover{border-color:#ffb4b4;color:#c23a3a;background:#fff6f6}
+.row-actions{display:flex;gap:6px;justify-content:flex-end}
+.sync-state{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600}
+.dot{width:9px;height:9px;border-radius:50%;background:#c7cad1;flex:none}
+.dot.ok{background:#3fae6a}.dot.warn{background:#e0a33a}.dot.err{background:#d8584f}
+.msg{font-size:12px;line-height:1.7;margin-top:12px;padding:11px 13px;border-radius:11px;background:#f7f8fa;color:#5b6070;display:none}
+.msg.show{display:block}
+.msg.ok{background:#eefaf1;color:#2f7a4c}.msg.err{background:#fdf1f0;color:#b8443b}
+.token-hint{font-size:11px;color:#8b8f99;line-height:1.8;margin-top:10px}
+.token-hint a{color:#6d43c8}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px}
 .view{display:none}.view.active{display:block}
 @media(max-width:1080px){.metrics{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:850px){
@@ -140,6 +171,8 @@ button{font:inherit}
   .hl-kcal{font-size:36px}
   .rec .r-metrics{justify-content:flex-start}
   .modal{padding:18px;border-radius:18px}
+  .form{grid-template-columns:1fr}
+  .fab{right:14px;bottom:14px;padding:12px 17px;font-size:13px}
 }
 </style>
 </head>
@@ -164,6 +197,16 @@ button{font:inherit}
     <button class="btn" onclick="openReport()">✦ 生成月报</button>
     <div class="quote">不是为了证明给别人看，是为了看见自己的变化。</div>
   </div>
+</div>
+
+<!-- 本地未同步提示 -->
+<div class="syncbar" id="syncBar">
+  <span id="syncBarText"></span>
+  <span class="sp">
+    <button class="btn" onclick="syncToGitHub()">同步到 GitHub</button>
+    <button class="btn ghost" onclick="switchView('manage')">查看</button>
+    <button class="btn ghost" onclick="discardLocal()">放弃本地修改</button>
+  </span>
 </div>
 
 <!-- ============ 运动首页 ============ -->
@@ -297,6 +340,83 @@ button{font:inherit}
   </div>
 </div>
 
+<!-- ============ 记录 / 同步 ============ -->
+<div class="view" id="manage">
+  <div class="card">
+    <div class="card-head">
+      <h2>数据同步</h2>
+      <div class="sync-state"><span class="dot" id="syncDot"></span><span id="syncState">读取中…</span></div>
+    </div>
+    <p class="note" style="margin-top:0">
+      档案的全部内容存在仓库的 <span class="mono">data.json</span> 里。在这个页面增删改，会先存在这台设备上；
+      点「同步到 GitHub」写回仓库后，手机、电脑、任何人打开链接看到的都是最新的。
+    </p>
+    <div class="form-actions" style="border-top:0;padding-top:0">
+      <button class="btn" onclick="syncToGitHub()" id="syncBtn">↑ 同步到 GitHub</button>
+      <button class="btn ghost" onclick="pullFromGitHub()">↓ 从 GitHub 拉取</button>
+      <button class="btn ghost" onclick="exportJson()">导出 data.json</button>
+      <button class="btn ghost" onclick="document.getElementById('importFile').click()">导入 JSON</button>
+      <input type="file" id="importFile" accept="application/json,.json" style="display:none">
+      <button class="btn ghost grow" onclick="discardLocal()">放弃本地修改</button>
+    </div>
+    <div class="msg" id="syncMsg"></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>GitHub 设置</h2>
+    <div class="form">
+      <div class="field"><label>用户名 / 组织</label><input id="cfgOwner" placeholder="945279157-netizen"></div>
+      <div class="field"><label>仓库名</label><input id="cfgRepo" placeholder="2026-life-os"></div>
+      <div class="field"><label>分支</label><input id="cfgBranch" placeholder="main"></div>
+      <div class="field"><label>数据文件路径</label><input id="cfgPath" placeholder="data.json"></div>
+      <div class="field wide"><label>访问令牌 Token（只存在这台设备的浏览器里，不会上传）</label>
+        <input id="cfgToken" type="password" placeholder="github_pat_… 或 ghp_…" autocomplete="off"></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn" onclick="saveCfg()">保存设置</button>
+      <button class="btn ghost" onclick="clearToken()">清除本机 Token</button>
+    </div>
+    <div class="token-hint">
+      建议用 <b>Fine-grained personal access token</b>：<a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens</a>
+      → Repository access 只勾选 <span class="mono">2026-life-os</span> 这一个仓库 → Permissions 里把 <b>Contents</b> 设为 <b>Read and write</b>。
+      这样即使令牌泄露，也只能改这一个仓库。<br>
+      令牌保存在浏览器本机存储里，只在你点同步时直接发给 GitHub。公用电脑上用完记得点「清除本机 Token」。
+    </div>
+    <div class="msg" id="cfgMsg"></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="card-head">
+      <h2>训练记录</h2>
+      <div style="display:flex;gap:8px;align-items:center">
+        <select id="mgMonth" class="mini" style="padding:7px 10px" onchange="renderManage()"></select>
+        <button class="btn" onclick="openEdit()">＋ 添加训练</button>
+      </div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>日期</th><th>训练</th><th>数据</th><th>状态</th><th style="text-align:right">操作</th></tr></thead>
+      <tbody id="mgWorkoutRows"></tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="card-head"><h2>身体数据</h2><button class="btn ghost" onclick="openBodyEdit()">＋ 添加一条</button></div>
+    <table class="tbl">
+      <thead><tr><th>日期</th><th>体重 kg</th><th>体脂率 %</th><th>备注</th><th style="text-align:right">操作</th></tr></thead>
+      <tbody id="mgBodyRows"></tbody>
+    </table>
+    <div class="note">录入体脂率后，8 月目标卡会自动把「当前数据待记录」换成真实数值和差距。</div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="card-head"><h2>目标</h2><button class="btn ghost" onclick="openGoalEdit()">＋ 添加目标</button></div>
+    <table class="tbl">
+      <thead><tr><th>周期</th><th>目标</th><th>目标值</th><th>当前</th><th style="text-align:right">操作</th></tr></thead>
+      <tbody id="mgGoalRows"></tbody>
+    </table>
+  </div>
+</div>
+
 </main>
 </div>
 
@@ -312,43 +432,62 @@ button{font:inherit}
   </div>
 </div>
 
+<!-- 新增 / 编辑 -->
+<div class="modal-back" id="editModal">
+  <div class="modal"><button class="close" onclick="closeModal('editModal')">×</button>
+    <div id="editBody"></div>
+  </div>
+</div>
+
+<button class="fab" onclick="openEdit()">＋ 记录训练</button>
+
 <script>
 /* ==========================================================
-   1. 数据层：以后只要往 workoutData 里加记录，
-      日历 / 训练记录 / 统计 / 筛选 / 月报 会全部自动更新。
+   1. 数据层
+      真正的数据存在同目录的 data.json 里。
+      页面加载时读取 data.json；在页面里增删改会先存到本机，
+      点「同步到 GitHub」后写回仓库，所有设备就都更新了。
+      下面这份 DEFAULT_DATA 只是 data.json 读不到时的兜底。
    ========================================================== */
-const workoutData = [
-  // ---------- 2026 年 8 月 ----------
-  {date:"2026-08-01", type:"run",       name:"跑步",     duration:"",      distance:5.25, calories:280, status:"completed"},
+const DEFAULT_DATA = {
+  extraMonths: ["2026-07"],
+  workouts: [
+    // ---------- 2026 年 8 月 ----------
+    {id:"w-20260801-1", date:"2026-08-01", type:"run",       name:"跑步",     duration:"",      distance:5.25, calories:280, status:"completed"},
 
-  {date:"2026-08-06", type:"strength",  name:"力量课程", duration:"",      distance:null, calories:null, status:"completed"},
-  {date:"2026-08-06", type:"complete",  name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-20260806-1", date:"2026-08-06", type:"strength",  name:"力量课程", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-20260806-2", date:"2026-08-06", type:"complete",  name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
 
-  {date:"2026-08-07", type:"fight",     name:"燃动搏击", duration:"",      distance:null, calories:null, status:"completed"},
-  {date:"2026-08-07", type:"complete",  name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-20260807-1", date:"2026-08-07", type:"fight",     name:"燃动搏击", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-20260807-2", date:"2026-08-07", type:"complete",  name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
 
-  {date:"2026-08-09", type:"mixed",     name:"综合体能", duration:"",      distance:null, calories:null, status:"completed"},
+    {id:"w-20260809-1", date:"2026-08-09", type:"mixed",     name:"综合体能", duration:"",      distance:null, calories:null, status:"completed"},
 
-  {date:"2026-08-10", type:"strength",  name:"背部力量", duration:"58:51", distance:null, calories:215, load:3,  avgHr:93,  maxHr:121, detail:"4 组 · 257 次", status:"completed"},
-  {date:"2026-08-10", type:"run",       name:"跑步",     duration:"42:20", distance:6.01, calories:302, avgHr:166, pace:"7'03\"/km", climb:"20 m", best:"6'32\"", status:"completed"},
-  {date:"2026-08-10", type:"aerobic",   name:"室内有氧", duration:"54:15", distance:null, calories:326, load:67, avgHr:129, status:"completed"},
+    {id:"w-20260810-1", date:"2026-08-10", type:"strength",  name:"背部力量", duration:"58:51", distance:null, calories:215, load:3,  avgHr:93,  maxHr:121, detail:"4 组 · 257 次", status:"completed"},
+    {id:"w-20260810-2", date:"2026-08-10", type:"run",       name:"跑步",     duration:"42:20", distance:6.01, calories:302, avgHr:166, pace:"7'03\"/km", climb:"20 m", best:"6'32\"", status:"completed"},
+    {id:"w-20260810-3", date:"2026-08-10", type:"aerobic",   name:"室内有氧", duration:"54:15", distance:null, calories:326, load:67, avgHr:129, status:"completed"},
 
-  {date:"2026-08-11", type:"endurance", name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
+    {id:"w-20260811-1", date:"2026-08-11", type:"endurance", name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
 
-  {date:"2026-08-12", type:"complete",  name:"战绳风暴", duration:"",      distance:null, calories:null, status:"planned"},
-  {date:"2026-08-12", type:"strength",  name:"力量课程", duration:"",      distance:null, calories:null, status:"planned"},
+    {id:"w-20260812-1", date:"2026-08-12", type:"complete",  name:"战绳风暴", duration:"",      distance:null, calories:null, status:"planned"},
+    {id:"w-20260812-2", date:"2026-08-12", type:"strength",  name:"力量课程", duration:"",      distance:null, calories:null, status:"planned"},
 
-  {date:"2026-08-13", type:"endurance", name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
-  {date:"2026-08-13", type:"basic",     name:"基础课程", duration:"",      distance:null, calories:null, status:"planned"}
-];
+    {id:"w-20260813-1", date:"2026-08-13", type:"endurance", name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
+    {id:"w-20260813-2", date:"2026-08-13", type:"basic",     name:"基础课程", duration:"",      distance:null, calories:null, status:"planned"}
+  ],
+  /* 身体数据：{date, weight, fat, note} */
+  body: [],
+  /* 目标：只写确定的 */
+  goals: [
+    {id:"g-202608", month:"2026-08", metric:"体脂率", target:"20%", current:null, note:"当前数据待记录"}
+  ]
+};
 
-/* 身体数据：暂无记录，后续按 {date, weight, fat, note} 追加 */
-const bodyData = [];
-
-/* 目标：只写确定的 */
-const goalData = [
-  {month:"2026-08", metric:"体脂率", target:"20%", current:null, note:"当前数据待记录"}
-];
+/* 运行时数据：由 applyData() 填充，页面所有视图都从这三个数组算出来 */
+let workoutData = [];
+let bodyData    = [];
+let goalData    = [];
+let EXTRA_MONTHS = [];
 
 /* 训练类型字典（DOM 与月报长图共用） */
 const TYPES = {
@@ -383,11 +522,9 @@ const NAV = [
   {id:"body",     icon:"♧", label:"身体变化",     short:"身体变化"},
   {id:"pr",       icon:"⚑", label:"PR / 里程碑",  short:"PR"},
   {id:"goals",    icon:"◎", label:"目标 Goals",   short:"目标"},
-  {id:"year",     icon:"◉", label:"年度总结 2026",short:"年度总结"}
+  {id:"year",     icon:"◉", label:"年度总结 2026",short:"年度总结"},
+  {id:"manage",   icon:"✎", label:"记录 / 同步",  short:"记录/同步"}
 ];
-
-/* 除已有数据外，额外希望出现在筛选里的月份 */
-const EXTRA_MONTHS = ["2026-07"];
 
 /* ==========================================================
    2. 工具函数
@@ -405,6 +542,290 @@ const fullMonthLabel = k => k.slice(0,4) + " 年 " + Number(k.slice(5,7)) + " �
 const num = n => (n || 0).toLocaleString("en-US");
 const durToSec = d => { if(!d) return 0; const p = d.split(":").map(Number); return p.length===3 ? p[0]*3600+p[1]*60+p[2] : p[0]*60+(p[1]||0); };
 const isDone = w => w.status === "completed";
+const esc = s => String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const uid = p => p + "-" + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+const todayStr = () => { const d = new Date(); return d.getFullYear() + "-" + pad2(d.getMonth()+1) + "-" + pad2(d.getDate()); };
+
+/* ==========================================================
+   2.5 存储与同步
+       data.json = 唯一数据源；本机 localStorage = 未同步的草稿
+   ========================================================== */
+const LS_DATA = "lifeos2026.data";
+const LS_CFG  = "lifeos2026.gh";
+const DATA_FILE = "data.json";
+
+function lsGet(k){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+let dataState = {source:"default", dirty:false, updatedAt:null, remoteAt:null};
+
+function sortWorkouts(list){
+  return list.slice().sort((a,b) => a.date === b.date ? 0 : (a.date < b.date ? -1 : 1));
+}
+function applyData(d){
+  d = d || {};
+  workoutData  = sortWorkouts(d.workouts || []).map(w => Object.assign({}, w, {id: w.id || uid("w")}));
+  bodyData     = (d.body  || []).map(b => Object.assign({}, b, {id: b.id || uid("b")}));
+  goalData     = (d.goals || []).map(g => Object.assign({}, g, {id: g.id || uid("g")}));
+  EXTRA_MONTHS = d.extraMonths || [];
+}
+function snapshot(){
+  return {
+    updatedAt: dataState.updatedAt || new Date().toISOString(),
+    extraMonths: EXTRA_MONTHS,
+    workouts: workoutData,
+    body: bodyData,
+    goals: goalData
+  };
+}
+function cacheLocal(){
+  lsSet(LS_DATA, {dirty: dataState.dirty, updatedAt: dataState.updatedAt, data: snapshot()});
+}
+/* 任何一次编辑之后调用：存本机 + 全页面重算 */
+function commit(){
+  dataState.dirty = true;
+  dataState.updatedAt = new Date().toISOString();
+  cacheLocal();
+  refreshAll();
+}
+
+applyData(DEFAULT_DATA);
+
+async function loadData(){
+  let remote = null;
+  try{
+    const r = await fetch(DATA_FILE + "?_=" + Date.now(), {cache:"no-store"});
+    if(r.ok) remote = await r.json();
+  }catch(e){ /* 本地直接打开文件时读不到，用内置数据兜底 */ }
+
+  const local = lsGet(LS_DATA);
+  if(local && local.dirty && local.data){
+    applyData(local.data);
+    dataState.source = "local";
+    dataState.dirty = true;
+    dataState.updatedAt = local.updatedAt || local.data.updatedAt || null;
+    dataState.remoteAt = remote ? remote.updatedAt : null;
+  }else{
+    const d = remote || DEFAULT_DATA;
+    applyData(d);
+    dataState.source = remote ? "remote" : "default";
+    dataState.dirty = false;
+    dataState.updatedAt = d.updatedAt || null;
+    cacheLocal();
+  }
+}
+
+/* ---------- GitHub 配置 ---------- */
+function defaultCfg(){
+  const h = location.hostname || "";
+  const seg = location.pathname.split("/").filter(Boolean);
+  let owner = "945279157-netizen", repo = "2026-life-os";
+  if(/\.github\.io$/i.test(h)){
+    owner = h.replace(/\.github\.io$/i, "");
+    repo = seg.length ? seg[0] : h;
+  }
+  return {owner:owner, repo:repo, branch:"main", path:DATA_FILE, token:""};
+}
+function getCfg(){ return Object.assign(defaultCfg(), lsGet(LS_CFG) || {}); }
+function loadCfgInputs(){
+  const c = getCfg();
+  if(!$("cfgOwner")) return;
+  $("cfgOwner").value = c.owner; $("cfgRepo").value = c.repo;
+  $("cfgBranch").value = c.branch; $("cfgPath").value = c.path;
+  $("cfgToken").value = c.token || "";
+}
+function saveCfg(){
+  const c = {
+    owner:  $("cfgOwner").value.trim()  || defaultCfg().owner,
+    repo:   $("cfgRepo").value.trim()   || defaultCfg().repo,
+    branch: $("cfgBranch").value.trim() || "main",
+    path:   $("cfgPath").value.trim()   || DATA_FILE,
+    token:  $("cfgToken").value.trim()
+  };
+  const ok = lsSet(LS_CFG, c);
+  loadCfgInputs();
+  showMsg("cfgMsg", ok ? "ok" : "err",
+    ok ? "已保存到这台设备。" + (c.token ? "现在可以点上面的「同步到 GitHub」了。" : "还没填 Token，暂时只能导出 JSON 手动上传。")
+       : "这个浏览器不允许本机存储（可能是无痕模式），设置无法保存。");
+  renderSyncUI();
+}
+function clearToken(){
+  const c = getCfg(); c.token = "";
+  lsSet(LS_CFG, c); loadCfgInputs();
+  showMsg("cfgMsg", "ok", "已清除本机保存的 Token。");
+  renderSyncUI();
+}
+
+/* ---------- base64（含中文） ---------- */
+function b64encode(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = "";
+  for(let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+function b64decode(s){
+  const bin = atob(String(s).replace(/\s/g, ""));
+  const bytes = new Uint8Array(bin.length);
+  for(let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+function ghHeaders(token){
+  return {
+    "Authorization": "Bearer " + token,
+    "Accept": "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+    "Content-Type": "application/json"
+  };
+}
+function showMsg(id, kind, text){
+  const el = $(id); if(!el) return;
+  el.className = "msg show" + (kind ? " " + kind : "");
+  el.innerHTML = text;
+}
+
+/* ---------- 同步 ---------- */
+async function syncToGitHub(){
+  const cfg = getCfg();
+  if(!cfg.token){
+    switchView("manage");
+    showMsg("cfgMsg", "err", "还没有填 GitHub Token。先在这里填好并保存，之后每次同步就是一键的事。");
+    if($("cfgToken")) $("cfgToken").focus();
+    return;
+  }
+  const btn = $("syncBtn");
+  if(btn){ btn.disabled = true; btn.textContent = "同步中…"; }
+  showMsg("syncMsg", "", "正在写入 " + esc(cfg.owner + "/" + cfg.repo) + " 的 " + esc(cfg.path) + " …");
+  try{
+    const api = "https://api.github.com/repos/" + cfg.owner + "/" + cfg.repo + "/contents/" + cfg.path;
+    let sha = null;
+    const head = await fetch(api + "?ref=" + encodeURIComponent(cfg.branch), {headers: ghHeaders(cfg.token), cache:"no-store"});
+    if(head.ok) sha = (await head.json()).sha;
+    else if(head.status === 401) throw new Error("Token 无效或已过期（401）。");
+    else if(head.status === 403) throw new Error("Token 权限不够（403）。需要这个仓库的 Contents: Read and write。");
+    else if(head.status !== 404) throw new Error("读取远端文件失败（" + head.status + "）。");
+
+    dataState.updatedAt = new Date().toISOString();
+    const text = JSON.stringify(snapshot(), null, 2) + "\n";
+    const body = {
+      message: "chore: update life os data (" + workoutData.length + " workouts)",
+      content: b64encode(text),
+      branch: cfg.branch
+    };
+    if(sha) body.sha = sha;
+
+    const res = await fetch(api, {method:"PUT", headers: ghHeaders(cfg.token), body: JSON.stringify(body)});
+    if(!res.ok){
+      if(res.status === 409) throw new Error("远端已经有更新了。先点「从 GitHub 拉取」，再重新同步（409）。");
+      if(res.status === 403) throw new Error("没有写入权限（403）。检查 Token 的 Contents 是否为 Read and write。");
+      const t = await res.text();
+      throw new Error("写入失败（" + res.status + "）：" + esc(t.slice(0, 160)));
+    }
+    dataState.dirty = false;
+    dataState.source = "remote";
+    cacheLocal();
+    refreshAll();
+    showMsg("syncMsg", "ok", "已同步到 GitHub。Pages 大约一分钟后重新发布，之后任何设备刷新页面都是最新的。");
+  }catch(err){
+    showMsg("syncMsg", "err", "同步失败：" + esc(err.message));
+  }finally{
+    if(btn){ btn.disabled = false; btn.textContent = "↑ 同步到 GitHub"; }
+  }
+}
+
+async function pullFromGitHub(){
+  const cfg = getCfg();
+  showMsg("syncMsg", "", "正在拉取最新数据…");
+  try{
+    let d = null;
+    if(cfg.token){
+      const api = "https://api.github.com/repos/" + cfg.owner + "/" + cfg.repo + "/contents/" + cfg.path +
+                  "?ref=" + encodeURIComponent(cfg.branch);
+      const r = await fetch(api, {headers: ghHeaders(cfg.token), cache:"no-store"});
+      if(!r.ok) throw new Error("读取失败（" + r.status + "）。");
+      d = JSON.parse(b64decode((await r.json()).content));
+    }else{
+      const r = await fetch(DATA_FILE + "?_=" + Date.now(), {cache:"no-store"});
+      if(!r.ok) throw new Error("读取 data.json 失败（" + r.status + "）。");
+      d = await r.json();
+    }
+    applyData(d);
+    dataState.source = "remote";
+    dataState.dirty = false;
+    dataState.updatedAt = d.updatedAt || null;
+    resetMonths();
+    cacheLocal();
+    refreshAll();
+    showMsg("syncMsg", "ok", "已拉到最新数据，这台设备上未同步的修改已被覆盖。");
+  }catch(err){
+    showMsg("syncMsg", "err", "拉取失败：" + esc(err.message));
+  }
+}
+
+function discardLocal(){
+  if(!dataState.dirty){ showMsg("syncMsg", "", "当前没有未同步的本地修改。"); return; }
+  if(!confirm("放弃这台设备上所有未同步的修改，恢复成 GitHub 上的版本？")) return;
+  lsDel(LS_DATA);
+  location.reload();
+}
+
+/* ---------- 导出 / 导入 ---------- */
+function exportJson(){
+  const text = JSON.stringify(snapshot(), null, 2) + "\n";
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], {type:"application/json"}));
+  a.download = DATA_FILE;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+  showMsg("syncMsg", "ok", "已导出 data.json。把它上传替换仓库里的同名文件，效果和一键同步一样。");
+}
+function bindImport(){
+  const f = $("importFile"); if(!f) return;
+  f.addEventListener("change", () => {
+    const file = f.files && f.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try{
+        const d = JSON.parse(reader.result);
+        if(!d || !Array.isArray(d.workouts)) throw new Error("文件里没有 workouts 数组。");
+        applyData(d);
+        resetMonths();
+        commit();
+        showMsg("syncMsg", "ok", "已导入 " + workoutData.length + " 条训练记录，记得点「同步到 GitHub」。");
+      }catch(err){
+        showMsg("syncMsg", "err", "导入失败：" + esc(err.message));
+      }
+      f.value = "";
+    };
+    reader.readAsText(file);
+  });
+}
+
+/* ---------- 同步状态显示 ---------- */
+function renderSyncUI(){
+  const cfg = getCfg();
+  const bar = $("syncBar");
+  if(bar){
+    bar.classList.toggle("show", !!dataState.dirty);
+    if(dataState.dirty){
+      $("syncBarText").innerHTML = "<b>这台设备上有还没同步的修改。</b>同步后，手机和电脑打开链接看到的才是同一份。";
+    }
+  }
+  const dot = $("syncDot"), st = $("syncState");
+  if(!dot || !st) return;
+  const when = dataState.updatedAt ? new Date(dataState.updatedAt).toLocaleString("zh-CN", {month:"numeric", day:"numeric", hour:"2-digit", minute:"2-digit"}) : "";
+  if(dataState.dirty){
+    dot.className = "dot warn";
+    st.textContent = "有未同步的修改" + (when ? " · " + when : "");
+  }else if(dataState.source === "remote"){
+    dot.className = "dot ok";
+    st.textContent = "已与 GitHub 一致" + (when ? " · " + when : "");
+  }else{
+    dot.className = "dot";
+    st.textContent = "使用页面内置数据（没读到 data.json）";
+  }
+  if($("syncBtn")) $("syncBtn").textContent = cfg.token ? "↑ 同步到 GitHub" : "↑ 同步到 GitHub（需先填 Token）";
+}
 
 function allMonths(){
   const set = new Set(workoutData.map(w => monthOf(w.date)));
@@ -512,6 +933,15 @@ function metricCards(s, withTop){
     '<div class="metric"><small>' + c[0] + '</small><strong>' + c[1] + '</strong><em>' + c[2] + '</em></div>').join("");
 }
 
+function goalCurrent(g){
+  if(g.current) return g.current;
+  const latest = bodyData.slice().sort((a,b) => a.date < b.date ? 1 : -1)[0];
+  if(latest){
+    if(/体脂/.test(g.metric) && latest.fat != null && latest.fat !== "") return latest.fat + "%";
+    if(/体重/.test(g.metric) && latest.weight != null && latest.weight !== "") return latest.weight + " kg";
+  }
+  return g.note || "当前数据待记录";
+}
 function renderGoal(el){
   const g = goalData.find(x => x.month === activeMonth) || goalData[0];
   if(!g){ el.innerHTML = '<h2>目标</h2><div class="empty-tip">还没有设定目标</div>'; return; }
@@ -519,7 +949,7 @@ function renderGoal(el){
     '<div class="g-label">' + Number(g.month.slice(5,7)) + ' 月目标</div>' +
     '<div class="g-metric">' + g.metric + '</div>' +
     '<div class="g-target">' + g.target + '</div>' +
-    '<div class="g-now"><span>当前</span><b>' + (g.current || g.note) + '</b></div>';
+    '<div class="g-now"><span>当前</span><b>' + goalCurrent(g) + '</b></div>';
 }
 
 function renderDist(el, key){
@@ -734,7 +1164,7 @@ function renderGoals(){
   renderGoal($("goalCard2"));
   $("goalRows").innerHTML = goalData.map(g =>
     '<tr><td><b>' + fullMonthLabel(g.month) + '</b></td><td>' + g.metric + '</td><td><b>' + g.target +
-    '</b></td><td>' + (g.current || g.note) + '</td></tr>').join("");
+    '</b></td><td>' + goalCurrent(g) + '</td></tr>').join("");
 }
 function renderPR(){
   const done = workoutData.filter(isDone);
@@ -807,12 +1237,14 @@ function openDay(ds){
       if(w.load)  g.push(["训练负荷", w.load + " TL"]);
       if(w.climb) g.push(["累计上升", w.climb]);
       return '<div class="work' + (isDone(w) ? "" : " plan") + '"><div class="work-title">' + t.emoji + ' ' + w.name +
-        (isDone(w) ? "" : ' <span class="tag plan">计划</span>') + '</div>' +
+        (isDone(w) ? "" : ' <span class="tag plan">计划</span>') +
+        '<button class="mini" style="float:right" onclick="openEdit(\'' + w.id + '\')">编辑</button></div>' +
         (g.length ? '<div class="work-grid">' + g.map(x => '<span>' + x[0] + ' <b>' + x[1] + '</b></span>').join("") + '</div>' : '') +
         '</div>';
     }).join("");
     if(kcal) html += '<div class="total"><span>当天总消耗</span><b>' + num(kcal) + ' kcal</b></div>';
   }
+  html += '<div class="form-actions"><button class="btn" onclick="openEdit(null,\'' + ds + '\')">＋ 在这天加一次训练</button></div>';
   $("dayModalBody").innerHTML = html;
   $("dayModal").classList.add("show");
 }
@@ -822,6 +1254,266 @@ document.querySelectorAll(".modal-back").forEach(m =>
 document.addEventListener("keydown", e => {
   if(e.key === "Escape") document.querySelectorAll(".modal-back.show").forEach(m => m.classList.remove("show"));
 });
+
+/* ==========================================================
+   3.5 增 / 删 / 改
+   ========================================================== */
+function fld(label, inner, wide){
+  return '<div class="field' + (wide ? " wide" : "") + '"><label>' + label + '</label>' + inner + '</div>';
+}
+function numOrNull(v){
+  v = String(v == null ? "" : v).trim();
+  if(!v) return null;
+  const n = Number(v);
+  return isNaN(n) ? null : n;
+}
+function valOf(id){ const el = $(id); return el ? el.value : ""; }
+
+function focusMonth(key){
+  activeMonth = key;
+  calState.home.month = key;
+  calState.page.month = key;
+  statsMonth = key;
+}
+function resetMonths(){
+  const ms = allMonths();
+  focusMonth(ms.find(m => inMonth(m).length) || ms[0] || activeMonth);
+}
+
+/* ---------- 训练 ---------- */
+let editingId = null;
+function openEdit(id, presetDate){
+  editingId = typeof id === "string" ? id : null;
+  const w = editingId ? workoutData.find(x => x.id === editingId) : null;
+  const cur = w ? w.type : "run";
+  const st = w ? w.status : "completed";
+  const val = k => esc(w && w[k] != null ? w[k] : "");
+  const opts = Object.keys(TYPES).map(k =>
+    '<option value="' + k + '"' + (k === cur ? " selected" : "") + '>' + TYPES[k].emoji + ' ' + TYPES[k].label + '</option>').join("");
+
+  $("editBody").innerHTML =
+    '<div class="date-title">' + (w ? "编辑训练" : "新增训练") + '</div>' +
+    '<h3>' + (w ? "改一改这次训练" : "记一次训练") + '</h3>' +
+    '<div class="form">' +
+      fld("日期", '<input type="date" id="f_date" value="' + esc(w ? w.date : (presetDate || todayStr())) + '">') +
+      fld("类型", '<select id="f_type" onchange="syncName()">' + opts + '</select>') +
+      fld("名称", '<input id="f_name" placeholder="例如 背部力量" value="' + esc(w ? w.name : "") + '">') +
+      fld("状态", '<select id="f_status"><option value="completed"' + (st === "completed" ? " selected" : "") + '>已完成</option>' +
+                  '<option value="planned"' + (st === "planned" ? " selected" : "") + '>计划</option></select>') +
+      fld("时长 mm:ss", '<input id="f_duration" placeholder="58:51" value="' + val("duration") + '">') +
+      fld("距离 km", '<input id="f_distance" inputmode="decimal" placeholder="6.01" value="' + val("distance") + '">') +
+      fld("消耗热量 kcal", '<input id="f_calories" inputmode="numeric" placeholder="302" value="' + val("calories") + '">') +
+      fld("平均心率 bpm", '<input id="f_avgHr" inputmode="numeric" placeholder="129" value="' + val("avgHr") + '">') +
+    '</div>' +
+    '<button class="more-toggle" id="moreBtn" onclick="toggleMore()">更多字段 ▾</button>' +
+    '<div id="moreWrap" style="display:none"><div class="form" style="margin-top:6px">' +
+      fld("最高心率 bpm", '<input id="f_maxHr" inputmode="numeric" value="' + val("maxHr") + '">') +
+      fld("训练负荷 TL", '<input id="f_load" inputmode="numeric" value="' + val("load") + '">') +
+      fld("配速", '<input id="f_pace" placeholder="7&#39;03&quot;/km" value="' + val("pace") + '">') +
+      fld("最快 1km", '<input id="f_best" placeholder="6&#39;32&quot;" value="' + val("best") + '">') +
+      fld("累计上升", '<input id="f_climb" placeholder="20 m" value="' + val("climb") + '">') +
+      fld("训练结构", '<input id="f_detail" placeholder="4 组 · 257 次" value="' + val("detail") + '">', true) +
+    '</div></div>' +
+    '<div class="form-actions">' +
+      '<button class="btn" onclick="saveWorkout()">保存</button>' +
+      '<button class="btn ghost" onclick="closeModal(\'editModal\')">取消</button>' +
+      (w ? '<button class="mini danger grow" onclick="deleteWorkout(\'' + w.id + '\')">删除这条</button>' : '') +
+    '</div>';
+
+  $("editModal").classList.add("show");
+  if(!w) syncName();
+}
+function toggleMore(){
+  const wrap = $("moreWrap"), btn = $("moreBtn");
+  const open = wrap.style.display === "none";
+  wrap.style.display = open ? "block" : "none";
+  btn.textContent = open ? "收起 ▴" : "更多字段 ▾";
+}
+function syncName(){
+  const n = $("f_name"), t = $("f_type");
+  if(!n || !t) return;
+  const labels = Object.keys(TYPES).map(k => TYPES[k].label);
+  const v = n.value.trim();
+  if(!v || labels.indexOf(v) > -1) n.value = TYPES[t.value].label;
+}
+function saveWorkout(){
+  const date = valOf("f_date");
+  if(!date){ alert("先选一个日期吧。"); return; }
+  const type = valOf("f_type");
+  const rec = {
+    id: editingId || uid("w"),
+    date: date,
+    type: type,
+    name: valOf("f_name").trim() || TYPES[type].label,
+    duration: valOf("f_duration").trim(),
+    distance: numOrNull(valOf("f_distance")),
+    calories: numOrNull(valOf("f_calories")),
+    status: valOf("f_status")
+  };
+  ["avgHr","maxHr","load"].forEach(k => { const n = numOrNull(valOf("f_" + k)); if(n != null) rec[k] = n; });
+  ["pace","best","climb","detail"].forEach(k => { const s = valOf("f_" + k).trim(); if(s) rec[k] = s; });
+
+  if(editingId){
+    const i = workoutData.findIndex(x => x.id === editingId);
+    if(i > -1) workoutData[i] = rec; else workoutData.push(rec);
+  }else{
+    workoutData.push(rec);
+  }
+  workoutData = sortWorkouts(workoutData);
+  editingId = null;
+  closeModal("editModal");
+  closeModal("dayModal");
+  focusMonth(monthOf(date));
+  commit();
+}
+function deleteWorkout(id){
+  const w = workoutData.find(x => x.id === id);
+  if(!w) return;
+  if(!confirm("删除 " + mdLabel(w.date) + " 的「" + w.name + "」？")) return;
+  workoutData = workoutData.filter(x => x.id !== id);
+  closeModal("editModal");
+  closeModal("dayModal");
+  commit();
+}
+
+/* ---------- 身体数据 ---------- */
+let editingBodyId = null;
+function openBodyEdit(id){
+  editingBodyId = typeof id === "string" ? id : null;
+  const b = editingBodyId ? bodyData.find(x => x.id === editingBodyId) : null;
+  const val = k => esc(b && b[k] != null ? b[k] : "");
+  $("editBody").innerHTML =
+    '<div class="date-title">身体数据</div><h3>' + (b ? "修改这条记录" : "记一次身体数据") + '</h3>' +
+    '<div class="form">' +
+      fld("日期", '<input type="date" id="b_date" value="' + esc(b ? b.date : todayStr()) + '">') +
+      fld("体重 kg", '<input id="b_weight" inputmode="decimal" placeholder="52.3" value="' + val("weight") + '">') +
+      fld("体脂率 %", '<input id="b_fat" inputmode="decimal" placeholder="23.5" value="' + val("fat") + '">') +
+      fld("备注", '<input id="b_note" placeholder="早上空腹" value="' + val("note") + '">') +
+    '</div>' +
+    '<div class="form-actions">' +
+      '<button class="btn" onclick="saveBody()">保存</button>' +
+      '<button class="btn ghost" onclick="closeModal(\'editModal\')">取消</button>' +
+      (b ? '<button class="mini danger grow" onclick="deleteBody(\'' + b.id + '\')">删除这条</button>' : '') +
+    '</div>';
+  $("editModal").classList.add("show");
+}
+function saveBody(){
+  const date = valOf("b_date");
+  if(!date){ alert("先选一个日期吧。"); return; }
+  const rec = {
+    id: editingBodyId || uid("b"),
+    date: date,
+    weight: numOrNull(valOf("b_weight")),
+    fat: numOrNull(valOf("b_fat")),
+    note: valOf("b_note").trim()
+  };
+  const i = editingBodyId ? bodyData.findIndex(x => x.id === editingBodyId) : -1;
+  if(i > -1) bodyData[i] = rec; else bodyData.push(rec);
+  editingBodyId = null;
+  closeModal("editModal");
+  commit();
+}
+function deleteBody(id){
+  if(!confirm("删除这条身体数据？")) return;
+  bodyData = bodyData.filter(x => x.id !== id);
+  closeModal("editModal");
+  commit();
+}
+
+/* ---------- 目标 ---------- */
+let editingGoalId = null;
+function openGoalEdit(id){
+  editingGoalId = typeof id === "string" ? id : null;
+  const g = editingGoalId ? goalData.find(x => x.id === editingGoalId) : null;
+  const val = k => esc(g && g[k] != null ? g[k] : "");
+  $("editBody").innerHTML =
+    '<div class="date-title">目标</div><h3>' + (g ? "修改目标" : "设一个目标") + '</h3>' +
+    '<div class="form">' +
+      fld("月份", '<input type="month" id="g_month" value="' + esc(g ? g.month : monthOf(todayStr())) + '">') +
+      fld("目标项", '<input id="g_metric" placeholder="体脂率" value="' + val("metric") + '">') +
+      fld("目标值", '<input id="g_target" placeholder="20%" value="' + val("target") + '">') +
+      fld("当前值（留空则自动取身体数据）", '<input id="g_current" placeholder="留空即可" value="' + val("current") + '">') +
+      fld("没有数据时显示的文字", '<input id="g_note" placeholder="当前数据待记录" value="' + esc(g ? (g.note || "") : "当前数据待记录") + '">', true) +
+    '</div>' +
+    '<div class="form-actions">' +
+      '<button class="btn" onclick="saveGoal()">保存</button>' +
+      '<button class="btn ghost" onclick="closeModal(\'editModal\')">取消</button>' +
+      (g ? '<button class="mini danger grow" onclick="deleteGoal(\'' + g.id + '\')">删除</button>' : '') +
+    '</div>';
+  $("editModal").classList.add("show");
+}
+function saveGoal(){
+  const month = valOf("g_month");
+  if(!month){ alert("先选一个月份吧。"); return; }
+  const rec = {
+    id: editingGoalId || uid("g"),
+    month: month,
+    metric: valOf("g_metric").trim() || "目标",
+    target: valOf("g_target").trim() || "—",
+    current: valOf("g_current").trim() || null,
+    note: valOf("g_note").trim() || "当前数据待记录"
+  };
+  const i = editingGoalId ? goalData.findIndex(x => x.id === editingGoalId) : -1;
+  if(i > -1) goalData[i] = rec; else goalData.push(rec);
+  editingGoalId = null;
+  closeModal("editModal");
+  commit();
+}
+function deleteGoal(id){
+  if(!confirm("删除这个目标？")) return;
+  goalData = goalData.filter(x => x.id !== id);
+  closeModal("editModal");
+  commit();
+}
+
+/* ---------- 记录 / 同步 页 ---------- */
+function renderManage(){
+  if(!$("mgWorkoutRows")) return;
+  const sel = $("mgMonth");
+  const months = allMonths();
+  const prev = sel.value || "all";
+  sel.innerHTML = '<option value="all">全部月份</option>' +
+    months.map(m => '<option value="' + m + '">' + fullMonthLabel(m) + '</option>').join("");
+  sel.value = (prev === "all" || months.indexOf(prev) > -1) ? prev : "all";
+
+  const list = workoutData
+    .filter(w => sel.value === "all" || monthOf(w.date) === sel.value)
+    .slice().sort((a,b) => a.date === b.date ? 0 : (a.date < b.date ? 1 : -1));
+
+  $("mgWorkoutRows").innerHTML = list.length ? list.map(w => {
+    const t = TYPES[w.type];
+    const tags = metricTags(w).join(" · ");
+    return '<tr><td><b>' + mdLabel(w.date) + '</b></td>' +
+      '<td>' + t.emoji + ' ' + esc(w.name) + '<br><span class="note" style="margin:0">' + t.label +
+        (w.detail ? " · " + esc(w.detail) : "") + '</span></td>' +
+      '<td>' + (tags || "—") + '</td>' +
+      '<td>' + (isDone(w) ? "已完成" : '<span class="tag plan">计划</span>') + '</td>' +
+      '<td><div class="row-actions">' +
+        '<button class="mini" onclick="openEdit(\'' + w.id + '\')">编辑</button>' +
+        '<button class="mini danger" onclick="deleteWorkout(\'' + w.id + '\')">删除</button>' +
+      '</div></td></tr>';
+  }).join("") : '<tr><td colspan="5" class="empty-tip">这个范围里还没有记录</td></tr>';
+
+  $("mgBodyRows").innerHTML = bodyData.length
+    ? bodyData.slice().sort((a,b) => a.date < b.date ? 1 : -1).map(b =>
+        '<tr><td><b>' + mdLabel(b.date) + '</b></td><td>' + (b.weight != null ? b.weight : "—") + '</td>' +
+        '<td>' + (b.fat != null ? b.fat : "—") + '</td><td>' + esc(b.note || "") + '</td>' +
+        '<td><div class="row-actions">' +
+          '<button class="mini" onclick="openBodyEdit(\'' + b.id + '\')">编辑</button>' +
+          '<button class="mini danger" onclick="deleteBody(\'' + b.id + '\')">删除</button>' +
+        '</div></td></tr>').join("")
+    : '<tr><td colspan="5" class="empty-tip">当前数据待记录</td></tr>';
+
+  $("mgGoalRows").innerHTML = goalData.length
+    ? goalData.slice().sort((a,b) => a.month < b.month ? 1 : -1).map(g =>
+        '<tr><td><b>' + fullMonthLabel(g.month) + '</b></td><td>' + esc(g.metric) + '</td>' +
+        '<td><b>' + esc(g.target) + '</b></td><td>' + esc(goalCurrent(g)) + '</td>' +
+        '<td><div class="row-actions">' +
+          '<button class="mini" onclick="openGoalEdit(\'' + g.id + '\')">编辑</button>' +
+          '<button class="mini danger" onclick="deleteGoal(\'' + g.id + '\')">删除</button>' +
+        '</div></td></tr>').join("")
+    : '<tr><td colspan="5" class="empty-tip">还没有设定目标</td></tr>';
+}
 
 /* ==========================================================
    4. 月报长图（canvas 生成，可保存到手机相册）
@@ -1092,13 +1784,32 @@ function renderHome(){
   renderBars($("homeBars"), $("homeBarsNote"), activeMonth);
   renderSummary();
 }
-function init(){
-  renderNav();
+
+/* 数据一变，整个档案重算：日历 / 记录 / 统计 / 身体 / 目标 / PR / 年度 / 月报 */
+function refreshAll(){
+  const months = allMonths();
+  if(months.indexOf(activeMonth) < 0) activeMonth = months.find(m => inMonth(m).length) || months[0] || activeMonth;
+  if(months.indexOf(calState.home.month) < 0) calState.home.month = activeMonth;
+  if(months.indexOf(calState.page.month) < 0) calState.page.month = activeMonth;
+  if(months.indexOf(statsMonth) < 0) statsMonth = activeMonth;
+  if(recMonth !== "all" && months.indexOf(recMonth) < 0) recMonth = "all";
+
   renderHome();
   renderMonthNav("page"); renderFilters("page"); renderCalendar("page");
   renderDist($("pageDist"), calState.page.month);
   renderRecFilters(); renderRecords();
   renderStats(); renderBody(); renderGoals(); renderPR(); renderYear();
+  renderManage(); renderSyncUI();
+}
+
+async function init(){
+  renderNav();
+  loadCfgInputs();
+  bindImport();
+  refreshAll();
+  await loadData();
+  resetMonths();
+  refreshAll();
   switchView("fitness");
 }
 init();
