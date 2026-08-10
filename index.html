@@ -2,146 +2,1106 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>2026 Life OS · 8月运动月报</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#11141c">
+<title>2026 Life OS · 运动成长档案</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f5f6f8;color:#17191f;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif}
+body{margin:0;background:#f5f6f8;color:#17191f;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit}
 .app{max-width:1280px;margin:auto;display:grid;grid-template-columns:210px 1fr;min-height:100vh}
-.side{background:#11141c;color:#fff;padding:28px 16px;position:sticky;top:0;height:100vh}
-.brand{font-size:25px;font-weight:800;margin-bottom:28px}.brand small{display:block;color:#aab0bd;font-size:12px;letter-spacing:2px}
-.nav button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:11px 12px;border-radius:10px;color:#b9bdc8;font-size:13px;margin:4px 0;cursor:pointer}
+.side{background:#11141c;color:#fff;padding:28px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
+.brand{font-size:25px;font-weight:800;margin-bottom:28px}.brand small{display:block;color:#aab0bd;font-size:12px;letter-spacing:2px;font-weight:600}
+.nav button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:11px 12px;border-radius:10px;color:#b9bdc8;font-size:13px;margin:4px 0;cursor:pointer;transition:.15s}
+.nav button:hover{background:#1d222d;color:#fff}
 .nav button.on{background:#8b5cf6;color:#fff}
-.streak{margin-top:55px;background:#1d222d;padding:15px;border-radius:15px;color:#bbb;font-size:11px}.streak b{display:block;color:#fff;font-size:27px;margin:5px 0}
-.main{padding:30px;background:#f8f9fb}.top{display:flex;justify-content:space-between;margin-bottom:22px}.date{font-size:13px;color:#777}
-.top h1{margin:8px 0 5px;font-size:30px}.top p{margin:0;color:#777}.quote{color:#777;font-size:13px}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric,.card{background:#fff;border:1px solid #e8e9ed;border-radius:17px;box-shadow:0 4px 16px #00000006}
-.metric{padding:18px}.metric small{color:#818692}.metric strong{display:block;font-size:27px;margin:7px 0}.metric em{font-style:normal;font-size:11px;color:#9a9ea8}
-.layout{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:14px}.card{padding:20px}.card h2{font-size:17px;margin:0 0 15px}
-.filters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}.filter{border:1px solid #e1e3e8;background:#fff;color:#707580;border-radius:999px;padding:6px 11px;font-size:11px;cursor:pointer}.filter.on{background:#17191f;color:#fff;border-color:#17191f}
-.week,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.week{text-align:center;color:#999;font-size:11px;margin-bottom:6px}
-.day{height:116px;background:#fafbfc;border:1px solid transparent;border-radius:10px;padding:7px;font-size:12px;overflow:visible;cursor:pointer;transition:.15s}.day:hover{border-color:#c7b6ff;transform:translateY(-1px)}.empty{background:transparent;cursor:default}.today{background:#f0eaff;outline:1px solid #bba4ff}
-.day.hidden{opacity:.15;filter:grayscale(1)}.chip{display:block;padding:5px 6px;margin-top:6px;border-radius:6px;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.run{background:#dff1d8;color:#39743a}.strength{background:#f7d5e8;color:#963b76}.fight{background:#ffdcae;color:#965b19}.complete{background:#e5d9ff;color:#69439b}.mixed{background:#ffd6d6;color:#a14343}.end{background:#d9efdc;color:#377a4b}.basic{background:#dbe6ff;color:#4565ad}.aerobic{background:#dcebf8;color:#37658b}
-.list div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f0f1f3;font-size:12px}.list b{font-size:13px}
-.lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.ai{grid-column:1/-1;background:linear-gradient(135deg,#fff,#f6f0ff);display:flex;gap:22px;align-items:center}
-.ai .emoji{font-size:55px}.ai p{color:#666;font-size:13px;line-height:1.8;margin:0}.note{font-size:11px;color:#8b8f99;line-height:1.7;margin-top:12px}
-.bars{height:150px;display:flex;align-items:end;gap:12px;border-bottom:1px solid #ddd}.bar{flex:1;text-align:center;font-size:9px;color:#999}.bar i{display:block;width:30px;margin:auto;background:#a78bfa;border-radius:7px 7px 0 0}
-.up div{padding:10px 0;border-bottom:1px solid #eee;font-size:12px;display:flex;justify-content:space-between}
-.modal-back{display:none;position:fixed;inset:0;background:#0008;z-index:10;align-items:center;justify-content:center;padding:20px}.modal-back.show{display:flex}
-.modal{width:min(520px,100%);background:#fff;border-radius:22px;padding:24px;box-shadow:0 20px 60px #0006;position:relative}.close{position:absolute;right:17px;top:14px;border:0;background:#f1f2f4;width:30px;height:30px;border-radius:50%;cursor:pointer}.modal .date-title{font-size:12px;color:#888}.modal h3{font-size:24px;margin:5px 0 18px}.work{border:1px solid #eee;border-radius:14px;padding:13px;margin:9px 0}.work-title{font-weight:750}.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px;font-size:11px;color:#737781}.work-grid b{color:#252832;font-size:12px}
+.streak{margin-top:auto;background:#1d222d;padding:15px;border-radius:15px;color:#9aa0ad;font-size:11px;line-height:1.7}.streak b{display:block;color:#fff;font-size:27px;margin:5px 0;font-weight:800}
+.mobile-nav{display:none}
+.main{padding:30px;background:#f8f9fb;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.date{font-size:13px;color:#777}.top h1{margin:8px 0 5px;font-size:30px;letter-spacing:-.5px}.top p{margin:0;color:#777;font-size:13px}
+.top-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.quote{color:#8a8f99;font-size:13px;max-width:260px;line-height:1.7}
+.btn{border:0;background:#17191f;color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;cursor:pointer;transition:.15s;white-space:nowrap}
+.btn:hover{background:#8b5cf6}
+.btn.ghost{background:#fff;color:#5b6070;border:1px solid #e1e3e8}.btn.ghost:hover{background:#f2edff;color:#6d43c8;border-color:#cdbcff}
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.metric,.card{background:#fff;border:1px solid #e8e9ed;border-radius:17px;box-shadow:0 4px 16px #00000006}
+.metric{padding:18px}.metric small{color:#818692;font-size:12px}.metric strong{display:block;font-size:25px;margin:7px 0;letter-spacing:-.5px}.metric em{font-style:normal;font-size:11px;color:#9a9ea8}
+.layout{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:14px}
+.card{padding:20px}.card h2{font-size:17px;margin:0 0 15px}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px;flex-wrap:wrap}.card-head h2{margin:0}
+.month-nav{display:flex;align-items:center;gap:6px}
+.month-nav button{border:1px solid #e1e3e8;background:#fff;color:#5b6070;width:26px;height:26px;border-radius:8px;cursor:pointer;line-height:1}
+.month-nav button:disabled{opacity:.3;cursor:default}
+.month-nav span{font-size:12px;color:#707580;min-width:74px;text-align:center}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}
+.filter{border:1px solid #e1e3e8;background:#fff;color:#707580;border-radius:999px;padding:6px 11px;font-size:11px;cursor:pointer;transition:.15s}
+.filter:hover{border-color:#c7b6ff;color:#6d43c8}
+.filter.on{background:#17191f;color:#fff;border-color:#17191f}
+.week,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+.week{text-align:center;color:#999;font-size:11px;margin-bottom:6px}
+.day{min-height:118px;background:#fafbfc;border:1px solid transparent;border-radius:10px;padding:7px;font-size:12px;cursor:pointer;transition:.15s;display:flex;flex-direction:column}
+.day:hover{border-color:#c7b6ff;transform:translateY(-1px)}
+.day.empty{background:transparent;cursor:default}.day.empty:hover{transform:none;border-color:transparent}
+.day.blank{cursor:default}.day.blank:hover{transform:none;border-color:#eceef2}
+.day.today{background:#f0eaff;outline:1px solid #bba4ff}
+.day.dim{opacity:.28;filter:grayscale(1)}
+.day>b{font-weight:700}
+.chip{display:block;padding:5px 6px;margin-top:5px;border-radius:6px;font-size:9px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip.plan{background:#fff!important;border:1px dashed #cfd3db;color:#9298a4!important}
+.chip.faded{opacity:.25}
+.day .kcal{margin-top:auto;padding-top:6px;font-size:9px;color:#9298a4;font-weight:600}
+.day .todo{margin-top:6px;font-size:9px;color:#c7cad1}
+.goal{background:linear-gradient(135deg,#ffffff 0%,#f6f0ff 100%);border:1px solid #e6dcff}
+.goal .g-label{font-size:12px;color:#8a8f99}
+.goal .g-metric{font-size:14px;color:#5b6070;margin-top:14px}
+.goal .g-target{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;margin:6px 0 0;background:linear-gradient(120deg,#8b5cf6,#c9a96e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.goal .g-now{margin-top:16px;padding-top:14px;border-top:1px solid #ece5ff;font-size:12px;color:#8a8f99;display:flex;justify-content:space-between;gap:10px}
+.goal .g-now b{color:#17191f}
+.list div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f0f1f3;font-size:12px}
+.list div:last-child{border-bottom:0}.list b{font-size:13px}
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.hl{grid-column:1/-1;background:linear-gradient(135deg,#fffdf8 0%,#f6f0ff 100%);border:1px solid #eee3d6}
+.hl-top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.hl-tag{font-size:11px;letter-spacing:2px;color:#c9a96e;font-weight:700}
+.hl-date{font-size:22px;font-weight:800}
+.hl-kcal{font-size:44px;font-weight:800;letter-spacing:-1.5px;margin:6px 0 2px}
+.hl-kcal span{font-size:15px;font-weight:600;color:#8a8f99;margin-left:6px;letter-spacing:0}
+.hl-items{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.hl-item{background:#fff;border:1px solid #f0e9e0;border-radius:13px;padding:13px}
+.hl-item small{display:block;color:#8a8f99;font-size:11px;margin-top:5px}
+.note{font-size:11px;color:#8b8f99;line-height:1.8;margin-top:12px}
+.bars{height:150px;display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid #ddd;padding-top:8px}
+.bar{flex:1;max-width:64px;text-align:center;font-size:9px;color:#999}
+.bar i{display:block;width:100%;max-width:34px;margin:auto;background:linear-gradient(180deg,#a78bfa,#8b5cf6);border-radius:7px 7px 0 0}
+.bar em{font-style:normal;display:block;font-size:10px;color:#5b6070;font-weight:700;margin-bottom:4px}
+.dist>div{padding:9px 0;font-size:12px}
+.dist .dl{display:flex;justify-content:space-between;margin-bottom:6px}
+.dist .track{height:7px;background:#f0f1f4;border-radius:99px;overflow:hidden}
+.dist .track i{display:block;height:100%;border-radius:99px}
+.up div{padding:10px 0;border-bottom:1px solid #eee;font-size:12px;display:flex;justify-content:space-between;gap:10px}
+.up div:last-child{border-bottom:0}
+.rec{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #f0f1f3;font-size:12px;flex-wrap:wrap}
+.rec:last-child{border-bottom:0}
+.rec.planned{opacity:.62}
+.rec .r-date{width:58px;flex:none;font-weight:800;font-size:13px}
+.rec .r-name{flex:1;min-width:120px}
+.rec .r-name em{font-style:normal;display:block;color:#9298a4;font-size:11px;margin-top:3px}
+.rec .r-metrics{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.tag{background:#f3f4f7;color:#5b6070;border-radius:7px;padding:4px 8px;font-size:11px;white-space:nowrap}
+.tag.kcal{background:#fff0e6;color:#a75f22}.tag.plan{background:#f1eaff;color:#6d43c8}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th,.tbl td{text-align:left;padding:11px 8px;border-bottom:1px solid #f0f1f3}
+.tbl th{color:#8a8f99;font-weight:600;font-size:11px}
+.tbl td b{font-size:13px}
+.empty-tip{color:#9298a4;font-size:12px;padding:26px 0;text-align:center}
+.modal-back{display:none;position:fixed;inset:0;background:#0009;z-index:20;align-items:center;justify-content:center;padding:20px}
+.modal-back.show{display:flex}
+.modal{width:min(520px,100%);max-height:86vh;overflow:auto;background:#fff;border-radius:22px;padding:24px;box-shadow:0 20px 60px #0006;position:relative;-webkit-overflow-scrolling:touch}
+.modal.wide{width:min(430px,100%);padding:16px;text-align:center;background:#f6f4f0}
+.close{position:absolute;right:15px;top:13px;border:0;background:#f1f2f4;width:30px;height:30px;border-radius:50%;cursor:pointer;z-index:2;line-height:1;font-size:16px;color:#5b6070}
+.modal .date-title{font-size:12px;color:#888}.modal h3{font-size:24px;margin:5px 0 18px}
+.work{border:1px solid #eee;border-radius:14px;padding:13px;margin:9px 0}
+.work.plan{border-style:dashed;background:#fcfcfd}
+.work-title{font-weight:750}
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px;font-size:11px;color:#737781}
+.work-grid b{color:#252832;font-size:12px}
+.total{margin-top:16px;padding-top:14px;border-top:1px solid #eee;display:flex;justify-content:space-between;align-items:baseline}
+.total b{font-size:26px;font-weight:800}
+#reportImg{width:100%;border-radius:14px;display:block;box-shadow:0 8px 30px #0000001a}
+.report-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.report-hint{font-size:11px;color:#8b8f99;margin:10px 0 0}
+.loading{padding:40px;color:#8b8f99;font-size:13px}
 .view{display:none}.view.active{display:block}
-@media(max-width:850px){.app{grid-template-columns:1fr}.side{display:none}.metrics{grid-template-columns:repeat(2,1fr)}.layout,.lower{grid-template-columns:1fr}.main{padding:18px}.quote{display:none}}
-@media(max-width:560px){.metrics{grid-template-columns:1fr}.day{height:105px}.chip{font-size:8px;padding:4px}.main{padding:12px}}
+@media(max-width:1080px){.metrics{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:850px){
+  .app{grid-template-columns:1fr}
+  .side{display:none}
+  .mobile-nav{display:flex;gap:7px;overflow-x:auto;padding:12px 12px 4px;background:#11141c;position:sticky;top:0;z-index:9;-webkit-overflow-scrolling:touch}
+  .mobile-nav::-webkit-scrollbar{display:none}
+  .mobile-nav button{border:0;background:#1d222d;color:#b9bdc8;border-radius:999px;padding:8px 14px;font-size:12px;white-space:nowrap;cursor:pointer}
+  .mobile-nav button.on{background:#8b5cf6;color:#fff}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .layout,.lower{grid-template-columns:1fr}
+  .main{padding:18px}
+  .top{flex-direction:column}.top-right{align-items:flex-start;text-align:left;flex-direction:row;width:100%;justify-content:space-between;align-items:center}
+  .quote{display:none}
+  .hl-items{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .metrics{grid-template-columns:1fr 1fr}
+  .main{padding:12px}
+  .top h1{font-size:24px}
+  .days,.week{gap:4px}
+  .day{min-height:96px;padding:4px;border-radius:8px}
+  .chip{font-size:8px;padding:3px;white-space:normal;word-break:break-all;margin-top:3px}
+  .day .kcal,.day .todo{font-size:8px}
+  .hl-kcal{font-size:36px}
+  .rec .r-metrics{justify-content:flex-start}
+  .modal{padding:18px;border-radius:18px}
+}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="side">
 <div class="brand"><small>2026</small>Life OS</div>
-<div class="nav">
-<button class="on" data-view="fitness">▣　运动 Fitness</button>
-<button data-view="calendar">▦　训练日历</button>
-<button data-view="records">◷　训练记录</button>
-<button data-view="stats">▥　数据统计</button>
-<button data-view="body">♧　身体变化</button>
-<button data-view="pr">⚑　PR 记录</button>
-<button data-view="goals">◎　目标 Goals</button>
-<button data-view="year">◉　年度总结 2026</button>
-</div>
-<div class="streak">本月训练<b>5 天</b>2026.8.1 起 · 持续记录</div>
+<div class="nav" id="navDesktop"></div>
+<div class="streak" id="streak"></div>
 </aside>
 
 <main class="main">
-<div class="view active" id="fitness">
-<div class="top"><div><div class="date">2026 / 8 / 10　周一</div><h1>8 月运动月报</h1><p>把每一次训练，留下来。</p></div><div class="quote">不是为了证明给别人看，是为了看见自己的变化。</div></div>
-<div class="metrics">
-<div class="metric"><small>本月训练天数</small><strong>5 天</strong><em>截至 8/10</em></div>
-<div class="metric"><small>本月训练次数</small><strong>9 次</strong><em>截至 8/10 · 今日三练</em></div>
-<div class="metric"><small>消耗热量</small><strong>1,123 kcal</strong><em>已记录数据</em></div>
-<div class="metric"><small>跑步距离</small><strong>11.26 km</strong><em>8/1 + 8/10</em></div>
-</div>
-<div class="layout">
-<div class="card">
-<h2>训练日历 · 2026 年 8 月</h2>
-<div class="filters" id="filters">
-<button class="filter on" data-filter="all">全部</button><button class="filter" data-filter="run">🏃 跑步</button><button class="filter" data-filter="strength">💪 力量</button><button class="filter" data-filter="fight">🥊 搏击</button><button class="filter" data-filter="complete">🟣 完整课程</button><button class="filter" data-filter="mixed">🔴 综合体能</button><button class="filter" data-filter="end">🟢 耐力</button><button class="filter" data-filter="basic">🔵 基础</button><button class="filter" data-filter="aerobic">🧘 有氧</button>
-</div>
-<div class="week"><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div></div>
-<div class="days">
-<div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
-<div class="day" data-date="8/1" data-types="run"><b>1</b><span class="chip run">跑步 5.25km</span></div>
-<div class="day" data-date="8/2" data-types=""><b>2</b></div>
-<div class="day" data-date="8/3" data-types=""><b>3</b></div><div class="day" data-date="8/4" data-types=""><b>4</b></div><div class="day" data-date="8/5" data-types=""><b>5</b></div>
-<div class="day" data-date="8/6" data-types="strength complete"><b>6</b><span class="chip strength">力量课程</span><span class="chip complete">完整课程</span></div>
-<div class="day" data-date="8/7" data-types="fight complete"><b>7</b><span class="chip fight">燃动搏击</span><span class="chip complete">完整课程</span></div>
-<div class="day" data-date="8/8" data-types=""><b>8</b></div><div class="day" data-date="8/9" data-types="mixed"><b>9</b><span class="chip mixed">综合体能</span></div>
-<div class="day today" data-date="8/10" data-types="strength run aerobic" data-detail="10"><b>10</b><span class="chip strength">背部力量</span><span class="chip run">跑步 6.01km</span><span class="chip aerobic">室内有氧</span></div>
-<div class="day" data-date="8/11" data-types="end"><b>11</b><span class="chip end">耐力课程</span></div>
-<div class="day" data-date="8/12" data-types="fight strength"><b>12</b><span class="chip fight">战绳风暴</span><span class="chip strength">力量课程</span></div>
-<div class="day" data-date="8/13" data-types="end basic"><b>13</b><span class="chip end">耐力课程</span><span class="chip basic">基础课程</span></div>
-<div class="day" data-date="8/14" data-types=""><b>14</b></div><div class="day" data-date="8/15" data-types=""><b>15</b></div><div class="day" data-date="8/16" data-types=""><b>16</b></div>
-<div class="day" data-date="8/17" data-types=""><b>17</b></div><div class="day" data-date="8/18" data-types=""><b>18</b></div><div class="day" data-date="8/19" data-types=""><b>19</b></div><div class="day" data-date="8/20" data-types=""><b>20</b></div><div class="day" data-date="8/21" data-types=""><b>21</b></div><div class="day" data-date="8/22" data-types=""><b>22</b></div><div class="day" data-date="8/23" data-types=""><b>23</b></div>
-<div class="day" data-date="8/24" data-types=""><b>24</b></div><div class="day" data-date="8/25" data-types=""><b>25</b></div><div class="day" data-date="8/26" data-types=""><b>26</b></div><div class="day" data-date="8/27" data-types=""><b>27</b></div><div class="day" data-date="8/28" data-types=""><b>28</b></div><div class="day" data-date="8/29" data-types=""><b>29</b></div><div class="day" data-date="8/30" data-types=""><b>30</b></div><div class="day" data-date="8/31" data-types=""><b>31</b></div>
-</div>
-<div class="note">筛选后会突出显示对应训练类型。点击有训练的日期，可以打开当天详情；8/10 已支持“三练”详情弹窗。</div>
-</div>
-<div class="card">
-<h2>本月概览 · 截至 8/10</h2>
-<div class="list"><div>🟢 跑步 <b>2 次</b></div><div>🩷 力量训练 <b>2 次</b></div><div>🟠 搏击 <b>1 次</b></div><div>🔴 综合体能 <b>1 次</b></div><div>🟣 完整课程 <b>2 次</b></div><div>🧘 室内有氧 <b>1 次</b></div></div>
-<div class="note">侧边栏中的每一项现在都可以点击，后续可以逐步把对应模块填满。</div>
-<div class="up"><h2 style="margin-top:24px">接下来 · 计划</h2><div><b>8/11</b><span>耐力课程</span></div><div><b>8/12</b><span>战绳风暴 + 力量</span></div><div><b>8/13</b><span>耐力 + 基础</span></div></div>
-</div>
-</div>
-<div class="lower">
-<div class="card"><h2>热量消耗 · 已记录</h2><div class="bars"><div class="bar"><i style="height:70px"></i>8/1<br>280</div><div class="bar"><i style="height:120px"></i>8/10<br>843</div></div><div class="note">8/10：背部力量 215 + 跑步 302 + 室内有氧 326 = 843 kcal。8 月目前累计 1,123 kcal。</div></div>
-<div class="card"><h2>8/10 · 今日三练</h2><div class="list"><div><span>💪 背部力量</span><b>58:51 · 215 kcal</b></div><div><span>训练结构</span><b>4 组 · 257 次</b></div><div><span>平均心率</span><b>93 bpm</b></div><div><span>🏃 跑步</span><b>6.01 km · 302 kcal</b></div><div><span>配速</span><b>7'03"/km</b></div><div><span>平均心率</span><b>166 bpm</b></div><div><span>🧘 室内有氧</span><b>54:15 · 326 kcal</b></div><div><span>平均心率</span><b>129 bpm</b></div></div></div>
-<div class="card ai"><div class="emoji">🌱</div><div><h2>8 月 · 阶段总结</h2><p>8/10 是一个很有代表性的训练日：<strong>三练</strong>。背部力量、6.01 km 跑步、室内有氧连续完成；当天明确记录的运动消耗为 <strong>843 kcal</strong>。接下来更值得观察的是训练与恢复的平衡。</p></div></div>
-</div>
+<div class="mobile-nav" id="navMobile"></div>
+
+<div class="top">
+  <div>
+    <div class="date" id="todayLine"></div>
+    <h1>运动成长档案</h1>
+    <p>把每一次训练，留下来。</p>
+  </div>
+  <div class="top-right">
+    <button class="btn" onclick="openReport()">✦ 生成月报</button>
+    <div class="quote">不是为了证明给别人看，是为了看见自己的变化。</div>
+  </div>
 </div>
 
-<div class="view" id="calendar"><div class="card"><h2>训练日历</h2><p>这里保留完整月历，并支持按训练类型筛选。点击任意训练日查看详情。</p><button class="filter on" onclick="switchView('fitness')">返回运动首页</button></div></div>
-<div class="view" id="records"><div class="card"><h2>训练记录</h2><div class="list"><div>8/10 · 背部力量 <b>58:51 · 215 kcal</b></div><div>8/10 · 跑步 <b>6.01km · 302 kcal</b></div><div>8/10 · 室内有氧 <b>54:15 · 326 kcal</b></div><div>8/1 · 跑步 <b>5.25km · 280 kcal</b></div></div></div></div>
-<div class="view" id="stats"><div class="card"><h2>数据统计</h2><div class="metrics"><div class="metric"><small>训练天数</small><strong>5</strong></div><div class="metric"><small>训练次数</small><strong>9</strong></div><div class="metric"><small>消耗热量</small><strong>1,123</strong></div><div class="metric"><small>跑步里程</small><strong>11.26</strong></div></div></div></div>
-<div class="view" id="body"><div class="card"><h2>身体变化</h2><p class="note">后续记录体重、体脂、围度等身体数据。</p></div></div>
-<div class="view" id="pr"><div class="card"><h2>PR 记录</h2><p class="note">后续记录力量、跑步等个人最佳成绩。</p></div></div>
-<div class="view" id="goals"><div class="card"><h2>目标 Goals</h2><p class="note">后续加入月目标、年度目标和完成进度。</p></div></div>
-<div class="view" id="year"><div class="card"><h2>2026 年度总结</h2><p class="note">现在先留一个入口。等 7–12 月数据积累后，再生成真正的年度成长档案。</p></div></div>
+<!-- ============ 运动首页 ============ -->
+<div class="view active" id="fitness">
+  <div class="metrics" id="homeMetrics"></div>
+  <div class="layout">
+    <div class="card">
+      <div class="card-head">
+        <h2>训练日历</h2>
+        <div class="month-nav" id="homeMonthNav"></div>
+      </div>
+      <div class="filters" id="homeFilters"></div>
+      <div class="week"><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div></div>
+      <div class="days" id="homeDays"></div>
+      <div class="note">点击任意日期可以查看当天详情。筛选后只突出显示对应类型，其余训练降低透明度，完整月份结构保留。</div>
+    </div>
+    <div>
+      <div class="card goal" id="goalCard"></div>
+      <div class="card" style="margin-top:14px">
+        <h2>本月概览</h2>
+        <div class="dist" id="homeDist"></div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h2>接下来 · 计划</h2>
+        <div class="up" id="homeUpcoming"></div>
+      </div>
+    </div>
+  </div>
+  <div class="lower">
+    <div class="card hl" id="highlightCard"></div>
+    <div class="card">
+      <h2>热量消耗趋势</h2>
+      <div class="bars" id="homeBars"></div>
+      <div class="note" id="homeBarsNote"></div>
+    </div>
+    <div class="card">
+      <h2>本月阶段总结</h2>
+      <p class="note" id="homeSummary" style="font-size:13px;color:#5b6070"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 训练日历 ============ -->
+<div class="view" id="calendar">
+  <div class="card">
+    <div class="card-head">
+      <h2>训练日历</h2>
+      <div class="month-nav" id="pageMonthNav"></div>
+    </div>
+    <div class="filters" id="pageFilters"></div>
+    <div class="week"><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div></div>
+    <div class="days" id="pageDays"></div>
+    <div class="note">一天多练会全部展开显示，不会折叠成「+N」。没有训练记录的日期显示「待记录」。</div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h2>本月训练类型分布</h2>
+    <div class="dist" id="pageDist"></div>
+  </div>
+</div>
+
+<!-- ============ 训练记录 ============ -->
+<div class="view" id="records">
+  <div class="card">
+    <div class="card-head">
+      <h2>训练记录</h2>
+      <span class="note" style="margin:0" id="recCount"></span>
+    </div>
+    <div class="filters" id="recFilters"></div>
+    <div id="recList"></div>
+  </div>
+</div>
+
+<!-- ============ 数据统计 ============ -->
+<div class="view" id="stats">
+  <div class="card-head">
+    <h2 style="font-size:17px;margin:0">数据统计</h2>
+    <div class="month-nav" id="statsMonthNav"></div>
+  </div>
+  <div class="metrics" id="statMetrics"></div>
+  <div class="layout" style="grid-template-columns:1fr 1fr">
+    <div class="card"><h2>训练类型分布</h2><div class="dist" id="statDist"></div></div>
+    <div class="card"><h2>每周训练分布</h2><div class="bars" id="statWeek"></div><div class="note">按星期统计本月已完成的训练次数。</div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h2>热量消耗趋势</h2><div class="bars" id="statBars"></div><div class="note" id="statBarsNote"></div></div>
+</div>
+
+<!-- ============ 身体变化 ============ -->
+<div class="view" id="body">
+  <div class="layout" style="grid-template-columns:1fr 2fr">
+    <div class="card goal" id="bodyGoal"></div>
+    <div class="card">
+      <h2>身体数据记录</h2>
+      <table class="tbl"><thead><tr><th>日期</th><th>体重</th><th>体脂率</th><th>备注</th></tr></thead><tbody id="bodyRows"></tbody></table>
+      <div class="note">目前还没有录入身体数据。后续在 <code>bodyData</code> 中追加记录，这里会自动更新，并与 8 月目标形成对照。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PR / 里程碑 ============ -->
+<div class="view" id="pr">
+  <div class="card">
+    <h2>PR / 里程碑</h2>
+    <div class="metrics" id="prList" style="grid-template-columns:repeat(3,1fr)"></div>
+    <div class="note">以档案内已记录的训练数据自动计算，新增数据后会自动刷新。</div>
+  </div>
+</div>
+
+<!-- ============ 目标 ============ -->
+<div class="view" id="goals">
+  <div class="layout" style="grid-template-columns:1fr 2fr">
+    <div class="card goal" id="goalCard2"></div>
+    <div class="card">
+      <h2>目标追踪</h2>
+      <table class="tbl"><thead><tr><th>周期</th><th>目标</th><th>目标值</th><th>当前</th></tr></thead><tbody id="goalRows"></tbody></table>
+      <div class="note">目标只写确定的那一个，其余等有数据后再加。少而准，比多而空更有用。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 年度总结 ============ -->
+<div class="view" id="year">
+  <div class="card">
+    <h2>2026 年度总结</h2>
+    <div class="metrics" id="yearMetrics" style="grid-template-columns:repeat(4,1fr)"></div>
+    <div class="note" id="yearNote"></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h2>月度轨迹</h2>
+    <div class="dist" id="yearMonths"></div>
+    <div class="note">等 7–12 月的数据积累起来，这里会长成一条真正的成长曲线。</div>
+  </div>
+</div>
+
 </main>
 </div>
 
-<div class="modal-back" id="modalBack">
-<div class="modal"><button class="close" onclick="closeModal()">×</button><div class="date-title">2026 年 8 月 10 日</div><h3>今日三练 🔥</h3>
-<div class="work"><div class="work-title">💪 背部力量训练</div><div class="work-grid"><span>时长 <b>58:51</b></span><span>热量 <b>215 kcal</b></span><span>训练结构 <b>4组 · 257次</b></span><span>平均心率 <b>93 bpm</b></span><span>最高心率 <b>121 bpm</b></span><span>负荷 <b>3 TL</b></span></div></div>
-<div class="work"><div class="work-title">🏃 跑步</div><div class="work-grid"><span>距离 <b>6.01 km</b></span><span>热量 <b>302 kcal</b></span><span>配速 <b>7'03"/km</b></span><span>平均心率 <b>166 bpm</b></span><span>最快 1km <b>6'32"</b></span><span>上升 <b>20 m</b></span></div></div>
-<div class="work"><div class="work-title">🧘 室内有氧</div><div class="work-grid"><span>时长 <b>54:15</b></span><span>热量 <b>326 kcal</b></span><span>平均心率 <b>129 bpm</b></span><span>训练负荷 <b>67 TL</b></span></div></div>
-<div class="note">当天已记录消耗：843 kcal。8 月累计已记录：1,123 kcal。</div>
-</div></div>
+<!-- 当天详情 -->
+<div class="modal-back" id="dayModal">
+  <div class="modal"><button class="close" onclick="closeModal('dayModal')">×</button><div id="dayModalBody"></div></div>
+</div>
+
+<!-- 月报长图 -->
+<div class="modal-back" id="reportModal">
+  <div class="modal wide"><button class="close" onclick="closeModal('reportModal')">×</button>
+    <div id="reportBody"><div class="loading">月报生成中…</div></div>
+  </div>
+</div>
 
 <script>
-const views=document.querySelectorAll('.view');
-function switchView(id){
-  views.forEach(v=>v.classList.toggle('active',v.id===id));
-  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.view===id));
-}
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
+/* ==========================================================
+   1. 数据层：以后只要往 workoutData 里加记录，
+      日历 / 训练记录 / 统计 / 筛选 / 月报 会全部自动更新。
+   ========================================================== */
+const workoutData = [
+  // ---------- 2026 年 8 月 ----------
+  {date:"2026-08-01", type:"run",       name:"跑步",     duration:"",      distance:5.25, calories:280, status:"completed"},
 
-document.querySelectorAll('.filter').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.filter').forEach(b=>b.classList.remove('on'));
-    btn.classList.add('on');
-    const f=btn.dataset.filter;
-    document.querySelectorAll('.day[data-date]').forEach(day=>{
-      const types=(day.dataset.types||'').split(' ');
-      day.classList.toggle('hidden',f!=='all' && !types.includes(f));
-    });
+  {date:"2026-08-06", type:"strength",  name:"力量课程", duration:"",      distance:null, calories:null, status:"completed"},
+  {date:"2026-08-06", type:"complete",  name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
+
+  {date:"2026-08-07", type:"fight",     name:"燃动搏击", duration:"",      distance:null, calories:null, status:"completed"},
+  {date:"2026-08-07", type:"complete",  name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
+
+  {date:"2026-08-09", type:"mixed",     name:"综合体能", duration:"",      distance:null, calories:null, status:"completed"},
+
+  {date:"2026-08-10", type:"strength",  name:"背部力量", duration:"58:51", distance:null, calories:215, load:3,  avgHr:93,  maxHr:121, detail:"4 组 · 257 次", status:"completed"},
+  {date:"2026-08-10", type:"run",       name:"跑步",     duration:"42:20", distance:6.01, calories:302, avgHr:166, pace:"7'03\"/km", climb:"20 m", best:"6'32\"", status:"completed"},
+  {date:"2026-08-10", type:"aerobic",   name:"室内有氧", duration:"54:15", distance:null, calories:326, load:67, avgHr:129, status:"completed"},
+
+  {date:"2026-08-11", type:"endurance", name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
+
+  {date:"2026-08-12", type:"complete",  name:"战绳风暴", duration:"",      distance:null, calories:null, status:"planned"},
+  {date:"2026-08-12", type:"strength",  name:"力量课程", duration:"",      distance:null, calories:null, status:"planned"},
+
+  {date:"2026-08-13", type:"endurance", name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
+  {date:"2026-08-13", type:"basic",     name:"基础课程", duration:"",      distance:null, calories:null, status:"planned"}
+];
+
+/* 身体数据：暂无记录，后续按 {date, weight, fat, note} 追加 */
+const bodyData = [];
+
+/* 目标：只写确定的 */
+const goalData = [
+  {month:"2026-08", metric:"体脂率", target:"20%", current:null, note:"当前数据待记录"}
+];
+
+/* 训练类型字典（DOM 与月报长图共用） */
+const TYPES = {
+  run:       {label:"跑步",     emoji:"🏃", cls:"run",       bg:"#dff1d8", fg:"#39743a"},
+  strength:  {label:"力量",     emoji:"💪", cls:"strength",  bg:"#f7d5e8", fg:"#963b76"},
+  fight:     {label:"搏击",     emoji:"🥊", cls:"fight",     bg:"#ffdcae", fg:"#965b19"},
+  mixed:     {label:"综合体能", emoji:"🔴", cls:"mixed",     bg:"#ffd6d6", fg:"#a14343"},
+  endurance: {label:"耐力课程", emoji:"🟢", cls:"end",       bg:"#d9efdc", fg:"#377a4b"},
+  aerobic:   {label:"室内有氧", emoji:"🧘", cls:"aerobic",   bg:"#dcebf8", fg:"#37658b"},
+  complete:  {label:"完整课程", emoji:"🟣", cls:"complete",  bg:"#e5d9ff", fg:"#69439b"},
+  basic:     {label:"基础课程", emoji:"🔵", cls:"basic",     bg:"#dbe6ff", fg:"#4565ad"}
+};
+
+/* 日历筛选：耐力与有氧合并为一组 */
+const FILTERS = [
+  {key:"all",      label:"全部",         types:null},
+  {key:"run",      label:"🏃 跑步",      types:["run"]},
+  {key:"strength", label:"💪 力量",      types:["strength"]},
+  {key:"fight",    label:"🥊 搏击",      types:["fight"]},
+  {key:"mixed",    label:"🔴 综合体能",  types:["mixed"]},
+  {key:"cardio",   label:"🟢 耐力/有氧", types:["endurance","aerobic"]},
+  {key:"complete", label:"🟣 完整课程",  types:["complete"]},
+  {key:"basic",    label:"🔵 基础课程",  types:["basic"]}
+];
+
+/* 导航（已移除日记 / 旅行） */
+const NAV = [
+  {id:"fitness",  icon:"▣", label:"运动 Fitness", short:"运动"},
+  {id:"calendar", icon:"▦", label:"训练日历",     short:"训练日历"},
+  {id:"records",  icon:"◷", label:"训练记录",     short:"训练记录"},
+  {id:"stats",    icon:"▥", label:"数据统计",     short:"数据统计"},
+  {id:"body",     icon:"♧", label:"身体变化",     short:"身体变化"},
+  {id:"pr",       icon:"⚑", label:"PR / 里程碑",  short:"PR"},
+  {id:"goals",    icon:"◎", label:"目标 Goals",   short:"目标"},
+  {id:"year",     icon:"◉", label:"年度总结 2026",short:"年度总结"}
+];
+
+/* 除已有数据外，额外希望出现在筛选里的月份 */
+const EXTRA_MONTHS = ["2026-07"];
+
+/* ==========================================================
+   2. 工具函数
+   ========================================================== */
+const WD = ["日","一","二","三","四","五","六"];
+const CN_NUM = ["零","一","二","三","四","五","六","七","八","九","十"];
+const $ = id => document.getElementById(id);
+const pad2 = n => String(n).padStart(2,"0");
+const parseDate = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); };
+const monthOf = s => s.slice(0,7);
+const dayOf = s => Number(s.slice(8,10));
+const mdLabel = s => Number(s.slice(5,7)) + "/" + dayOf(s);
+const monthLabel = k => Number(k.slice(5,7)) + " 月";
+const fullMonthLabel = k => k.slice(0,4) + " 年 " + Number(k.slice(5,7)) + " 月";
+const num = n => (n || 0).toLocaleString("en-US");
+const durToSec = d => { if(!d) return 0; const p = d.split(":").map(Number); return p.length===3 ? p[0]*3600+p[1]*60+p[2] : p[0]*60+(p[1]||0); };
+const isDone = w => w.status === "completed";
+
+function allMonths(){
+  const set = new Set(workoutData.map(w => monthOf(w.date)));
+  EXTRA_MONTHS.forEach(m => set.add(m));
+  return [...set].sort().reverse();
+}
+function monthRange(){
+  const list = allMonths().slice().sort();
+  return {min:list[0], max:"2026-12"};
+}
+function shiftMonth(key, delta){
+  let y = Number(key.slice(0,4)), m = Number(key.slice(5,7)) + delta;
+  while(m < 1){ m += 12; y--; } while(m > 12){ m -= 12; y++; }
+  return y + "-" + pad2(m);
+}
+function inMonth(key){ return workoutData.filter(w => monthOf(w.date) === key); }
+function byDate(list){
+  const map = {};
+  list.forEach(w => { (map[w.date] = map[w.date] || []).push(w); });
+  return map;
+}
+function chipText(w){
+  const t = TYPES[w.type];
+  let s = t.emoji + " " + w.name;
+  if(w.distance) s += " " + w.distance + "km";
+  return s;
+}
+function metricTags(w){
+  const out = [];
+  if(w.distance) out.push(w.distance + " km");
+  if(w.duration) out.push(w.duration);
+  if(w.calories) out.push(w.calories + " kcal");
+  if(w.load) out.push("负荷 " + w.load + " TL");
+  return out;
+}
+
+/* 月度统计 */
+function stats(key){
+  const done = inMonth(key).filter(isDone);
+  const days = new Set(done.map(w => w.date));
+  const calories = done.reduce((s,w) => s + (w.calories || 0), 0);
+  const distance = done.reduce((s,w) => s + (w.distance || 0), 0);
+  const grouped = byDate(done);
+  let top = null;
+  Object.keys(grouped).forEach(d => {
+    const kcal = grouped[d].reduce((s,w) => s + (w.calories || 0), 0);
+    const cur = {date:d, count:grouped[d].length, kcal:kcal};
+    if(!top || cur.kcal > top.kcal || (cur.kcal === top.kcal && cur.count > top.count)) top = cur;
   });
+  return {
+    key, done, days:days.size, sessions:done.length,
+    calories, distance:Math.round(distance*100)/100, top,
+    planned: inMonth(key).filter(w => !isDone(w))
+  };
+}
+function typeCounts(list){
+  const m = {};
+  list.forEach(w => { m[w.type] = (m[w.type] || 0) + 1; });
+  return Object.keys(m).sort((a,b) => m[b]-m[a]).map(k => ({type:k, count:m[k]}));
+}
+
+/* ==========================================================
+   3. 视图渲染
+   ========================================================== */
+let activeMonth = allMonths().find(m => inMonth(m).length) || allMonths()[0];
+const calState = {
+  home: {month:activeMonth, filter:"all", days:"homeDays", filters:"homeFilters", nav:"homeMonthNav"},
+  page: {month:activeMonth, filter:"all", days:"pageDays", filters:"pageFilters", nav:"pageMonthNav"}
+};
+let recMonth = "all";
+let statsMonth = activeMonth;
+
+function renderNav(){
+  $("navDesktop").innerHTML = NAV.map(n =>
+    '<button data-view="' + n.id + '">' + n.icon + '　' + n.label + '</button>').join("");
+  $("navMobile").innerHTML = NAV.map(n =>
+    '<button data-view="' + n.id + '">' + n.short + '</button>').join("");
+  document.querySelectorAll('[data-view]').forEach(b =>
+    b.addEventListener("click", () => switchView(b.dataset.view)));
+}
+function switchView(id){
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === id));
+  document.querySelectorAll("[data-view]").forEach(b => b.classList.toggle("on", b.dataset.view === id));
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function renderTop(){
+  const now = new Date();
+  $("todayLine").textContent = now.getFullYear() + " / " + (now.getMonth()+1) + " / " + now.getDate() + "　周" + WD[now.getDay()];
+  const s = stats(activeMonth);
+  $("streak").innerHTML = "本月训练<b>" + s.days + " 天</b>" + fullMonthLabel(activeMonth) + " · 持续记录";
+}
+
+function metricCards(s, withTop){
+  const cut = s.top ? "截至 " + mdLabel(s.top.date) : "暂无记录";
+  const cards = [
+    ["训练天数", s.days + " 天", cut],
+    ["训练次数", s.sessions + " 次", s.top && s.top.count > 1 ? "最高单日 " + s.top.count + " 练" : "已完成训练"],
+    ["消耗热量", num(s.calories) + " kcal", "已记录训练累计"],
+    ["跑步距离", s.distance + " km", "本月累计"]
+  ];
+  if(withTop) cards.push(["本月最高训练日", s.top ? mdLabel(s.top.date) : "—",
+    s.top ? CN_NUM[s.top.count] + "练 · " + num(s.top.kcal) + " kcal" : "待记录"]);
+  return cards.map(c =>
+    '<div class="metric"><small>' + c[0] + '</small><strong>' + c[1] + '</strong><em>' + c[2] + '</em></div>').join("");
+}
+
+function renderGoal(el){
+  const g = goalData.find(x => x.month === activeMonth) || goalData[0];
+  if(!g){ el.innerHTML = '<h2>目标</h2><div class="empty-tip">还没有设定目标</div>'; return; }
+  el.innerHTML =
+    '<div class="g-label">' + Number(g.month.slice(5,7)) + ' 月目标</div>' +
+    '<div class="g-metric">' + g.metric + '</div>' +
+    '<div class="g-target">' + g.target + '</div>' +
+    '<div class="g-now"><span>当前</span><b>' + (g.current || g.note) + '</b></div>';
+}
+
+function renderDist(el, key){
+  const counts = typeCounts(inMonth(key).filter(isDone));
+  if(!counts.length){ el.innerHTML = '<div class="empty-tip">这个月还没有训练记录</div>'; return; }
+  const max = counts[0].count;
+  el.innerHTML = counts.map(c => {
+    const t = TYPES[c.type];
+    return '<div><div class="dl"><span>' + t.emoji + ' ' + t.label + '</span><b>' + c.count + ' 次</b></div>' +
+           '<div class="track"><i style="width:' + (c.count/max*100) + '%;background:' + t.fg + '"></i></div></div>';
+  }).join("");
+}
+
+function renderBars(el, noteEl, key){
+  const s = stats(key);
+  const grouped = byDate(s.done);
+  const days = Object.keys(grouped).filter(d => grouped[d].some(w => w.calories)).sort();
+  if(!days.length){ el.innerHTML = '<div class="empty-tip">暂无热量数据</div>'; if(noteEl) noteEl.textContent = ""; return; }
+  const vals = days.map(d => grouped[d].reduce((x,w) => x + (w.calories||0), 0));
+  const max = Math.max.apply(null, vals);
+  el.innerHTML = days.map((d,i) =>
+    '<div class="bar"><em>' + vals[i] + '</em><i style="height:' + Math.max(12, vals[i]/max*112) + 'px"></i>' + mdLabel(d) + '</div>').join("");
+  if(noteEl){
+    const t = s.top;
+    noteEl.textContent = t
+      ? mdLabel(t.date) + " 单日 " + num(t.kcal) + " kcal，是本月目前的最高值；" + fullMonthLabel(key) + "累计 " + num(s.calories) + " kcal。"
+      : "";
+  }
+}
+
+function renderUpcoming(){
+  const now = new Date(); now.setHours(0,0,0,0);
+  const list = workoutData.filter(w => !isDone(w)).sort((a,b) => a.date < b.date ? -1 : 1);
+  const grouped = byDate(list);
+  const dates = Object.keys(grouped).slice(0,4);
+  $("homeUpcoming").innerHTML = dates.length
+    ? dates.map(d => '<div><b>' + mdLabel(d) + '</b><span>' +
+        grouped[d].map(w => TYPES[w.type].emoji + " " + w.name).join("　") + '</span></div>').join("")
+    : '<div class="empty-tip">还没有安排后续训练</div>';
+}
+
+function renderHighlight(){
+  const s = stats(activeMonth);
+  const el = $("highlightCard");
+  if(!s.top){ el.innerHTML = '<h2>本月高光</h2><div class="empty-tip">这个月还没有训练记录</div>'; return; }
+  const items = byDate(s.done)[s.top.date];
+  el.innerHTML =
+    '<div class="hl-top"><span class="hl-tag">本月高光</span><span class="hl-date">' + mdLabel(s.top.date) +
+      ' · ' + CN_NUM[s.top.count] + '练</span></div>' +
+    '<div class="hl-kcal">' + num(s.top.kcal) + '<span>kcal · 当天合计</span></div>' +
+    '<div class="hl-items">' + items.map(w => {
+      const t = TYPES[w.type];
+      const sub = metricTags(w).join(" · ") || "已完成";
+      return '<div class="hl-item"><b>' + t.emoji + ' ' + w.name + '</b><small>' + sub + '</small></div>';
+    }).join("") + '</div>' +
+    '<div class="note">同一天里把力量、跑步和有氧连起来完成，是这个月目前最有代表性的一天。</div>';
+}
+
+function renderSummary(){
+  const s = stats(activeMonth);
+  $("homeSummary").textContent = summaryText(s);
+}
+function summaryText(s){
+  if(!s.sessions) return "这个月还没有训练记录。";
+  let txt = fullMonthLabel(s.key) + (s.top ? "截至 " + mdLabel(s.top.date) : "") + "，完成 " + s.days + " 个训练日、" +
+    s.sessions + " 次训练，累计消耗 " + num(s.calories) + " kcal";
+  if(s.distance) txt += "，跑步 " + s.distance + " km";
+  txt += "。";
+  if(s.top && s.top.count > 1){
+    txt += mdLabel(s.top.date) + " 是目前的高光：" + byDate(s.done)[s.top.date].map(w => w.name).join("、") +
+      "连续完成，单日消耗 " + num(s.top.kcal) + " kcal。";
+  }
+  txt += "接下来更值得观察的是训练与恢复的平衡。";
+  return txt;
+}
+
+/* ---------- 日历 ---------- */
+function renderCalendar(which){
+  const st = calState[which];
+  const key = st.month;
+  const grouped = byDate(inMonth(key));
+  const y = Number(key.slice(0,4)), m = Number(key.slice(5,7));
+  const first = new Date(y, m-1, 1);
+  const offset = (first.getDay() + 6) % 7;         // 周一开头
+  const total = new Date(y, m, 0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+  const activeTypes = (FILTERS.find(f => f.key === st.filter) || FILTERS[0]).types;
+
+  let html = "";
+  for(let i = 0; i < offset; i++) html += '<div class="day empty"></div>';
+  for(let d = 1; d <= total; d++){
+    const ds = key + "-" + pad2(d);
+    const items = grouped[ds] || [];
+    const isToday = parseDate(ds).getTime() === today.getTime();
+    const matched = !activeTypes || items.some(w => activeTypes.includes(w.type));
+    const kcal = items.filter(isDone).reduce((s,w) => s + (w.calories||0), 0);
+    let cls = "day";
+    if(!items.length) cls += " blank";
+    if(isToday) cls += " today";
+    if(activeTypes && !matched) cls += " dim";
+    html += '<div class="' + cls + '" data-date="' + ds + '"><b>' + d + '</b>';
+    if(items.length){
+      html += items.map(w => {
+        const t = TYPES[w.type];
+        const faded = activeTypes && !activeTypes.includes(w.type) ? " faded" : "";
+        const plan = isDone(w) ? "" : " plan";
+        return '<span class="chip ' + t.cls + plan + faded + '">' + chipText(w) + '</span>';
+      }).join("");
+      if(kcal) html += '<span class="kcal">' + num(kcal) + ' kcal</span>';
+      else if(!items.some(isDone)) html += '<span class="kcal">计划</span>';
+    } else {
+      html += '<span class="todo">待记录</span>';
+    }
+    html += '</div>';
+  }
+  $(st.days).innerHTML = html;
+  $(st.days).querySelectorAll('.day[data-date]').forEach(el =>
+    el.addEventListener("click", () => openDay(el.dataset.date)));
+}
+function renderFilters(which){
+  const st = calState[which];
+  $(st.filters).innerHTML = FILTERS.map(f =>
+    '<button class="filter' + (f.key === st.filter ? " on" : "") + '" data-f="' + f.key + '">' + f.label + '</button>').join("");
+  $(st.filters).querySelectorAll(".filter").forEach(b => b.addEventListener("click", () => {
+    st.filter = b.dataset.f; renderFilters(which); renderCalendar(which);
+  }));
+}
+function renderMonthNav(which){
+  const st = calState[which];
+  const r = monthRange();
+  $(st.nav).innerHTML =
+    '<button data-d="-1"' + (st.month <= r.min ? " disabled" : "") + '>‹</button>' +
+    '<span>' + fullMonthLabel(st.month) + '</span>' +
+    '<button data-d="1"' + (st.month >= r.max ? " disabled" : "") + '>›</button>';
+  $(st.nav).querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    st.month = shiftMonth(st.month, Number(b.dataset.d));
+    if(which === "home"){ activeMonth = st.month; renderHome(); }
+    else { renderMonthNav(which); renderCalendar(which); renderDist($("pageDist"), st.month); }
+  }));
+}
+
+/* ---------- 训练记录 ---------- */
+function renderRecFilters(){
+  const months = allMonths();
+  const tabs = [{key:"all", label:"全部"}].concat(months.map(m => ({key:m, label:monthLabel(m)})));
+  $("recFilters").innerHTML = tabs.map(t =>
+    '<button class="filter' + (t.key === recMonth ? " on" : "") + '" data-m="' + t.key + '">' + t.label + '</button>').join("");
+  $("recFilters").querySelectorAll(".filter").forEach(b => b.addEventListener("click", () => {
+    recMonth = b.dataset.m; renderRecFilters(); renderRecords();
+  }));
+}
+function renderRecords(){
+  const list = workoutData
+    .filter(w => recMonth === "all" || monthOf(w.date) === recMonth)
+    .slice().sort((a,b) => a.date === b.date ? 0 : (a.date < b.date ? 1 : -1));
+  const doneCount = list.filter(isDone).length;
+  $("recCount").textContent = list.length
+    ? "共 " + list.length + " 条 · 已完成 " + doneCount + " 次"
+    : "";
+  if(!list.length){ $("recList").innerHTML = '<div class="empty-tip">这个月还没有训练记录。</div>'; return; }
+  $("recList").innerHTML = list.map(w => {
+    const t = TYPES[w.type];
+    const sub = [];
+    if(t.label !== w.name) sub.push(t.label);
+    if(w.detail) sub.push(w.detail);
+    const tags = metricTags(w).map(x =>
+      '<span class="tag' + (x.indexOf("kcal") > -1 ? " kcal" : "") + '">' + x + '</span>').join("");
+    return '<div class="rec' + (isDone(w) ? "" : " planned") + '" data-date="' + w.date + '">' +
+      '<div class="r-date">' + mdLabel(w.date) + '</div>' +
+      '<div class="r-name"><b>' + t.emoji + ' ' + w.name + '</b>' +
+        (sub.length ? '<em>' + sub.join(" · ") + '</em>' : '') + '</div>' +
+      '<div class="r-metrics">' + tags +
+        (isDone(w) ? "" : '<span class="tag plan">计划</span>') +
+        (isDone(w) && !tags ? '<span class="tag">已完成</span>' : '') + '</div></div>';
+  }).join("");
+  $("recList").querySelectorAll(".rec").forEach(el =>
+    el.addEventListener("click", () => openDay(el.dataset.date)));
+}
+
+/* ---------- 数据统计 ---------- */
+function renderStats(){
+  const s = stats(statsMonth);
+  $("statMetrics").innerHTML = metricCards(s, true);
+  renderDist($("statDist"), statsMonth);
+  renderBars($("statBars"), $("statBarsNote"), statsMonth);
+  const wk = [0,0,0,0,0,0,0];
+  s.done.forEach(w => { wk[(parseDate(w.date).getDay()+6)%7]++; });
+  const max = Math.max.apply(null, wk) || 1;
+  $("statWeek").innerHTML = wk.map((v,i) =>
+    '<div class="bar"><em>' + (v||"") + '</em><i style="height:' + (v ? Math.max(10, v/max*112) : 2) + 'px' +
+    (v ? '' : ';background:#e8e9ed') + '"></i>周' + WD[(i+1)%7] + '</div>').join("");
+  const r = monthRange();
+  $("statsMonthNav").innerHTML =
+    '<button data-d="-1"' + (statsMonth <= r.min ? " disabled" : "") + '>‹</button>' +
+    '<span>' + fullMonthLabel(statsMonth) + '</span>' +
+    '<button data-d="1"' + (statsMonth >= r.max ? " disabled" : "") + '>›</button>';
+  $("statsMonthNav").querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    statsMonth = shiftMonth(statsMonth, Number(b.dataset.d)); renderStats();
+  }));
+}
+
+/* ---------- 身体变化 / 目标 / PR / 年度 ---------- */
+function renderBody(){
+  renderGoal($("bodyGoal"));
+  $("bodyRows").innerHTML = bodyData.length
+    ? bodyData.slice().sort((a,b) => a.date < b.date ? 1 : -1).map(b =>
+        '<tr><td><b>' + mdLabel(b.date) + '</b></td><td>' + (b.weight || "—") + '</td><td>' +
+        (b.fat || "—") + '</td><td>' + (b.note || "") + '</td></tr>').join("")
+    : '<tr><td colspan="4" class="empty-tip">当前数据待记录</td></tr>';
+}
+function renderGoals(){
+  renderGoal($("goalCard2"));
+  $("goalRows").innerHTML = goalData.map(g =>
+    '<tr><td><b>' + fullMonthLabel(g.month) + '</b></td><td>' + g.metric + '</td><td><b>' + g.target +
+    '</b></td><td>' + (g.current || g.note) + '</td></tr>').join("");
+}
+function renderPR(){
+  const done = workoutData.filter(isDone);
+  if(!done.length){ $("prList").innerHTML = '<div class="empty-tip">还没有可统计的数据</div>'; return; }
+  const grouped = byDate(done);
+  let bestDay = null, bestCount = null;
+  Object.keys(grouped).forEach(d => {
+    const kcal = grouped[d].reduce((s,w) => s + (w.calories||0), 0);
+    if(!bestDay || kcal > bestDay.kcal) bestDay = {date:d, kcal:kcal};
+    if(!bestCount || grouped[d].length > bestCount.count) bestCount = {date:d, count:grouped[d].length};
+  });
+  const maxRun = done.filter(w => w.distance).sort((a,b) => b.distance - a.distance)[0];
+  const maxKcal = done.filter(w => w.calories).sort((a,b) => b.calories - a.calories)[0];
+  const maxDur = done.filter(w => w.duration).sort((a,b) => durToSec(b.duration) - durToSec(a.duration))[0];
+  const paced = done.filter(w => w.pace)[0];
+  const items = [
+    ["单日最高消耗", num(bestDay.kcal) + " kcal", mdLabel(bestDay.date)],
+    ["单日最多训练", bestCount.count + " 练", mdLabel(bestCount.date)],
+    maxRun ? ["最长单次跑步", maxRun.distance + " km", mdLabel(maxRun.date)] : null,
+    maxKcal ? ["单次最高消耗", maxKcal.calories + " kcal", maxKcal.name + " · " + mdLabel(maxKcal.date)] : null,
+    maxDur ? ["最长单次训练", maxDur.duration, maxDur.name + " · " + mdLabel(maxDur.date)] : null,
+    paced ? ["跑步配速记录", paced.pace, mdLabel(paced.date)] : null
+  ].filter(Boolean);
+  $("prList").innerHTML = items.map(i =>
+    '<div class="metric"><small>' + i[0] + '</small><strong>' + i[1] + '</strong><em>' + i[2] + '</em></div>').join("");
+}
+function renderYear(){
+  const done = workoutData.filter(isDone);
+  const days = new Set(done.map(w => w.date)).size;
+  const kcal = done.reduce((s,w) => s + (w.calories||0), 0);
+  const dist = Math.round(done.reduce((s,w) => s + (w.distance||0), 0) * 100) / 100;
+  $("yearMetrics").innerHTML = [
+    ["累计训练天数", days + " 天", "2026 全年"],
+    ["累计训练次数", done.length + " 次", "2026 全年"],
+    ["累计消耗热量", num(kcal) + " kcal", "已记录训练"],
+    ["累计跑步距离", dist + " km", "已记录训练"]
+  ].map(c => '<div class="metric"><small>' + c[0] + '</small><strong>' + c[1] + '</strong><em>' + c[2] + '</em></div>').join("");
+  $("yearNote").textContent = "档案从 " + fullMonthLabel(allMonths().slice(-1)[0]) + " 开始记录。数据会随每一次训练录入自动累加。";
+  const months = allMonths().slice().sort();
+  const rows = months.map(m => ({m:m, s:stats(m)}));
+  const max = Math.max.apply(null, rows.map(r => r.s.sessions)) || 1;
+  $("yearMonths").innerHTML = rows.map(r =>
+    '<div><div class="dl"><span>' + fullMonthLabel(r.m) + '</span><b>' + r.s.sessions + ' 次 · ' + num(r.s.calories) + ' kcal</b></div>' +
+    '<div class="track"><i style="width:' + Math.max(2, r.s.sessions/max*100) + '%;background:#8b5cf6"></i></div></div>').join("");
+}
+
+/* ---------- 当天详情 ---------- */
+function openDay(ds){
+  const items = byDate(workoutData)[ds] || [];
+  const d = parseDate(ds);
+  const title = d.getFullYear() + "/" + pad2(d.getMonth()+1) + "/" + pad2(d.getDate());
+  const kcal = items.filter(isDone).reduce((s,w) => s + (w.calories||0), 0);
+  let html = '<div class="date-title">' + title + "　周" + WD[d.getDay()] + '</div>';
+  if(!items.length){
+    html += '<h3>待记录</h3><div class="note">这一天还没有训练记录。</div>';
+  } else {
+    const doneCount = items.filter(isDone).length;
+    html += '<h3>' + (doneCount ? CN_NUM[doneCount] + "练" + (doneCount >= 3 ? " 🔥" : "") : "训练计划") + '</h3>';
+    html += items.map(w => {
+      const t = TYPES[w.type];
+      const g = [];
+      if(w.distance) g.push(["距离", w.distance + " km"]);
+      if(w.duration) g.push(["时长", w.duration]);
+      if(w.calories) g.push(["热量", w.calories + " kcal"]);
+      if(w.pace)  g.push(["配速", w.pace]);
+      if(w.best)  g.push(["最快 1km", w.best]);
+      if(w.detail) g.push(["训练结构", w.detail]);
+      if(w.avgHr) g.push(["平均心率", w.avgHr + " bpm"]);
+      if(w.maxHr) g.push(["最高心率", w.maxHr + " bpm"]);
+      if(w.load)  g.push(["训练负荷", w.load + " TL"]);
+      if(w.climb) g.push(["累计上升", w.climb]);
+      return '<div class="work' + (isDone(w) ? "" : " plan") + '"><div class="work-title">' + t.emoji + ' ' + w.name +
+        (isDone(w) ? "" : ' <span class="tag plan">计划</span>') + '</div>' +
+        (g.length ? '<div class="work-grid">' + g.map(x => '<span>' + x[0] + ' <b>' + x[1] + '</b></span>').join("") + '</div>' : '') +
+        '</div>';
+    }).join("");
+    if(kcal) html += '<div class="total"><span>当天总消耗</span><b>' + num(kcal) + ' kcal</b></div>';
+  }
+  $("dayModalBody").innerHTML = html;
+  $("dayModal").classList.add("show");
+}
+function closeModal(id){ $(id).classList.remove("show"); }
+document.querySelectorAll(".modal-back").forEach(m =>
+  m.addEventListener("click", e => { if(e.target === m) m.classList.remove("show"); }));
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape") document.querySelectorAll(".modal-back.show").forEach(m => m.classList.remove("show"));
 });
 
-document.querySelectorAll('.day[data-detail="10"]').forEach(day=>day.addEventListener('click',()=>document.getElementById('modalBack').classList.add('show')));
-function closeModal(){document.getElementById('modalBack').classList.remove('show')}
-document.getElementById('modalBack').addEventListener('click',e=>{if(e.target.id==='modalBack')closeModal()});
+/* ==========================================================
+   4. 月报长图（canvas 生成，可保存到手机相册）
+   ========================================================== */
+function rr(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);     ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+function F(size,weight){ return (weight||400) + " " + size + 'px -apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif'; }
+function wrapText(ctx,text,x,y,maxW,lh){
+  let line = "", cy = y;
+  for(const ch of text){
+    if(ctx.measureText(line + ch).width > maxW && line){ ctx.fillText(line, x, cy); line = ch; cy += lh; }
+    else line += ch;
+  }
+  if(line) ctx.fillText(line, x, cy);
+  return cy + lh;
+}
+function card(ctx,x,y,w,h){
+  ctx.save();
+  ctx.shadowColor = "rgba(30,25,15,.06)"; ctx.shadowBlur = 18; ctx.shadowOffsetY = 6;
+  ctx.fillStyle = "#ffffff"; rr(ctx,x,y,w,h,20); ctx.fill();
+  ctx.restore();
+}
+
+function drawReport(ctx, W, key){
+  const P = 46, IW = W - P*2;
+  const s = stats(key);
+  const g = goalData.find(x => x.month === key);
+  let y = 62;
+
+  // 头部
+  ctx.textAlign = "left"; ctx.fillStyle = "#c9a96e"; ctx.font = F(20,700);
+  ctx.fillText(key.slice(0,4) + " · " + key.slice(5,7), P, y); y += 46;
+  ctx.fillStyle = "#1d1f26"; ctx.font = F(54,800);
+  ctx.fillText("运动月报", P, y); y += 28;
+  ctx.fillStyle = "#8a8479"; ctx.font = F(19,400);
+  ctx.fillText("2026 Life OS · 运动成长档案", P, y); y += 22;
+  ctx.strokeStyle = "#e4d9c4"; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(P, y); ctx.lineTo(P + 62, y); ctx.stroke(); y += 34;
+
+  // 目标卡
+  if(g){
+    const h = 150; card(ctx,P,y,IW,h);
+    ctx.fillStyle = "#8a8f99"; ctx.font = F(18,600);
+    ctx.fillText(Number(g.month.slice(5,7)) + " 月目标", P+26, y+40);
+    ctx.fillStyle = "#5b6070"; ctx.font = F(20,500);
+    ctx.fillText(g.metric, P+26, y+74);
+    ctx.fillStyle = "#8b5cf6"; ctx.font = F(64,800);
+    ctx.textAlign = "right"; ctx.fillText(g.target, P+IW-26, y+82); ctx.textAlign = "left";
+    ctx.strokeStyle = "#f0ece2"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(P+26, y+104); ctx.lineTo(P+IW-26, y+104); ctx.stroke();
+    ctx.fillStyle = "#9298a4"; ctx.font = F(17,400);
+    ctx.fillText("当前", P+26, y+130);
+    ctx.textAlign = "right"; ctx.fillStyle = "#1d1f26"; ctx.font = F(17,600);
+    ctx.fillText(g.current || g.note, P+IW-26, y+130); ctx.textAlign = "left";
+    y += h + 16;
+  }
+
+  // 月度数据 2×2
+  const cellW = (IW - 14) / 2, cellH = 108;
+  const cells = [
+    ["训练天数", s.days + " 天"],
+    ["训练次数", s.sessions + " 次"],
+    ["消耗热量", num(s.calories) + " kcal"],
+    ["跑步距离", s.distance + " km"]
+  ];
+  cells.forEach((c,i) => {
+    const cx = P + (i%2)*(cellW+14), cy = y + Math.floor(i/2)*(cellH+14);
+    card(ctx,cx,cy,cellW,cellH);
+    ctx.fillStyle = "#9298a4"; ctx.font = F(17,500); ctx.fillText(c[0], cx+22, cy+38);
+    ctx.fillStyle = "#1d1f26"; ctx.font = F(34,800); ctx.fillText(c[1], cx+22, cy+82);
+  });
+  y += cellH*2 + 14 + 16;
+
+  // 训练日历
+  const yy = Number(key.slice(0,4)), mm = Number(key.slice(5,7));
+  const offset = (new Date(yy,mm-1,1).getDay() + 6) % 7;
+  const total = new Date(yy,mm,0).getDate();
+  const rows = Math.ceil((offset + total) / 7);
+  const cw = (IW - 52) / 7, chh = 62;
+  const calH = 58 + 26 + rows*chh + 22;
+  card(ctx,P,y,IW,calH);
+  ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("训练日历", P+26, y+42);
+  const grouped = byDate(inMonth(key));
+  ctx.textAlign = "center"; ctx.fillStyle = "#a9a396"; ctx.font = F(14,500);
+  ["一","二","三","四","五","六","日"].forEach((w,i) =>
+    ctx.fillText(w, P+26+cw*i+cw/2, y+76));
+  for(let d = 1; d <= total; d++){
+    const idx = offset + d - 1;
+    const cx = P + 26 + (idx%7)*cw, cy = y + 88 + Math.floor(idx/7)*chh;
+    const items = grouped[key + "-" + pad2(d)] || [];
+    if(items.length){ ctx.fillStyle = "#faf8f4"; rr(ctx,cx+2,cy,cw-4,chh-6,9); ctx.fill(); }
+    ctx.fillStyle = items.length ? "#1d1f26" : "#cfcabf"; ctx.font = F(15, items.length ? 700 : 400);
+    ctx.fillText(String(d), cx+cw/2, cy+20);
+    items.slice(0,4).forEach((w,i) => {
+      const t = TYPES[w.type], n = Math.min(items.length,4);
+      const dotW = Math.min(11, (cw-14)/n - 3);
+      const startX = cx + cw/2 - (n*(dotW+3) - 3)/2;
+      ctx.fillStyle = isDone(w) ? t.fg : "#dcd7cc";
+      rr(ctx, startX + i*(dotW+3), cy+30, dotW, 7, 3.5); ctx.fill();
+    });
+    const kc = items.filter(isDone).reduce((a,w) => a + (w.calories||0), 0);
+    if(kc){ ctx.fillStyle = "#a08e6a"; ctx.font = F(11,600); ctx.fillText(kc, cx+cw/2, cy+50); }
+  }
+  ctx.textAlign = "left";
+  y += calH + 16;
+
+  // 类型分布
+  const counts = typeCounts(inMonth(key).filter(isDone));
+  if(counts.length){
+    const dh = 58 + counts.length*40 + 14;
+    card(ctx,P,y,IW,dh);
+    ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("训练类型分布", P+26, y+42);
+    const max = counts[0].count;
+    counts.forEach((c,i) => {
+      const t = TYPES[c.type], ly = y + 70 + i*40;
+      ctx.fillStyle = "#5b6070"; ctx.font = F(17,500);
+      ctx.fillText(t.emoji + " " + t.label, P+26, ly+14);
+      ctx.textAlign = "right"; ctx.fillStyle = "#1d1f26"; ctx.font = F(17,700);
+      ctx.fillText(c.count + " 次", P+IW-26, ly+14); ctx.textAlign = "left";
+      ctx.fillStyle = "#f2efe9"; rr(ctx,P+26,ly+24,IW-52,8,4); ctx.fill();
+      ctx.fillStyle = t.fg; rr(ctx,P+26,ly+24,(IW-52)*c.count/max,8,4); ctx.fill();
+    });
+    y += dh + 16;
+  }
+
+  // 热量趋势
+  const gd = byDate(s.done);
+  const bdays = Object.keys(gd).filter(d => gd[d].some(w => w.calories)).sort();
+  if(bdays.length){
+    const bh = 250; card(ctx,P,y,IW,bh);
+    ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("热量消耗趋势", P+26, y+42);
+    const vals = bdays.map(d => gd[d].reduce((a,w) => a + (w.calories||0), 0));
+    const max = Math.max.apply(null, vals);
+    const base = y + bh - 46, avail = IW - 60;
+    const bw = Math.min(64, avail/bdays.length - 16);
+    bdays.forEach((d,i) => {
+      const bx = P + 30 + (avail/bdays.length)*i + (avail/bdays.length - bw)/2;
+      const hgt = Math.max(14, vals[i]/max*112);
+      const grad = ctx.createLinearGradient(0, base-hgt, 0, base);
+      grad.addColorStop(0,"#a78bfa"); grad.addColorStop(1,"#8b5cf6");
+      ctx.fillStyle = grad; rr(ctx,bx,base-hgt,bw,hgt,8); ctx.fill();
+      ctx.textAlign = "center"; ctx.fillStyle = "#5b6070"; ctx.font = F(15,700);
+      ctx.fillText(vals[i], bx+bw/2, base-hgt-12);
+      ctx.fillStyle = "#9298a4"; ctx.font = F(14,400);
+      ctx.fillText(mdLabel(d), bx+bw/2, base+24); ctx.textAlign = "left";
+    });
+    y += bh + 16;
+  }
+
+  // 本月高光
+  if(s.top){
+    const items = gd[s.top.date] || [];
+    const hh = 122 + items.length*38 + 14;
+    ctx.save();
+    ctx.shadowColor = "rgba(160,140,90,.14)"; ctx.shadowBlur = 20; ctx.shadowOffsetY = 8;
+    const grad = ctx.createLinearGradient(P, y, P+IW, y+hh);
+    grad.addColorStop(0,"#fffdf8"); grad.addColorStop(1,"#f4eeff");
+    ctx.fillStyle = grad; rr(ctx,P,y,IW,hh,20); ctx.fill(); ctx.restore();
+    ctx.strokeStyle = "#efe4d2"; ctx.lineWidth = 1; rr(ctx,P,y,IW,hh,20); ctx.stroke();
+    ctx.fillStyle = "#c9a96e"; ctx.font = F(15,700);
+    ctx.fillText("本 月 高 光", P+26, y+40);
+    ctx.fillStyle = "#1d1f26"; ctx.font = F(28,800);
+    ctx.fillText(mdLabel(s.top.date) + " · " + CN_NUM[s.top.count] + "练", P+26, y+80);
+    ctx.textAlign = "right"; ctx.font = F(44,800); ctx.fillStyle = "#8b5cf6";
+    ctx.fillText(num(s.top.kcal), P+IW-72, y+80);
+    ctx.font = F(16,600); ctx.fillStyle = "#9298a4"; ctx.fillText("kcal", P+IW-26, y+80);
+    ctx.textAlign = "left";
+    items.forEach((w,i) => {
+      const t = TYPES[w.type], ly = y + 112 + i*38;
+      ctx.fillStyle = "#5b6070"; ctx.font = F(17,500);
+      ctx.fillText(t.emoji + " " + w.name, P+26, ly+14);
+      ctx.textAlign = "right"; ctx.fillStyle = "#1d1f26"; ctx.font = F(16,600);
+      ctx.fillText(metricTags(w).join(" · ") || "已完成", P+IW-26, ly+14); ctx.textAlign = "left";
+    });
+    y += hh + 16;
+  }
+
+  // 月度总结
+  const txt = summaryText(s);
+  ctx.font = F(18,400);
+  let lines = 1, lw = "";
+  for(const ch of txt){ if(ctx.measureText(lw+ch).width > IW-52){ lines++; lw = ch; } else lw += ch; }
+  const sh = 58 + lines*32 + 16;
+  card(ctx,P,y,IW,sh);
+  ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("月度总结", P+26, y+42);
+  ctx.fillStyle = "#5b6070"; ctx.font = F(18,400);
+  wrapText(ctx, txt, P+26, y+76, IW-52, 32);
+  y += sh + 16;
+
+  // 身体变化 + 下月计划
+  const halfW = (IW-14)/2, halfH = 130;
+  card(ctx,P,y,halfW,halfH);
+  ctx.fillStyle = "#1d1f26"; ctx.font = F(19,700); ctx.fillText("身体变化", P+22, y+40);
+  const last = bodyData.slice().sort((a,b) => a.date < b.date ? 1 : -1)[0];
+  ctx.fillStyle = "#9298a4"; ctx.font = F(16,400);
+  ctx.fillText(g ? "目标 " + g.metric + " " + g.target : "—", P+22, y+72);
+  ctx.fillStyle = last ? "#1d1f26" : "#b6b1a6"; ctx.font = F(last ? 26 : 20, last ? 800 : 500);
+  ctx.fillText(last ? (last.fat || last.weight || "—") : "当前数据待记录", P+22, y+106);
+
+  card(ctx,P+halfW+14,y,halfW,halfH);
+  ctx.fillStyle = "#1d1f26"; ctx.font = F(19,700); ctx.fillText("下月计划", P+halfW+36, y+40);
+  ctx.fillStyle = "#9298a4"; ctx.font = F(16,400);
+  ctx.fillText("待记录", P+halfW+36, y+72);
+  ctx.fillStyle = "#b6b1a6"; ctx.font = F(15,400);
+  ctx.fillText("先把这个月走完，再决定。", P+halfW+36, y+100);
+  y += halfH + 30;
+
+  // 页脚
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#c9a96e"; ctx.font = F(15,600);
+  ctx.fillText("2026 LIFE OS", W/2, y); y += 28;
+  ctx.fillStyle = "#a9a396"; ctx.font = F(15,400);
+  ctx.fillText("把每一次训练，留下来。", W/2, y); y += 24;
+  ctx.textAlign = "left";
+  return y;
+}
+
+function openReport(){
+  const key = activeMonth;
+  $("reportBody").innerHTML = '<div class="loading">月报生成中…</div>';
+  $("reportModal").classList.add("show");
+  setTimeout(() => {
+    try{
+      const W = 750, S = 2;
+      const big = document.createElement("canvas");
+      big.width = W*S; big.height = 4000*S;
+      const bc = big.getContext("2d"); bc.scale(S,S);
+      const endY = drawReport(bc, W, key);
+      const H = Math.ceil(endY + 34);
+
+      const out = document.createElement("canvas");
+      out.width = W*S; out.height = H*S;
+      const oc = out.getContext("2d"); oc.scale(S,S);
+      const bg = oc.createLinearGradient(0,0,W,H);
+      bg.addColorStop(0,"#faf7f1"); bg.addColorStop(.55,"#f6f4f0"); bg.addColorStop(1,"#f3f0f7");
+      oc.fillStyle = bg; oc.fillRect(0,0,W,H);
+      oc.drawImage(big, 0, 0, W*S, H*S, 0, 0, W, H);
+
+      const url = out.toDataURL("image/png");
+      $("reportBody").innerHTML =
+        '<img id="reportImg" src="' + url + '" alt="' + fullMonthLabel(key) + '运动月报">' +
+        '<div class="report-actions">' +
+          '<a class="btn" download="LifeOS_' + key.replace("-","_") + '_运动月报.png" href="' + url + '">保存图片</a>' +
+          '<button class="btn ghost" onclick="closeModal(\'reportModal\')">关闭</button>' +
+        '</div>' +
+        '<p class="report-hint">手机上长按图片即可保存到相册</p>';
+    }catch(err){
+      $("reportBody").innerHTML = '<div class="loading">月报生成失败：' + err.message + '</div>';
+    }
+  }, 60);
+}
+
+/* ==========================================================
+   5. 启动
+   ========================================================== */
+function renderHome(){
+  renderTop();
+  $("homeMetrics").innerHTML = metricCards(stats(activeMonth), true);
+  renderGoal($("goalCard"));
+  renderMonthNav("home"); renderFilters("home"); renderCalendar("home");
+  renderDist($("homeDist"), activeMonth);
+  renderUpcoming(); renderHighlight();
+  renderBars($("homeBars"), $("homeBarsNote"), activeMonth);
+  renderSummary();
+}
+function init(){
+  renderNav();
+  renderHome();
+  renderMonthNav("page"); renderFilters("page"); renderCalendar("page");
+  renderDist($("pageDist"), calState.page.month);
+  renderRecFilters(); renderRecords();
+  renderStats(); renderBody(); renderGoals(); renderPR(); renderYear();
+  switchView("fitness");
+}
+init();
 </script>
 </body>
 </html>
