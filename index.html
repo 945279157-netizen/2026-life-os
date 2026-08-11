@@ -21,7 +21,15 @@ button{font:inherit}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px;flex-wrap:wrap}
 .date{font-size:13px;color:#777}.top h1{margin:8px 0 5px;font-size:30px;letter-spacing:-.5px}.top p{margin:0;color:#777;font-size:13px}
 .top-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-.quote{color:#8a8f99;font-size:13px;max-width:260px;line-height:1.7}
+.quote{color:#8a8f99;font-size:13px;line-height:1.7;white-space:nowrap}
+.sum{background:linear-gradient(135deg,#fbf8ff 0%,#f2f5ff 100%);border:1px solid #e4dbff;margin-bottom:16px}
+.sum-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sum-tag{font-size:11px;letter-spacing:2px;color:#7c4ddb;font-weight:700}
+.sum-month{font-size:12px;color:#8a8f99}
+.sum-key{margin:12px 0 0;font-size:27px;font-weight:800;letter-spacing:-1px;color:#15181f;line-height:1.35}
+.sum-key i{font-style:normal;color:#c9ccd5;margin:0 10px;font-weight:400}
+.sum-key em{font-style:normal;font-size:14px;font-weight:600;color:#8a8f99;margin-left:5px;letter-spacing:0}
+.sum-text{margin:12px 0 0;font-size:14px;line-height:1.9;color:#5b6070;max-width:920px}
 .btn{border:0;background:#17191f;color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;cursor:pointer;transition:.15s;white-space:nowrap}
 .btn:hover{background:#8b5cf6}
 .btn.ghost{background:#fff;color:#5b6070;border:1px solid #e1e3e8}.btn.ghost:hover{background:#f2edff;color:#6d43c8;border-color:#cdbcff}
@@ -169,6 +177,8 @@ button{font:inherit}
   .chip{font-size:8px;padding:3px;white-space:normal;word-break:break-all;margin-top:3px}
   .day .kcal,.day .todo{font-size:8px}
   .hl-kcal{font-size:36px}
+  .sum-key{font-size:20px;letter-spacing:-.5px;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:15px;row-gap:2px}
+  .sum-key i{display:none}
   .rec .r-metrics{justify-content:flex-start}
   .modal{padding:18px;border-radius:18px}
   .form{grid-template-columns:1fr}
@@ -211,6 +221,7 @@ button{font:inherit}
 
 <!-- ============ 运动首页 ============ -->
 <div class="view active" id="fitness">
+  <div class="card sum" id="summaryCard"></div>
   <div class="metrics" id="homeMetrics"></div>
   <div class="layout">
     <div class="card">
@@ -241,10 +252,6 @@ button{font:inherit}
       <h2>热量消耗趋势</h2>
       <div class="bars" id="homeBars"></div>
       <div class="note" id="homeBarsNote"></div>
-    </div>
-    <div class="card">
-      <h2>本月阶段总结</h2>
-      <p class="note" id="homeSummary" style="font-size:13px;color:#5b6070"></p>
     </div>
   </div>
 </div>
@@ -1050,9 +1057,35 @@ function renderHighlight(){
     '<div class="note">同一天里把力量、跑步和有氧连起来完成，是这个月目前最有代表性的一天。</div>';
 }
 
+function summaryParts(s){
+  const key = [
+    [s.days, "个训练日"],
+    [s.sessions, "次训练"],
+    [num(s.calories), "kcal"]
+  ];
+  if(s.distance) key.push([s.distance, "km 跑步"]);
+  let body = "";
+  if(s.top && s.top.count > 1){
+    body += mdLabel(s.top.date) + " 是目前的高光：" + byDate(s.done)[s.top.date].map(w => w.name).join("、") +
+      "连续完成，单日消耗 " + num(s.top.kcal) + " kcal。";
+  }
+  body += "接下来更值得观察的是训练与恢复的平衡。";
+  return {key: key, body: body};
+}
 function renderSummary(){
   const s = stats(activeMonth);
-  $("homeSummary").textContent = summaryText(s);
+  const el = $("summaryCard");
+  const head = '<div class="sum-head"><span class="sum-tag">本月阶段总结</span><span class="sum-month">' +
+    fullMonthLabel(s.key) + (s.top ? " · 截至 " + mdLabel(s.top.date) : "") + '</span></div>';
+  if(!s.sessions){
+    el.innerHTML = head + '<div class="sum-key">这个月还没有训练记录</div>' +
+      '<p class="sum-text" id="homeSummary">点右下角「＋ 记录训练」就能开始。</p>';
+    return;
+  }
+  const p = summaryParts(s);
+  el.innerHTML = head +
+    '<div class="sum-key">' + p.key.map(k => '<span>' + k[0] + '<em>' + k[1] + '</em></span>').join('<i>·</i>') + '</div>' +
+    '<p class="sum-text" id="homeSummary">' + esc(p.body) + '</p>';
 }
 function summaryText(s){
   if(!s.sessions) return "这个月还没有训练记录。";
@@ -1060,12 +1093,7 @@ function summaryText(s){
     s.sessions + " 次训练，累计消耗 " + num(s.calories) + " kcal";
   if(s.distance) txt += "，跑步 " + s.distance + " km";
   txt += "。";
-  if(s.top && s.top.count > 1){
-    txt += mdLabel(s.top.date) + " 是目前的高光：" + byDate(s.done)[s.top.date].map(w => w.name).join("、") +
-      "连续完成，单日消耗 " + num(s.top.kcal) + " kcal。";
-  }
-  txt += "接下来更值得观察的是训练与恢复的平衡。";
-  return txt;
+  return txt + summaryParts(s).body;
 }
 
 /* ---------- 日历 ---------- */
