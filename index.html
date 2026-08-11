@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#11141c">
 <title>2026 Life OS · 运动成长档案</title>
 <style>
+:root{--ac:#9b76f6;--ac-2:#c9b8ff;--ac-d:#8b5cf6;--ac-l:#f8f5ff;--ac-s:#ece5ff;--ac-b:#dccdff;--ac-r:#8b5cf614;--h1:#f8f5ff;--h2:#e6dcff;--h3:#ccb9fb}
 *{box-sizing:border-box}
 body{margin:0;background:#f5f6f8;color:#17191f;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit}
@@ -14,7 +15,7 @@ button{font:inherit}
 .brand{font-size:25px;font-weight:800;margin-bottom:28px}.brand small{display:block;color:#aab0bd;font-size:12px;letter-spacing:2px;font-weight:600}
 .nav button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:11px 12px;border-radius:10px;color:#b9bdc8;font-size:13px;margin:4px 0;cursor:pointer;transition:.15s}
 .nav button:hover{background:#1d222d;color:#fff}
-.nav button.on{background:#8b5cf6;color:#fff}
+.nav button.on{background:var(--ac);color:#fff}
 .streak{margin-top:auto;background:#1d222d;padding:15px;border-radius:15px;color:#9aa0ad;font-size:11px;line-height:1.7}.streak b{display:block;color:#fff;font-size:27px;margin:5px 0;font-weight:800}
 .mobile-nav{display:none}
 .main{padding:30px;background:#f8f9fb;min-width:0}
@@ -22,25 +23,39 @@ button{font:inherit}
 .date{font-size:13px;color:#777}.top h1{margin:8px 0 5px;font-size:30px;letter-spacing:-.5px}.top p{margin:0;color:#777;font-size:13px}
 .top-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
 .quote{color:#8a8f99;font-size:13px;line-height:1.7;white-space:nowrap}
-.sum{background:linear-gradient(135deg,#fbf8ff 0%,#f2f5ff 100%);border:1px solid #e4dbff;margin-bottom:16px;padding:28px 30px}
+.sum{background:linear-gradient(135deg,#fbf8ff 0%,#f2f5ff 100%);border:1px solid var(--ac-s);margin-bottom:16px;padding:32px 34px}
 .sum-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-.sum-tag{font-size:12px;letter-spacing:3px;color:#7c4ddb;font-weight:700}
-.sum-month{font-size:13px;color:#8a8f99}
-.sum-key{margin:16px 0 0;font-size:38px;font-weight:800;letter-spacing:-1.5px;color:#15181f;line-height:1.3}
-.sum-key i{font-style:normal;color:#cdd0d9;margin:0 14px;font-weight:400}
-.sum-key em{font-style:normal;font-size:17px;font-weight:600;color:#8a8f99;margin-left:7px;letter-spacing:0}
-.sum-text{margin:16px 0 0;font-size:15px;line-height:1.95;color:#5b6070;max-width:1000px}
+.sum-tag{font-size:17px;letter-spacing:3px;color:var(--ac-d);font-weight:700}
+.sum-month{font-size:17px;color:#8a8f99}
+.sum-key{margin:16px 0 0;font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#15181f;line-height:1.25}
+.sum-key i{font-style:normal;color:#cdd0d9;margin:0 16px;font-weight:400}
+.sum-key em{font-style:normal;font-size:18px;font-weight:600;color:#8a8f99;margin-left:8px;letter-spacing:0}
+.sum-text{margin:16px 0 0;font-size:16px;line-height:1.9;color:#5b6070;max-width:1040px}
 .g-gap{margin-top:10px;font-size:12px;color:#8a8f99}
-.g-gap b{color:#6d43c8}
+.g-gap b{color:var(--ac-d)}
 .g-now .mini{padding:4px 10px}
-.btn{border:0;background:#17191f;color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;cursor:pointer;transition:.15s;white-space:nowrap}
-.btn:hover{background:#8b5cf6}
-.btn.ghost{background:#fff;color:#5b6070;border:1px solid #e1e3e8}.btn.ghost:hover{background:#f2edff;color:#6d43c8;border-color:#cdbcff}
+.btn{border:0;background:var(--ac);color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;cursor:pointer;transition:.15s;white-space:nowrap}
+.btn:hover{background:var(--ac-d)}
+.btn.ghost{background:#fff;color:#5b6070;border:1px solid #e1e3e8}.btn.ghost:hover{background:var(--ac-l);color:var(--ac-d);border-color:var(--ac-b)}
 .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
 .metric,.card{background:#fff;border:1px solid #e8e9ed;border-radius:17px;box-shadow:0 4px 16px #00000006}
-.metric{padding:18px}.metric small{color:#818692;font-size:12px}.metric strong{display:block;font-size:25px;margin:7px 0;letter-spacing:-.5px}.metric em{font-style:normal;font-size:11px;color:#9a9ea8}
+.metric{padding:20px}.metric small{color:#818692;font-size:12px}.metric strong{display:block;font-size:25px;margin:7px 0;letter-spacing:-.5px}.metric em{font-style:normal;font-size:11px;color:#9a9ea8}
+/* 主指标：三个，强调色 + 周趋势 */
+.metrics.pri{grid-template-columns:repeat(3,1fr)}
+.metrics.pri .metric{padding:22px 24px;border-color:var(--ac-s)}
+.metrics.pri .metric strong{font-size:30px;margin:10px 0 8px;color:var(--ac-d);font-weight:800}
+.metrics.pri .metric strong span{font-size:15px;font-weight:700;color:var(--ac-d);margin-left:4px;letter-spacing:0}
+.trend{display:inline-flex;align-items:center;font-size:11px;font-weight:600;border-radius:999px;padding:3px 9px;background:#f3f4f7;color:#8a8f99}
+.trend.up{background:var(--ac-l);color:var(--ac-d)}
+.trend.down{background:#fdf4ec;color:#a9702c}
+/* 次要指标：两个，安静的灰白样式 */
+.metrics.sec{grid-template-columns:repeat(2,1fr);margin-top:12px}
+.metrics.sec .metric{padding:16px 20px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;background:#fcfcfd}
+.metrics.sec .metric strong{font-size:19px;margin:0;font-weight:700;color:#3a3f4a}
+.metrics.sec .metric .s-r{text-align:right}
+.metrics.sec .metric em{display:block;margin-top:3px}
 .layout{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:14px}
-.card{padding:20px}.card h2{font-size:17px;margin:0 0 15px}
+.card{padding:24px}.card h2{font-size:17px;margin:0 0 15px}
 .card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px;flex-wrap:wrap}.card-head h2{margin:0}
 .month-nav{display:flex;align-items:center;gap:6px}
 .month-nav button{border:1px solid #e1e3e8;background:#fff;color:#5b6070;width:26px;height:26px;border-radius:8px;cursor:pointer;line-height:1}
@@ -48,32 +63,50 @@ button{font:inherit}
 .month-nav span{font-size:12px;color:#707580;min-width:74px;text-align:center}
 .filters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}
 .filter{border:1px solid #e1e3e8;background:#fff;color:#707580;border-radius:999px;padding:6px 11px;font-size:11px;cursor:pointer;transition:.15s}
-.filter:hover{border-color:#c7b6ff;color:#6d43c8}
+.filter:hover{border-color:var(--ac-b);color:var(--ac-d)}
 .filter.on{background:#17191f;color:#fff;border-color:#17191f}
 .week,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
 .week{text-align:center;color:#999;font-size:11px;margin-bottom:6px}
 .day{min-height:118px;background:#fafbfc;border:1px solid transparent;border-radius:10px;padding:7px;font-size:12px;cursor:pointer;transition:.15s;display:flex;flex-direction:column}
-.day:hover{border-color:#c7b6ff;transform:translateY(-1px)}
+.day:hover{border-color:var(--ac);transform:translateY(-1px)}
 .day.empty{background:transparent;cursor:default}.day.empty:hover{transform:none;border-color:transparent}
-.day.blank{cursor:default}.day.blank:hover{transform:none;border-color:#eceef2}
-.day.today{background:#f0eaff;outline:1px solid #bba4ff}
+.day.blank{cursor:default;background:#fafbfc}.day.blank:hover{transform:none;border-color:#eceef2}
+/* 训练强度三档热力：颜色越深，当天消耗/训练量越大 */
+.day.h1{background:var(--h1)}
+.day.h2{background:var(--h2)}
+.day.h3{background:var(--h3)}
+.day.h3>b{color:#4a2f88}
+.day.onlyplan{background:#fff;border:1px dashed #e3e6ec}
+.day.today{outline:2px solid var(--ac);outline-offset:-2px}
+.day.today>b{color:var(--ac-d)}
 .day.dim{opacity:.28;filter:grayscale(1)}
 .day>b{font-weight:700}
+.filter-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:15px}
+.filter-row .filters{margin:0}
+.legend{display:flex;align-items:center;gap:7px;font-size:12px;color:#8a8f99;flex:none}
+.legend i{width:15px;height:15px;border-radius:4px;display:block;border:1px solid #00000008}
+.daytip{position:fixed;z-index:30;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s;background:#17191f;color:#fff;border-radius:11px;padding:10px 13px;font-size:12px;line-height:1.75;box-shadow:0 12px 30px #00000030;max-width:250px}
+.daytip.show{opacity:1;transform:translateY(0)}
+.daytip b{display:block;font-size:13px;margin-bottom:5px}
+.daytip span{display:block;color:#c9ccd4}
+.daytip u{display:block;text-decoration:none;color:var(--ac-2);margin-top:5px;font-weight:600}
 .chip{display:block;padding:5px 6px;margin-top:5px;border-radius:6px;font-size:9px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chip.plan{background:#fff!important;border:1px dashed #cfd3db;color:#9298a4!important}
 .chip.faded{opacity:.25}
 .day .kcal{margin-top:auto;padding-top:6px;font-size:9px;color:#9298a4;font-weight:600}
+.day.h2 .kcal{color:#7a6aa5}
+.day.h3 .kcal{color:#4a2f88}
 .day .todo{margin-top:6px;font-size:9px;color:#c7cad1}
-.goal{background:linear-gradient(135deg,#ffffff 0%,#f6f0ff 100%);border:1px solid #e6dcff}
+.goal{background:linear-gradient(135deg,#ffffff 0%,var(--ac-l) 100%);border:1px solid var(--ac-s)}
 .goal .g-label{font-size:12px;color:#8a8f99}
 .goal .g-metric{font-size:14px;color:#5b6070;margin-top:14px}
-.goal .g-target{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;margin:6px 0 0;background:linear-gradient(120deg,#8b5cf6,#c9a96e);-webkit-background-clip:text;background-clip:text;color:transparent}
-.goal .g-now{margin-top:16px;padding-top:14px;border-top:1px solid #ece5ff;font-size:12px;color:#8a8f99;display:flex;justify-content:space-between;gap:10px}
+.goal .g-target{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;margin:6px 0 0;background:linear-gradient(120deg,var(--ac),#c9a96e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.goal .g-now{margin-top:16px;padding-top:14px;border-top:1px solid var(--ac-s);font-size:12px;color:#8a8f99;display:flex;justify-content:space-between;gap:10px}
 .goal .g-now b{color:#17191f}
 .list div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f0f1f3;font-size:12px}
 .list div:last-child{border-bottom:0}.list b{font-size:13px}
 .lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-.hl{grid-column:1/-1;background:linear-gradient(135deg,#fffdf8 0%,#f6f0ff 100%);border:1px solid #eee3d6}
+.hl{grid-column:1/-1;background:linear-gradient(135deg,#fffdf8 0%,var(--ac-l) 100%);border:1px solid #eee3d6}
 .hl-top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
 .hl-tag{font-size:11px;letter-spacing:2px;color:#c9a96e;font-weight:700}
 .hl-date{font-size:22px;font-weight:800}
@@ -85,7 +118,7 @@ button{font:inherit}
 .note{font-size:11px;color:#8b8f99;line-height:1.8;margin-top:12px}
 .bars{height:150px;display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid #ddd;padding-top:8px}
 .bar{flex:1;max-width:64px;text-align:center;font-size:9px;color:#999}
-.bar i{display:block;width:100%;max-width:34px;margin:auto;background:linear-gradient(180deg,#a78bfa,#8b5cf6);border-radius:7px 7px 0 0}
+.bar i{display:block;width:100%;max-width:34px;margin:auto;background:linear-gradient(180deg,var(--ac-2),var(--ac));border-radius:7px 7px 0 0}
 .bar em{font-style:normal;display:block;font-size:10px;color:#5b6070;font-weight:700;margin-bottom:4px}
 .dist>div{padding:9px 0;font-size:12px}
 .dist .dl{display:flex;justify-content:space-between;margin-bottom:6px}
@@ -101,7 +134,7 @@ button{font:inherit}
 .rec .r-name em{font-style:normal;display:block;color:#9298a4;font-size:11px;margin-top:3px}
 .rec .r-metrics{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
 .tag{background:#f3f4f7;color:#5b6070;border-radius:7px;padding:4px 8px;font-size:11px;white-space:nowrap}
-.tag.kcal{background:#fff0e6;color:#a75f22}.tag.plan{background:#f1eaff;color:#6d43c8}
+.tag.kcal{background:#fff0e6;color:#a75f22}.tag.plan{background:var(--ac-l);color:var(--ac-d)}
 .tbl{width:100%;border-collapse:collapse;font-size:12px}
 .tbl th,.tbl td{text-align:left;padding:11px 8px;border-bottom:1px solid #f0f1f3}
 .tbl th{color:#8a8f99;font-weight:600;font-size:11px}
@@ -127,8 +160,8 @@ button{font:inherit}
 
 /* ---------- 编辑 / 同步 ---------- */
 .fab{position:fixed;right:22px;bottom:22px;z-index:15;border:0;background:#17191f;color:#fff;padding:14px 20px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 10px 26px #00000026;transition:.15s}
-.fab:hover{background:#8b5cf6;transform:translateY(-1px)}
-.syncbar{display:none;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,#fffdf8,#f6f0ff);border:1px solid #e6dcff;border-radius:15px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#5b6070}
+.fab:hover{background:var(--ac);transform:translateY(-1px)}
+.syncbar{display:none;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,#fffdf8,var(--ac-l));border:1px solid var(--ac-s);border-radius:15px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#5b6070}
 .syncbar.show{display:flex}
 .syncbar b{color:#17191f}
 .syncbar .sp{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
@@ -137,13 +170,13 @@ button{font:inherit}
 .form .wide{grid-column:1/-1}
 .field label{display:block;font-size:11px;color:#8a8f99;margin-bottom:5px}
 .field input,.field select,.field textarea{width:100%;border:1px solid #e1e3e8;background:#fff;border-radius:11px;padding:10px 12px;font-size:13px;font-family:inherit;color:#17191f;outline:none;transition:.15s}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:#bba4ff;box-shadow:0 0 0 3px #8b5cf61a}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ac-b);box-shadow:0 0 0 3px var(--ac-r)}
 .field textarea{resize:vertical;min-height:64px}
 .form-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid #f0f1f3}
 .form-actions .grow{margin-left:auto}
-.more-toggle{background:none;border:0;color:#6d43c8;font-size:12px;cursor:pointer;padding:12px 0 0}
+.more-toggle{background:none;border:0;color:var(--ac-d);font-size:12px;cursor:pointer;padding:12px 0 0}
 .mini{border:1px solid #e1e3e8;background:#fff;color:#5b6070;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;transition:.15s}
-.mini:hover{border-color:#c7b6ff;color:#6d43c8}
+.mini:hover{border-color:var(--ac-b);color:var(--ac-d)}
 .mini.danger:hover{border-color:#ffb4b4;color:#c23a3a;background:#fff6f6}
 .row-actions{display:flex;gap:6px;justify-content:flex-end}
 .sync-state{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600}
@@ -153,7 +186,7 @@ button{font:inherit}
 .msg.show{display:block}
 .msg.ok{background:#eefaf1;color:#2f7a4c}.msg.err{background:#fdf1f0;color:#b8443b}
 .token-hint{font-size:11px;color:#8b8f99;line-height:1.8;margin-top:10px}
-.token-hint a{color:#6d43c8}
+.token-hint a{color:var(--ac-d)}
 .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px}
 .view{display:none}.view.active{display:block}
 @media(max-width:1080px){.metrics{grid-template-columns:repeat(3,1fr)}}
@@ -163,8 +196,11 @@ button{font:inherit}
   .mobile-nav{display:flex;gap:7px;overflow-x:auto;padding:12px 12px 4px;background:#11141c;position:sticky;top:0;z-index:9;-webkit-overflow-scrolling:touch}
   .mobile-nav::-webkit-scrollbar{display:none}
   .mobile-nav button{border:0;background:#1d222d;color:#b9bdc8;border-radius:999px;padding:8px 14px;font-size:12px;white-space:nowrap;cursor:pointer}
-  .mobile-nav button.on{background:#8b5cf6;color:#fff}
+  .mobile-nav button.on{background:var(--ac);color:#fff}
   .metrics{grid-template-columns:repeat(2,1fr)}
+  .metrics.pri{grid-template-columns:repeat(3,1fr)}
+  .metrics.pri .metric{padding:16px 14px}
+  .metrics.pri .metric strong{font-size:24px}
   .layout,.lower{grid-template-columns:1fr}
   .main{padding:18px}
   .top{flex-direction:column}.top-right{align-items:flex-start;text-align:left;flex-direction:row;width:100%;justify-content:space-between;align-items:center}
@@ -173,6 +209,13 @@ button{font:inherit}
 }
 @media(max-width:560px){
   .metrics{grid-template-columns:1fr 1fr}
+  .metrics.pri{grid-template-columns:1fr;gap:10px}
+  .metrics.pri .metric{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;flex-wrap:wrap}
+  .metrics.pri .metric strong{font-size:22px;margin:0;order:2}
+  .metrics.pri .metric small{order:1}
+  .metrics.pri .metric .trend{order:3;flex-basis:100%}
+  .metrics.sec{grid-template-columns:1fr;gap:10px}
+  .card{padding:18px}
   .main{padding:12px}
   .top h1{font-size:24px}
   .days,.week{gap:4px}
@@ -180,11 +223,11 @@ button{font:inherit}
   .chip{font-size:8px;padding:3px;white-space:normal;word-break:break-all;margin-top:3px}
   .day .kcal,.day .todo{font-size:8px}
   .hl-kcal{font-size:36px}
-  .sum{padding:20px}
-  .sum-key{font-size:24px;letter-spacing:-.5px;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:15px;row-gap:2px}
-  .sum-key em{font-size:14px;margin-left:5px}
+  .sum{padding:22px 20px}
+  .sum-key{font-size:26px;letter-spacing:-.6px;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:16px;row-gap:4px}
+  .sum-key em{font-size:15px;margin-left:5px}
   .sum-key i{display:none}
-  .sum-text{font-size:14px;line-height:1.85}
+  .sum-text{font-size:15px;line-height:1.85}
   .rec .r-metrics{justify-content:flex-start}
   .modal{padding:18px;border-radius:18px}
   .form{grid-template-columns:1fr}
@@ -228,25 +271,29 @@ button{font:inherit}
 <!-- ============ 运动首页 ============ -->
 <div class="view active" id="fitness">
   <div class="card sum" id="summaryCard"></div>
-  <div class="metrics" id="homeMetrics"></div>
+  <div class="metrics pri" id="homeMetricsPri"></div>
+  <div class="metrics sec" id="homeMetricsSec"></div>
   <div class="layout">
     <div class="card">
       <div class="card-head">
         <h2>训练日历</h2>
         <div class="month-nav" id="homeMonthNav"></div>
       </div>
-      <div class="filters" id="homeFilters"></div>
+      <div class="filter-row">
+        <div class="filters" id="homeFilters"></div>
+        <div class="legend"><span>训练强度</span><i style="background:#fafbfc;border-color:#e8e9ed"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><span>低 → 高</span></div>
+      </div>
       <div class="week"><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div></div>
       <div class="days" id="homeDays"></div>
-      <div class="note">点击任意日期可以查看当天详情。筛选后只突出显示对应类型，其余训练降低透明度，完整月份结构保留。</div>
+      <div class="note">色块深浅代表当天训练强度（有热量数据时按 kcal，没有时按训练次数分档）。鼠标悬停看当天概要，点击查看完整详情。</div>
     </div>
     <div>
       <div class="card goal" id="goalCard"></div>
-      <div class="card" style="margin-top:14px">
+      <div class="card" style="margin-top:21px">
         <h2>本月概览</h2>
         <div class="dist" id="homeDist"></div>
       </div>
-      <div class="card" style="margin-top:14px">
+      <div class="card" style="margin-top:21px">
         <h2>接下来 · 计划</h2>
         <div class="up" id="homeUpcoming"></div>
       </div>
@@ -272,7 +319,8 @@ button{font:inherit}
     <div class="filters" id="pageFilters"></div>
     <div class="week"><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div></div>
     <div class="days" id="pageDays"></div>
-    <div class="note">一天多练会全部展开显示，不会折叠成「+N」。没有训练记录的日期显示「待记录」。</div>
+    <div class="legend" style="margin-top:14px"><span>训练强度</span><i style="background:#fafbfc;border-color:#e8e9ed"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><span>低 → 高</span></div>
+    <div class="note">一天多练会全部展开显示，不会折叠成「+N」。色块越深代表当天训练强度越高。</div>
   </div>
   <div class="card" style="margin-top:14px">
     <h2>本月训练类型分布</h2>
@@ -466,82 +514,535 @@ button{font:inherit}
       下面这份 DEFAULT_DATA 只是 data.json 读不到时的兜底。
    ========================================================== */
 const DEFAULT_DATA = {
-  extraMonths: [],
-  workouts: [
-    // ---------- 2026 年 7 月 ----------
-    {id:"w-20260704-1", date:"2026-07-04", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260704-2", date:"2026-07-04", type:"yoga",     name:"哈他瑜伽", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260713-1", date:"2026-07-13", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260713-2", date:"2026-07-13", type:"strength", name:"核心塑造", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260714-1", date:"2026-07-14", type:"strength", name:"塑形杠铃", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260714-2", date:"2026-07-14", type:"cardio",   name:"战绳风暴", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260714-3", date:"2026-07-14", type:"cardio",   name:"耐力课程", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260715-1", date:"2026-07-15", type:"strength", name:"塑形杠铃", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260718-1", date:"2026-07-18", type:"yoga",     name:"筋膜松解", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260719-1", date:"2026-07-19", type:"cardio",   name:"综合体能", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260719-2", date:"2026-07-19", type:"yoga",     name:"理疗瑜伽", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260719-3", date:"2026-07-19", type:"yoga",     name:"内观顺位", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260720-1", date:"2026-07-20", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260720-2", date:"2026-07-20", type:"strength", name:"全身抗阻", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260721-1", date:"2026-07-21", type:"cardio",   name:"耐力课程", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260722-1", date:"2026-07-22", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260724-1", date:"2026-07-24", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260724-2", date:"2026-07-24", type:"cardio",   name:"完整课程", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260725-1", date:"2026-07-25", type:"yoga",     name:"哈他瑜伽", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260725-2", date:"2026-07-25", type:"yoga",     name:"筋膜松解", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260727-1", date:"2026-07-27", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260728-1", date:"2026-07-28", type:"cardio",   name:"耐力课程", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260729-1", date:"2026-07-29", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260729-2", date:"2026-07-29", type:"yoga",     name:"筋膜松解", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260729-3", date:"2026-07-29", type:"strength", name:"塑形杠铃", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260730-1", date:"2026-07-30", type:"strength", name:"力量课程", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260730-2", date:"2026-07-30", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260731-1", date:"2026-07-31", type:"cardio",   name:"燃动搏击", duration:"", distance:null, calories:null, status:"completed"},
-    {id:"w-20260731-2", date:"2026-07-31", type:"cardio",   name:"完整课程", duration:"", distance:null, calories:null, status:"completed"},
-    // ---------- 2026 年 8 月 ----------
-    {id:"w-20260801-1", date:"2026-08-01", type:"run",      name:"跑步",     duration:"",      distance:5.25, calories:280, status:"completed"},
-
-    {id:"w-20260806-1", date:"2026-08-06", type:"strength", name:"力量课程", duration:"",      distance:null, calories:null, status:"completed"},
-    {id:"w-20260806-2", date:"2026-08-06", type:"cardio",   name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260807-1", date:"2026-08-07", type:"cardio",   name:"燃动搏击", duration:"",      distance:null, calories:null, status:"completed"},
-    {id:"w-20260807-2", date:"2026-08-07", type:"cardio",   name:"完整课程", duration:"",      distance:null, calories:null, status:"completed"},
-
-    {id:"w-msnvhpxjemae", date:"2026-08-08", type:"strength", name:"臀腿训练", duration:"57",    distance:null, calories:234, status:"completed"},
-
-    {id:"w-20260809-1", date:"2026-08-09", type:"cardio",   name:"综合体能", duration:"",      distance:null, calories:null, status:"completed"},
-
-    {id:"w-20260810-1", date:"2026-08-10", type:"strength", name:"背部力量", duration:"58:51", distance:null, calories:215, load:3,  avgHr:93,  maxHr:121, detail:"4 组 · 257 次", status:"completed"},
-    {id:"w-20260810-2", date:"2026-08-10", type:"run",      name:"跑步",     duration:"42:20", distance:6.01, calories:302, avgHr:166, pace:"7'03\"/km", climb:"20 m", best:"6'32\"", status:"completed"},
-    {id:"w-20260810-3", date:"2026-08-10", type:"cardio",   name:"室内有氧", duration:"54:15", distance:null, calories:326, load:67, avgHr:129, status:"completed"},
-
-
-    {id:"w-20260812-1", date:"2026-08-12", type:"cardio",   name:"战绳风暴", duration:"",      distance:null, calories:null, status:"planned"},
-    {id:"w-20260812-2", date:"2026-08-12", type:"strength", name:"力量课程", duration:"",      distance:null, calories:null, status:"planned"},
-
-    {id:"w-20260813-1", date:"2026-08-13", type:"cardio",   name:"耐力课程", duration:"",      distance:null, calories:null, status:"planned"},
-    {id:"w-20260813-2", date:"2026-08-13", type:"cardio",   name:"基础课程", duration:"",      distance:null, calories:null, status:"planned"}
+  "updatedAt": "2026-08-11T16:05:28.630Z",
+  "extraMonths": [],
+  "workouts": [
+    {
+      "id": "w-20260704-1",
+      "date": "2026-07-04",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260704-2",
+      "date": "2026-07-04",
+      "type": "yoga",
+      "name": "哈他瑜伽",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260713-1",
+      "date": "2026-07-13",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260713-2",
+      "date": "2026-07-13",
+      "type": "strength",
+      "name": "核心塑造",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260714-1",
+      "date": "2026-07-14",
+      "type": "strength",
+      "name": "塑形杠铃",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260714-2",
+      "date": "2026-07-14",
+      "type": "cardio",
+      "name": "战绳风暴",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260714-3",
+      "date": "2026-07-14",
+      "type": "cardio",
+      "name": "耐力课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260715-1",
+      "date": "2026-07-15",
+      "type": "strength",
+      "name": "塑形杠铃",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260718-1",
+      "date": "2026-07-18",
+      "type": "yoga",
+      "name": "筋膜松解",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260719-1",
+      "date": "2026-07-19",
+      "type": "cardio",
+      "name": "综合体能",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260719-2",
+      "date": "2026-07-19",
+      "type": "yoga",
+      "name": "理疗瑜伽",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260719-3",
+      "date": "2026-07-19",
+      "type": "yoga",
+      "name": "内观顺位",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260720-1",
+      "date": "2026-07-20",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260720-2",
+      "date": "2026-07-20",
+      "type": "strength",
+      "name": "全身抗阻",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260721-1",
+      "date": "2026-07-21",
+      "type": "cardio",
+      "name": "耐力课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260722-1",
+      "date": "2026-07-22",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260724-1",
+      "date": "2026-07-24",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260724-2",
+      "date": "2026-07-24",
+      "type": "cardio",
+      "name": "完整课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260725-1",
+      "date": "2026-07-25",
+      "type": "yoga",
+      "name": "哈他瑜伽",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260725-2",
+      "date": "2026-07-25",
+      "type": "yoga",
+      "name": "筋膜松解",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260727-1",
+      "date": "2026-07-27",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260728-1",
+      "date": "2026-07-28",
+      "type": "cardio",
+      "name": "耐力课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260729-1",
+      "date": "2026-07-29",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260729-2",
+      "date": "2026-07-29",
+      "type": "yoga",
+      "name": "筋膜松解",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260729-3",
+      "date": "2026-07-29",
+      "type": "strength",
+      "name": "塑形杠铃",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260730-1",
+      "date": "2026-07-30",
+      "type": "strength",
+      "name": "力量课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260730-2",
+      "date": "2026-07-30",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260731-1",
+      "date": "2026-07-31",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260731-2",
+      "date": "2026-07-31",
+      "type": "cardio",
+      "name": "完整课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260801-1",
+      "date": "2026-08-01",
+      "type": "run",
+      "name": "跑步",
+      "duration": "",
+      "distance": 5.25,
+      "calories": 280,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso82o1s2urm",
+      "date": "2026-08-04",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": 4.26,
+      "calories": 193,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso84i31494h",
+      "date": "2026-08-05",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": 3.7,
+      "calories": 226,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260806-1",
+      "date": "2026-08-06",
+      "type": "strength",
+      "name": "力量课程",
+      "duration": "",
+      "distance": null,
+      "calories": 314,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260806-2",
+      "date": "2026-08-06",
+      "type": "cardio",
+      "name": "完整课程",
+      "duration": "",
+      "distance": null,
+      "calories": 314,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso87kj1u3ff",
+      "date": "2026-08-06",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 346,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260807-1",
+      "date": "2026-08-07",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": 365,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260807-2",
+      "date": "2026-08-07",
+      "type": "cardio",
+      "name": "完整课程",
+      "duration": "",
+      "distance": null,
+      "calories": 243,
+      "status": "completed"
+    },
+    {
+      "id": "w-msnvhpxjemae",
+      "date": "2026-08-08",
+      "type": "strength",
+      "name": "臀腿训练",
+      "duration": "57",
+      "distance": null,
+      "calories": 234,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso89r4tocyd",
+      "date": "2026-08-08",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": null,
+      "calories": 156,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260809-1",
+      "date": "2026-08-09",
+      "type": "cardio",
+      "name": "综合体能",
+      "duration": "",
+      "distance": null,
+      "calories": 211,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260810-1",
+      "date": "2026-08-10",
+      "type": "strength",
+      "name": "背部力量",
+      "duration": "58:51",
+      "distance": null,
+      "calories": 215,
+      "load": 3,
+      "avgHr": 93,
+      "maxHr": 121,
+      "detail": "4 组 · 257 次",
+      "status": "completed"
+    },
+    {
+      "id": "w-20260810-2",
+      "date": "2026-08-10",
+      "type": "run",
+      "name": "跑步",
+      "duration": "42:20",
+      "distance": 6.01,
+      "calories": 302,
+      "avgHr": 166,
+      "pace": "7'03\"/km",
+      "climb": "20 m",
+      "best": "6'32\"",
+      "status": "completed"
+    },
+    {
+      "id": "w-20260810-3",
+      "date": "2026-08-10",
+      "type": "cardio",
+      "name": "室内有氧",
+      "duration": "54:15",
+      "distance": null,
+      "calories": 326,
+      "load": 67,
+      "avgHr": 129,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso8bfbyib9c",
+      "date": "2026-08-11",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": 3.14,
+      "calories": 183,
+      "status": "completed"
+    },
+    {
+      "id": "w-msouqak78qrz",
+      "date": "2026-08-11",
+      "type": "cardio",
+      "name": "自由训练",
+      "duration": "",
+      "distance": null,
+      "calories": 245,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260812-1",
+      "date": "2026-08-12",
+      "type": "cardio",
+      "name": "战绳风暴",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "planned"
+    },
+    {
+      "id": "w-20260812-2",
+      "date": "2026-08-12",
+      "type": "strength",
+      "name": "力量课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "planned"
+    },
+    {
+      "id": "w-20260813-1",
+      "date": "2026-08-13",
+      "type": "cardio",
+      "name": "耐力课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "planned"
+    },
+    {
+      "id": "w-20260813-2",
+      "date": "2026-08-13",
+      "type": "cardio",
+      "name": "基础课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "planned"
+    }
   ],
-  /* 身体数据：{date, weight, fat, note} */
-  body: [],
-  /* 目标：只写确定的 */
-  goals: [
-    {id:"g-202608", month:"2026-08", metric:"体脂率", target:"20%", current:null, note:"当前数据待记录"}
+  "body": [
+    {
+      "id": "b-mso8cn6r9ocz",
+      "date": "2026-08-10",
+      "weight": 49.6,
+      "fat": 22.3,
+      "note": ""
+    },
+    {
+      "id": "b-mso8df8ugymd",
+      "date": "2026-08-11",
+      "weight": 49.3,
+      "fat": 21.9,
+      "note": ""
+    }
+  ],
+  "goals": [
+    {
+      "id": "g-202608",
+      "month": "2026-08",
+      "metric": "体脂率",
+      "target": "20%",
+      "current": null,
+      "note": "当前数据待记录"
+    }
   ]
 };
 
@@ -977,8 +1478,52 @@ function renderTop(){
   $("streak").innerHTML = "本月训练<b>" + s.days + " 天</b>" + fullMonthLabel(activeMonth) + " · 持续记录";
 }
 
+/* 最近 7 天 vs 前 7 天，只给三个主指标用 */
+function weekTrend(kind){
+  const DAY = 864e5;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const pick = (from, to) => workoutData.filter(w => {
+    if(!isDone(w)) return false;
+    const t = parseDate(w.date).getTime();
+    return t >= from && t <= to;
+  });
+  const cur  = pick(today.getTime() - 6*DAY,  today.getTime());
+  const prev = pick(today.getTime() - 13*DAY, today.getTime() - 7*DAY);
+  const val = list => kind === "days" ? new Set(list.map(w => w.date)).size
+            : kind === "sessions" ? list.length
+            : list.reduce((x,w) => x + (w.calories || 0), 0);
+  const a = val(cur), b = val(prev);
+  if(!a && !b) return {cls:"", text:"本周暂无数据"};
+  if(!b) return {cls:"up", text:"↑ 本周新增"};
+  const pct = Math.round((a - b) / b * 100);
+  if(pct === 0) return {cls:"", text:"— 与上周持平"};
+  return pct > 0
+    ? {cls:"up",   text:"↑ 较上周 +" + pct + "%"}
+    : {cls:"down", text:"↓ 较上周 " + pct + "%"};
+}
+/* 首页顶部：三个主指标（强调色 + 趋势）+ 两个次要指标 */
+function renderHomeMetrics(s){
+  const pri = [
+    ["训练天数", s.days, "天", weekTrend("days")],
+    ["训练次数", s.sessions, "次", weekTrend("sessions")],
+    ["消耗热量", num(s.calories), "kcal", weekTrend("calories")]
+  ];
+  $("homeMetricsPri").innerHTML = pri.map(c =>
+    '<div class="metric"><small>' + c[0] + '</small>' +
+    '<strong>' + c[1] + '<span>' + c[2] + '</span></strong>' +
+    '<span class="trend ' + c[3].cls + '">' + c[3].text + '</span></div>').join("");
+  const sec = [
+    ["跑步距离", s.distance + " km", "本月累计"],
+    ["本月最高训练日", s.top ? mdLabel(s.top.date) : "—",
+      s.top ? CN_NUM[s.top.count] + "练 · " + num(s.top.kcal) + " kcal" : "暂无记录"]
+  ];
+  $("homeMetricsSec").innerHTML = sec.map(c =>
+    '<div class="metric"><small>' + c[0] + '</small>' +
+    '<span class="s-r"><strong>' + c[1] + '</strong><em>' + c[2] + '</em></span></div>').join("");
+}
+
 function metricCards(s, withTop){
-  const cut = s.top ? "截至 " + mdLabel(s.top.date) : "暂无记录";
+  const cut = cutoffLabel(s) ? "截至 " + cutoffLabel(s) : "暂无记录";
   const cards = [
     ["训练天数", s.days + " 天", cut],
     ["训练次数", s.sessions + " 次", s.top && s.top.count > 1 ? "最高单日 " + s.top.count + " 练" : "已完成训练"],
@@ -1079,6 +1624,15 @@ function renderHighlight(){
     '<div class="note">同一天里把力量、跑步和有氧连起来完成，是这个月目前最有代表性的一天。</div>';
 }
 
+/* 当月看到今天为止；翻到过去的月份则取那个月最后一次训练 */
+function cutoffLabel(s){
+  const now = new Date();
+  const key = now.getFullYear() + "-" + pad2(now.getMonth() + 1);
+  if(s.key === key) return mdLabel(key + "-" + pad2(now.getDate()));
+  const dates = Object.keys(byDate(s.done)).sort();
+  return dates.length ? mdLabel(dates[dates.length - 1]) : "";
+}
+
 function summaryParts(s){
   const key = [
     [s.days, "个训练日"],
@@ -1097,8 +1651,9 @@ function summaryParts(s){
 function renderSummary(){
   const s = stats(activeMonth);
   const el = $("summaryCard");
+  const cut = cutoffLabel(s);
   const head = '<div class="sum-head"><span class="sum-tag">本月阶段总结</span><span class="sum-month">' +
-    fullMonthLabel(s.key) + (s.top ? " · 截至 " + mdLabel(s.top.date) : "") + '</span></div>';
+    fullMonthLabel(s.key) + (cut ? " · 截至 " + cut : "") + '</span></div>';
   if(!s.sessions){
     el.innerHTML = head + '<div class="sum-key">这个月还没有训练记录</div>' +
       '<p class="sum-text" id="homeSummary">点右下角「＋ 记录训练」就能开始。</p>';
@@ -1111,7 +1666,8 @@ function renderSummary(){
 }
 function summaryText(s){
   if(!s.sessions) return "这个月还没有训练记录。";
-  let txt = fullMonthLabel(s.key) + (s.top ? "截至 " + mdLabel(s.top.date) : "") + "，完成 " + s.days + " 个训练日、" +
+  const cut = cutoffLabel(s);
+  let txt = fullMonthLabel(s.key) + (cut ? "截至 " + cut : "") + "，完成 " + s.days + " 个训练日、" +
     s.sessions + " 次训练，累计消耗 " + num(s.calories) + " kcal";
   if(s.distance) txt += "，跑步 " + s.distance + " km";
   txt += "。";
@@ -1129,6 +1685,7 @@ function renderCalendar(which){
   const total = new Date(y, m, 0).getDate();
   const today = new Date(); today.setHours(0,0,0,0);
   const activeTypes = (FILTERS.find(f => f.key === st.filter) || FILTERS[0]).types;
+  const scale = heatScale(grouped);
 
   let html = "";
   for(let i = 0; i < offset; i++) html += '<div class="day empty"></div>';
@@ -1140,6 +1697,8 @@ function renderCalendar(which){
     const kcal = items.filter(isDone).reduce((s,w) => s + (w.calories||0), 0);
     let cls = "day";
     if(!items.length) cls += " blank";
+    else if(!items.some(isDone)) cls += " onlyplan";
+    else cls += " h" + heatLevel(items, kcal, scale);
     if(isToday) cls += " today";
     if(activeTypes && !matched) cls += " dim";
     html += '<div class="' + cls + '" data-date="' + ds + '"><b>' + d + '</b>';
@@ -1152,15 +1711,62 @@ function renderCalendar(which){
       }).join("");
       if(kcal) html += '<span class="kcal">' + num(kcal) + ' kcal</span>';
       else if(!items.some(isDone)) html += '<span class="kcal">计划</span>';
-    } else {
-      html += '<span class="todo">待记录</span>';
     }
     html += '</div>';
   }
   $(st.days).innerHTML = html;
-  $(st.days).querySelectorAll('.day[data-date]').forEach(el =>
-    el.addEventListener("click", () => openDay(el.dataset.date)));
+  $(st.days).querySelectorAll('.day[data-date]').forEach(el => {
+    el.addEventListener("click", () => openDay(el.dataset.date));
+    el.addEventListener("mouseenter", () => showDayTip(el, grouped[el.dataset.date] || []));
+    el.addEventListener("mouseleave", hideDayTip);
+  });
 }
+
+/* 以当月每日消耗为基准分三档；整月没有热量数据时退回按训练次数分档 */
+function heatScale(grouped){
+  const vals = Object.keys(grouped).map(d =>
+    grouped[d].filter(isDone).reduce((s,w) => s + (w.calories || 0), 0)).filter(v => v > 0);
+  const max = vals.length ? Math.max.apply(null, vals) : 0;
+  return {max: max, t1: max / 3, t2: max * 2 / 3};
+}
+function heatLevel(items, kcal, scale){
+  const done = items.filter(isDone);
+  if(!done.length) return 0;
+  if(scale.max > 0 && kcal > 0) return kcal >= scale.t2 ? 3 : kcal >= scale.t1 ? 2 : 1;
+  return done.length >= 3 ? 3 : done.length >= 2 ? 2 : 1;
+}
+
+/* 悬停查看当天概要 */
+let tipEl = null;
+function showDayTip(el, items){
+  if(!items.length) return;
+  if(!tipEl){ tipEl = document.createElement("div"); tipEl.className = "daytip"; document.body.appendChild(tipEl); }
+  const done = items.filter(isDone);
+  const kcal = done.reduce((s,w) => s + (w.calories || 0), 0);
+  const dist = Math.round(done.reduce((s,w) => s + (w.distance || 0), 0) * 100) / 100;
+  const lines = items.map(w => {
+    const t = TYPES[w.type];
+    const detail = metricTags(w).join(" · ");
+    return '<span>' + t.emoji + ' ' + esc(w.name) + (isDone(w) ? "" : "（计划）") +
+           (detail ? '　' + esc(detail) : "") + '</span>';
+  }).join("");
+  const foot = [];
+  if(kcal) foot.push(num(kcal) + " kcal");
+  if(dist) foot.push(dist + " km");
+  if(done.length > 1) foot.push(CN_NUM[done.length] + "练");
+  tipEl.innerHTML = '<b>' + mdLabel(el.dataset.date) + '</b>' + lines +
+    (foot.length ? '<u>合计 ' + foot.join(" · ") + '</u>' : "");
+  const r = el.getBoundingClientRect();
+  tipEl.classList.add("show");
+  const tr = tipEl.getBoundingClientRect();
+  let left = r.left + r.width / 2 - tr.width / 2;
+  left = Math.max(10, Math.min(left, window.innerWidth - tr.width - 10));
+  let top = r.top - tr.height - 9;
+  if(top < 8) top = r.bottom + 9;
+  tipEl.style.left = left + "px";
+  tipEl.style.top = top + "px";
+}
+function hideDayTip(){ if(tipEl) tipEl.classList.remove("show"); }
 function renderFilters(which){
   const st = calState[which];
   $(st.filters).innerHTML = FILTERS.map(f =>
@@ -1320,7 +1926,7 @@ function renderYear(){
   const max = Math.max.apply(null, rows.map(r => r.s.sessions)) || 1;
   $("yearMonths").innerHTML = rows.map(r =>
     '<div><div class="dl"><span>' + fullMonthLabel(r.m) + '</span><b>' + r.s.sessions + ' 次 · ' + num(r.s.calories) + ' kcal</b></div>' +
-    '<div class="track"><i style="width:' + Math.max(2, r.s.sessions/max*100) + '%;background:#8b5cf6"></i></div></div>').join("");
+    '<div class="track"><i style="width:' + Math.max(2, r.s.sessions/max*100) + '%;background:var(--ac)"></i></div></div>').join("");
 }
 
 /* ---------- 当天详情 ---------- */
@@ -1888,7 +2494,7 @@ function openReport(){
    ========================================================== */
 function renderHome(){
   renderTop();
-  $("homeMetrics").innerHTML = metricCards(stats(activeMonth), true);
+  renderHomeMetrics(stats(activeMonth));
   renderGoal($("goalCard"));
   renderMonthNav("home"); renderFilters("home"); renderCalendar("home");
   renderDist($("homeDist"), activeMonth);
