@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T05:39:31.871Z",
+  "updatedAt": "2026-08-11T16:05:28.630Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -450,6 +450,16 @@
       "duration": "",
       "distance": 3.14,
       "calories": 183,
+      "status": "completed"
+    },
+    {
+      "id": "w-msouqak78qrz",
+      "date": "2026-08-11",
+      "type": "cardio",
+      "name": "自由训练",
+      "duration": "",
+      "distance": null,
+      "calories": 245,
       "status": "completed"
     },
     {
