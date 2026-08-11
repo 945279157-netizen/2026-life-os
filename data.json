@@ -1,457 +1,507 @@
 {
- "updatedAt": "2026-08-10T23:47:31.594Z",
- "extraMonths": [],
- "workouts": [
-  {
-   "id": "w-20260704-1",
-   "date": "2026-07-04",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260704-2",
-   "date": "2026-07-04",
-   "type": "yoga",
-   "name": "哈他瑜伽",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260713-1",
-   "date": "2026-07-13",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260713-2",
-   "date": "2026-07-13",
-   "type": "strength",
-   "name": "核心塑造",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260714-1",
-   "date": "2026-07-14",
-   "type": "strength",
-   "name": "塑形杠铃",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260714-2",
-   "date": "2026-07-14",
-   "type": "cardio",
-   "name": "战绳风暴",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260714-3",
-   "date": "2026-07-14",
-   "type": "cardio",
-   "name": "耐力课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260715-1",
-   "date": "2026-07-15",
-   "type": "strength",
-   "name": "塑形杠铃",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260718-1",
-   "date": "2026-07-18",
-   "type": "yoga",
-   "name": "筋膜松解",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260719-1",
-   "date": "2026-07-19",
-   "type": "cardio",
-   "name": "综合体能",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260719-2",
-   "date": "2026-07-19",
-   "type": "yoga",
-   "name": "理疗瑜伽",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260719-3",
-   "date": "2026-07-19",
-   "type": "yoga",
-   "name": "内观顺位",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260720-1",
-   "date": "2026-07-20",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260720-2",
-   "date": "2026-07-20",
-   "type": "strength",
-   "name": "全身抗阻",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260721-1",
-   "date": "2026-07-21",
-   "type": "cardio",
-   "name": "耐力课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260722-1",
-   "date": "2026-07-22",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260724-1",
-   "date": "2026-07-24",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260724-2",
-   "date": "2026-07-24",
-   "type": "cardio",
-   "name": "完整课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260725-1",
-   "date": "2026-07-25",
-   "type": "yoga",
-   "name": "哈他瑜伽",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260725-2",
-   "date": "2026-07-25",
-   "type": "yoga",
-   "name": "筋膜松解",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260727-1",
-   "date": "2026-07-27",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260728-1",
-   "date": "2026-07-28",
-   "type": "cardio",
-   "name": "耐力课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260729-1",
-   "date": "2026-07-29",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260729-2",
-   "date": "2026-07-29",
-   "type": "yoga",
-   "name": "筋膜松解",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260729-3",
-   "date": "2026-07-29",
-   "type": "strength",
-   "name": "塑形杠铃",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260730-1",
-   "date": "2026-07-30",
-   "type": "strength",
-   "name": "力量课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260730-2",
-   "date": "2026-07-30",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260731-1",
-   "date": "2026-07-31",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260731-2",
-   "date": "2026-07-31",
-   "type": "cardio",
-   "name": "完整课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260801-1",
-   "date": "2026-08-01",
-   "type": "run",
-   "name": "跑步",
-   "duration": "",
-   "distance": 5.25,
-   "calories": 280,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260806-1",
-   "date": "2026-08-06",
-   "type": "strength",
-   "name": "力量课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260806-2",
-   "date": "2026-08-06",
-   "type": "cardio",
-   "name": "完整课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260807-1",
-   "date": "2026-08-07",
-   "type": "cardio",
-   "name": "燃动搏击",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260807-2",
-   "date": "2026-08-07",
-   "type": "cardio",
-   "name": "完整课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-msnvhpxjemae",
-   "date": "2026-08-08",
-   "type": "strength",
-   "name": "臀腿训练",
-   "duration": "57",
-   "distance": null,
-   "calories": 234,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260809-1",
-   "date": "2026-08-09",
-   "type": "cardio",
-   "name": "综合体能",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260810-1",
-   "date": "2026-08-10",
-   "type": "strength",
-   "name": "背部力量",
-   "duration": "58:51",
-   "distance": null,
-   "calories": 215,
-   "load": 3,
-   "avgHr": 93,
-   "maxHr": 121,
-   "detail": "4 组 · 257 次",
-   "status": "completed"
-  },
-  {
-   "id": "w-20260810-2",
-   "date": "2026-08-10",
-   "type": "run",
-   "name": "跑步",
-   "duration": "42:20",
-   "distance": 6.01,
-   "calories": 302,
-   "avgHr": 166,
-   "pace": "7'03\"/km",
-   "climb": "20 m",
-   "best": "6'32\"",
-   "status": "completed"
-  },
-  {
-   "id": "w-20260810-3",
-   "date": "2026-08-10",
-   "type": "cardio",
-   "name": "室内有氧",
-   "duration": "54:15",
-   "distance": null,
-   "calories": 326,
-   "load": 67,
-   "avgHr": 129,
-   "status": "completed"
-  },
-  {
-   "id": "w-20260812-1",
-   "date": "2026-08-12",
-   "type": "cardio",
-   "name": "战绳风暴",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "planned"
-  },
-  {
-   "id": "w-20260812-2",
-   "date": "2026-08-12",
-   "type": "strength",
-   "name": "力量课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "planned"
-  },
-  {
-   "id": "w-20260813-1",
-   "date": "2026-08-13",
-   "type": "cardio",
-   "name": "耐力课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "planned"
-  },
-  {
-   "id": "w-20260813-2",
-   "date": "2026-08-13",
-   "type": "cardio",
-   "name": "基础课程",
-   "duration": "",
-   "distance": null,
-   "calories": null,
-   "status": "planned"
-  }
- ],
- "body": [],
- "goals": [
-  {
-   "id": "g-202608",
-   "month": "2026-08",
-   "metric": "体脂率",
-   "target": "20%",
-   "current": null,
-   "note": "当前数据待记录"
-  }
- ]
+  "updatedAt": "2026-08-11T05:38:00.946Z",
+  "extraMonths": [],
+  "workouts": [
+    {
+      "id": "w-20260704-1",
+      "date": "2026-07-04",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260704-2",
+      "date": "2026-07-04",
+      "type": "yoga",
+      "name": "哈他瑜伽",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260713-1",
+      "date": "2026-07-13",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260713-2",
+      "date": "2026-07-13",
+      "type": "strength",
+      "name": "核心塑造",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260714-1",
+      "date": "2026-07-14",
+      "type": "strength",
+      "name": "塑形杠铃",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260714-2",
+      "date": "2026-07-14",
+      "type": "cardio",
+      "name": "战绳风暴",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260714-3",
+      "date": "2026-07-14",
+      "type": "cardio",
+      "name": "耐力课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260715-1",
+      "date": "2026-07-15",
+      "type": "strength",
+      "name": "塑形杠铃",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260718-1",
+      "date": "2026-07-18",
+      "type": "yoga",
+      "name": "筋膜松解",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260719-1",
+      "date": "2026-07-19",
+      "type": "cardio",
+      "name": "综合体能",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260719-2",
+      "date": "2026-07-19",
+      "type": "yoga",
+      "name": "理疗瑜伽",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260719-3",
+      "date": "2026-07-19",
+      "type": "yoga",
+      "name": "内观顺位",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260720-1",
+      "date": "2026-07-20",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260720-2",
+      "date": "2026-07-20",
+      "type": "strength",
+      "name": "全身抗阻",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260721-1",
+      "date": "2026-07-21",
+      "type": "cardio",
+      "name": "耐力课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260722-1",
+      "date": "2026-07-22",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260724-1",
+      "date": "2026-07-24",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260724-2",
+      "date": "2026-07-24",
+      "type": "cardio",
+      "name": "完整课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260725-1",
+      "date": "2026-07-25",
+      "type": "yoga",
+      "name": "哈他瑜伽",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260725-2",
+      "date": "2026-07-25",
+      "type": "yoga",
+      "name": "筋膜松解",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260727-1",
+      "date": "2026-07-27",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260728-1",
+      "date": "2026-07-28",
+      "type": "cardio",
+      "name": "耐力课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260729-1",
+      "date": "2026-07-29",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260729-2",
+      "date": "2026-07-29",
+      "type": "yoga",
+      "name": "筋膜松解",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260729-3",
+      "date": "2026-07-29",
+      "type": "strength",
+      "name": "塑形杠铃",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260730-1",
+      "date": "2026-07-30",
+      "type": "strength",
+      "name": "力量课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260730-2",
+      "date": "2026-07-30",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260731-1",
+      "date": "2026-07-31",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260731-2",
+      "date": "2026-07-31",
+      "type": "cardio",
+      "name": "完整课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260801-1",
+      "date": "2026-08-01",
+      "type": "run",
+      "name": "跑步",
+      "duration": "",
+      "distance": 5.25,
+      "calories": 280,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso82o1s2urm",
+      "date": "2026-08-04",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": 4.26,
+      "calories": 193,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso84i31494h",
+      "date": "2026-08-05",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": 3.7,
+      "calories": 226,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260806-1",
+      "date": "2026-08-06",
+      "type": "strength",
+      "name": "力量课程",
+      "duration": "",
+      "distance": null,
+      "calories": 314,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260806-2",
+      "date": "2026-08-06",
+      "type": "cardio",
+      "name": "完整课程",
+      "duration": "",
+      "distance": null,
+      "calories": 314,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso87kj1u3ff",
+      "date": "2026-08-06",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 346,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260807-1",
+      "date": "2026-08-07",
+      "type": "cardio",
+      "name": "燃动搏击",
+      "duration": "",
+      "distance": null,
+      "calories": 365,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260807-2",
+      "date": "2026-08-07",
+      "type": "cardio",
+      "name": "完整课程",
+      "duration": "",
+      "distance": null,
+      "calories": 243,
+      "status": "completed"
+    },
+    {
+      "id": "w-msnvhpxjemae",
+      "date": "2026-08-08",
+      "type": "strength",
+      "name": "臀腿训练",
+      "duration": "57",
+      "distance": null,
+      "calories": 234,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso89r4tocyd",
+      "date": "2026-08-08",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": null,
+      "calories": 156,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260809-1",
+      "date": "2026-08-09",
+      "type": "cardio",
+      "name": "综合体能",
+      "duration": "",
+      "distance": null,
+      "calories": 211,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260810-1",
+      "date": "2026-08-10",
+      "type": "strength",
+      "name": "背部力量",
+      "duration": "58:51",
+      "distance": null,
+      "calories": 215,
+      "load": 3,
+      "avgHr": 93,
+      "maxHr": 121,
+      "detail": "4 组 · 257 次",
+      "status": "completed"
+    },
+    {
+      "id": "w-20260810-2",
+      "date": "2026-08-10",
+      "type": "run",
+      "name": "跑步",
+      "duration": "42:20",
+      "distance": 6.01,
+      "calories": 302,
+      "avgHr": 166,
+      "pace": "7'03\"/km",
+      "climb": "20 m",
+      "best": "6'32\"",
+      "status": "completed"
+    },
+    {
+      "id": "w-20260810-3",
+      "date": "2026-08-10",
+      "type": "cardio",
+      "name": "室内有氧",
+      "duration": "54:15",
+      "distance": null,
+      "calories": 326,
+      "load": 67,
+      "avgHr": 129,
+      "status": "completed"
+    },
+    {
+      "id": "w-mso8bfbyib9c",
+      "date": "2026-08-11",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": 3.14,
+      "calories": 183,
+      "status": "completed"
+    },
+    {
+      "id": "w-20260812-1",
+      "date": "2026-08-12",
+      "type": "cardio",
+      "name": "战绳风暴",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "planned"
+    },
+    {
+      "id": "w-20260812-2",
+      "date": "2026-08-12",
+      "type": "strength",
+      "name": "力量课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "planned"
+    },
+    {
+      "id": "w-20260813-1",
+      "date": "2026-08-13",
+      "type": "cardio",
+      "name": "耐力课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "planned"
+    },
+    {
+      "id": "w-20260813-2",
+      "date": "2026-08-13",
+      "type": "cardio",
+      "name": "基础课程",
+      "duration": "",
+      "distance": null,
+      "calories": null,
+      "status": "planned"
+    }
+  ],
+  "body": [],
+  "goals": [
+    {
+      "id": "g-202608",
+      "month": "2026-08",
+      "metric": "体脂率",
+      "target": "20%",
+      "current": null,
+      "note": "当前数据待记录"
+    }
+  ]
 }
