@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T05:38:00.946Z",
+  "updatedAt": "2026-08-11T05:39:31.871Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -493,7 +493,22 @@
       "status": "planned"
     }
   ],
-  "body": [],
+  "body": [
+    {
+      "id": "b-mso8cn6r9ocz",
+      "date": "2026-08-10",
+      "weight": 49.6,
+      "fat": 22.3,
+      "note": ""
+    },
+    {
+      "id": "b-mso8df8ugymd",
+      "date": "2026-08-11",
+      "weight": 49.3,
+      "fat": 21.9,
+      "note": ""
+    }
+  ],
   "goals": [
     {
       "id": "g-202608",
