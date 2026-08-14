@@ -2289,8 +2289,9 @@ function drawReport(ctx, W, key){
     ctx.beginPath(); ctx.moveTo(P+26, y+104); ctx.lineTo(P+IW-26, y+104); ctx.stroke();
     ctx.fillStyle = "#9298a4"; ctx.font = F(17,400);
     ctx.fillText("当前", P+26, y+130);
+    const gGap = goalGap(g);
     ctx.textAlign = "right"; ctx.fillStyle = "#1d1f26"; ctx.font = F(17,600);
-    ctx.fillText(g.current || g.note, P+IW-26, y+130); ctx.textAlign = "left";
+    ctx.fillText(goalCurrent(g) + (gGap ? "  ·  " + gGap : ""), P+IW-26, y+130); ctx.textAlign = "left";
     y += h + 16;
   }
 
@@ -2434,7 +2435,7 @@ function drawReport(ctx, W, key){
   ctx.fillStyle = "#9298a4"; ctx.font = F(16,400);
   ctx.fillText(g ? "目标 " + g.metric + " " + g.target : "—", P+22, y+72);
   ctx.fillStyle = last ? "#1d1f26" : "#b6b1a6"; ctx.font = F(last ? 26 : 20, last ? 800 : 500);
-  ctx.fillText(last ? (last.fat || last.weight || "—") : "当前数据待记录", P+22, y+106);
+  ctx.fillText(last ? (g ? goalCurrent(g) : (last.fat || last.weight || "—")) : "当前数据待记录", P+22, y+106);
 
   card(ctx,P+halfW+14,y,halfW,halfH);
   ctx.fillStyle = "#1d1f26"; ctx.font = F(19,700); ctx.fillText("下月计划", P+halfW+36, y+40);
