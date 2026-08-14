@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T16:05:28.630Z",
+  "updatedAt": "2026-08-14T15:16:04.835Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -469,38 +469,68 @@
       "name": "战绳风暴",
       "duration": "",
       "distance": null,
-      "calories": null,
-      "status": "planned"
+      "calories": 349,
+      "status": "completed"
     },
     {
       "id": "w-20260812-2",
       "date": "2026-08-12",
-      "type": "strength",
-      "name": "力量课程",
-      "duration": "",
-      "distance": null,
-      "calories": null,
-      "status": "planned"
-    },
-    {
-      "id": "w-20260813-1",
-      "date": "2026-08-13",
       "type": "cardio",
-      "name": "耐力课程",
+      "name": "塑形杠铃",
       "duration": "",
       "distance": null,
-      "calories": null,
-      "status": "planned"
+      "calories": 158,
+      "status": "completed"
     },
     {
       "id": "w-20260813-2",
       "date": "2026-08-13",
       "type": "cardio",
-      "name": "基础课程",
+      "name": "bodycombat",
       "duration": "",
       "distance": null,
-      "calories": null,
-      "status": "planned"
+      "calories": 304,
+      "status": "completed"
+    },
+    {
+      "id": "w-mst383qkbke6",
+      "date": "2026-08-14",
+      "type": "strength",
+      "name": "臀腿训练",
+      "duration": "",
+      "distance": null,
+      "calories": 220,
+      "status": "completed"
+    },
+    {
+      "id": "w-mst38n8v1l9v",
+      "date": "2026-08-14",
+      "type": "cardio",
+      "name": "hyrox基础",
+      "duration": "",
+      "distance": null,
+      "calories": 238,
+      "status": "completed"
+    },
+    {
+      "id": "w-mst39dgdlezp",
+      "date": "2026-08-14",
+      "type": "cardio",
+      "name": "bodycobat",
+      "duration": "58:58",
+      "distance": null,
+      "calories": 304,
+      "status": "completed"
+    },
+    {
+      "id": "w-mst3a7rrlgtq",
+      "date": "2026-08-14",
+      "type": "cardio",
+      "name": "hyrox综合",
+      "duration": "51:13",
+      "distance": null,
+      "calories": 212,
+      "status": "completed"
     }
   ],
   "body": [
