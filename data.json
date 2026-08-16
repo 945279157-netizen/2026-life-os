@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-16T12:37:33.446Z",
+  "updatedAt": "2026-08-16T12:58:06.800Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -530,6 +530,26 @@
       "duration": "",
       "distance": null,
       "calories": 212,
+      "status": "completed"
+    },
+    {
+      "id": "w-msvsjhh118i9",
+      "date": "2026-08-15",
+      "type": "yoga",
+      "name": "瑜伽恢复",
+      "duration": "",
+      "distance": null,
+      "calories": 168,
+      "status": "completed"
+    },
+    {
+      "id": "w-msvt8mmqlhpd",
+      "date": "2026-08-15",
+      "type": "cardio",
+      "name": "爬坡+自由训练",
+      "duration": "",
+      "distance": null,
+      "calories": 225,
       "status": "completed"
     },
     {
