@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-14T15:58:42.432Z",
+  "updatedAt": "2026-08-16T12:37:33.446Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -530,6 +530,16 @@
       "duration": "",
       "distance": null,
       "calories": 212,
+      "status": "completed"
+    },
+    {
+      "id": "w-msvshz36g26a",
+      "date": "2026-08-16",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 326,
       "status": "completed"
     }
   ],
