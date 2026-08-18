@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-16T12:58:14.378Z",
+  "updatedAt": "2026-08-18T04:45:39.121Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -560,6 +560,36 @@
       "duration": "",
       "distance": null,
       "calories": 326,
+      "status": "completed"
+    },
+    {
+      "id": "w-msy6i0xgysk0",
+      "date": "2026-08-17",
+      "type": "strength",
+      "name": "背部训练",
+      "duration": "",
+      "distance": null,
+      "calories": 167,
+      "status": "completed"
+    },
+    {
+      "id": "w-msy6ii4wvhua",
+      "date": "2026-08-17",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 285,
+      "status": "completed"
+    },
+    {
+      "id": "w-msy6j1w048yq",
+      "date": "2026-08-17",
+      "type": "run",
+      "name": "跑步",
+      "duration": "",
+      "distance": 5.02,
+      "calories": 265,
       "status": "completed"
     }
   ],
