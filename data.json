@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-18T04:58:28.781Z",
+  "updatedAt": "2026-08-20T12:02:11.856Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -680,6 +680,26 @@
       "duration": "",
       "distance": 5.02,
       "calories": 265,
+      "status": "completed"
+    },
+    {
+      "id": "w-mt1h01q0dk3b",
+      "date": "2026-08-18",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": null,
+      "calories": 150,
+      "status": "completed"
+    },
+    {
+      "id": "w-mt1gzh2ipt6z",
+      "date": "2026-08-20",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 287,
       "status": "completed"
     }
   ],
