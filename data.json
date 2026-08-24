@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-20T12:02:17.161Z",
+  "updatedAt": "2026-08-24T12:33:35.796Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -700,6 +700,46 @@
       "duration": "",
       "distance": null,
       "calories": 287,
+      "status": "completed"
+    },
+    {
+      "id": "w-mt77vziv7d1t",
+      "date": "2026-08-21",
+      "type": "cardio",
+      "name": "恒山徒步",
+      "duration": "",
+      "distance": null,
+      "calories": 429,
+      "status": "completed"
+    },
+    {
+      "id": "w-mt77v7b5mapd",
+      "date": "2026-08-23",
+      "type": "cardio",
+      "name": "hyrox",
+      "duration": "",
+      "distance": null,
+      "calories": 347,
+      "status": "completed"
+    },
+    {
+      "id": "w-mt77u1dgs0fv",
+      "date": "2026-08-24",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 289,
+      "status": "completed"
+    },
+    {
+      "id": "w-mt77uomxdy0k",
+      "date": "2026-08-24",
+      "type": "strength",
+      "name": "臀腿训练",
+      "duration": "",
+      "distance": null,
+      "calories": 224,
       "status": "completed"
     }
   ],
