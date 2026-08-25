@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-25T11:17:46.767Z",
+  "updatedAt": "2026-08-25T11:19:02.744Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -740,6 +740,36 @@
       "duration": "",
       "distance": null,
       "calories": 224,
+      "status": "completed"
+    },
+    {
+      "id": "w-mt8kmvsq1t6l",
+      "date": "2026-08-25",
+      "type": "cardio",
+      "name": "hyrox",
+      "duration": "",
+      "distance": null,
+      "calories": 310,
+      "status": "completed"
+    },
+    {
+      "id": "w-mt8kniirz2qy",
+      "date": "2026-08-25",
+      "type": "cardio",
+      "name": "塑形杠铃",
+      "duration": "",
+      "distance": null,
+      "calories": 227,
+      "status": "completed"
+    },
+    {
+      "id": "w-mt8knyxwxn74",
+      "date": "2026-08-25",
+      "type": "cardio",
+      "name": "爬楼",
+      "duration": "",
+      "distance": null,
+      "calories": 68,
       "status": "completed"
     }
   ],
