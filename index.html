@@ -1606,10 +1606,10 @@ function renderHomeMetrics(s){
     ["训练次数", s.sessions, "次", weekTrend("sessions")],
     ["消耗热量", num(s.calories), "kcal", weekTrend("calories")]
   ];
-  $("homeMetricsPri").innerHTML = pri.map(c =>
+  $("homeMetricsPri").innerHTML = pri.map((c, i) =>
     '<div class="metric"><small>' + c[0] + '</small>' +
     '<strong>' + c[1] + '<span>' + c[2] + '</span></strong>' +
-    '<span class="trend ' + c[3].cls + '">' + c[3].text + '</span></div>').join("");
+    (i === 0 || c[3].cls === "up" ? '<span class="trend ' + c[3].cls + '">' + c[3].text + '</span>' : '') + '</div>').join("");
   const sec = [
     ["跑步距离", s.distance + " km", "本月累计"],
     ["本月最高训练日", s.top ? mdLabel(s.top.date) : "—",
