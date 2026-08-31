@@ -2399,15 +2399,15 @@ function drawReport(ctx, W, key){
     ctx.fillText(Number(g.month.slice(5,7)) + " 月目标", P+26, y+40);
     ctx.fillStyle = "#5b6070"; ctx.font = F(20,500);
     ctx.fillText(g.metric, P+26, y+74);
-    ctx.fillStyle = "#8b5cf6"; ctx.font = F(64,800);
-    ctx.textAlign = "right"; ctx.fillText(g.target, P+IW-26, y+82); ctx.textAlign = "left";
+    ctx.fillStyle = "#8b5cf6"; ctx.font = F(44,800);
+    ctx.textAlign = "right"; ctx.fillText(g.target, P+IW-26, y+76); ctx.textAlign = "left";
     ctx.strokeStyle = "#f0ece2"; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(P+26, y+104); ctx.lineTo(P+IW-26, y+104); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(P+26, y+100); ctx.lineTo(P+IW-26, y+100); ctx.stroke();
     ctx.fillStyle = "#9298a4"; ctx.font = F(17,400);
-    ctx.fillText("当前", P+26, y+130);
+    ctx.fillText("当前", P+26, y+128);
     const gGap = goalGap(g);
-    ctx.textAlign = "right"; ctx.fillStyle = "#1d1f26"; ctx.font = F(17,600);
-    ctx.fillText(goalCurrent(g) + (gGap ? "  ·  " + gGap : ""), P+IW-26, y+130); ctx.textAlign = "left";
+    ctx.textAlign = "right"; ctx.fillStyle = "#1d1f26"; ctx.font = F(22,700);
+    ctx.fillText(goalCurrent(g) + (gGap ? "  ·  " + gGap : ""), P+IW-26, y+128); ctx.textAlign = "left";
     y += h + 16;
   }
 
