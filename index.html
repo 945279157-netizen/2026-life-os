@@ -2551,18 +2551,7 @@ function drawReport(ctx, W, key){
     y += hh + 16;
   }
 
-
-
-  // 身体变化
-  const bvH = 110;
-  card(ctx,P,y,IW,bvH);
-  ctx.fillStyle = "#1d1f26"; ctx.font = F(19,700); ctx.fillText("身体变化", P+22, y+40);
-  const last = bodyData.slice().sort((a,b) => a.date < b.date ? 1 : -1)[0];
-  ctx.fillStyle = "#9298a4"; ctx.font = F(16,400);
-  ctx.fillText(g ? "目标 " + g.metric + " " + g.target : "—", P+22, y+72);
-  ctx.fillStyle = last ? "#1d1f26" : "#b6b1a6"; ctx.font = F(last ? 26 : 20, last ? 800 : 500);
-  ctx.fillText(last ? (g ? goalCurrent(g) : (last.fat || last.weight || "—")) : "当前数据待记录", P+22, y+94);
-  y += bvH + 30;
+  y += 14;
 
   // 页脚
   ctx.textAlign = "center";
