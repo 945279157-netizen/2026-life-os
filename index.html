@@ -2375,6 +2375,23 @@ function drawReport(ctx, W, key){
   ctx.strokeStyle = "#e4d9c4"; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(P, y); ctx.lineTo(P + 62, y); ctx.stroke(); y += 34;
 
+  // 月度总结（一句话）
+  if(s.sessions){
+    const cut = cutoffLabel(s);
+    const oneLiner = fullMonthLabel(s.key) + (cut ? "截至 " + cut + "，" : "，") +
+      "完成 " + s.days + " 个训练日、" + s.sessions + " 次训练，累计消耗 " + num(s.calories) + " kcal" +
+      (s.distance ? "，跑步 " + s.distance + " km" : "") + "。";
+    ctx.font = F(18,400);
+    let _lines = 1, _lw = "";
+    for(const ch of oneLiner){ if(ctx.measureText(_lw+ch).width > IW-52){ _lines++; _lw = ch; } else _lw += ch; }
+    const _sh = 52 + _lines*30 + 12;
+    card(ctx,P,y,IW,_sh);
+    ctx.fillStyle = "#c9a96e"; ctx.font = F(17,700); ctx.fillText("月 度 总 结", P+26, y+34);
+    ctx.fillStyle = "#5b6070"; ctx.font = F(17,400);
+    wrapText(ctx, oneLiner, P+26, y+62, IW-52, 30);
+    y += _sh + 16;
+  }
+
   // 目标卡
   if(g){
     const h = 150; card(ctx,P,y,IW,h);
@@ -2462,28 +2479,48 @@ function drawReport(ctx, W, key){
     y += dh + 16;
   }
 
-  // 热量趋势
+  // 热量趋势（按周）
   const gd = byDate(s.done);
-  const bdays = Object.keys(gd).filter(d => gd[d].some(w => w.calories)).sort();
-  if(bdays.length){
-    const bh = 250; card(ctx,P,y,IW,bh);
-    ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("热量消耗趋势", P+26, y+42);
-    const vals = bdays.map(d => gd[d].reduce((a,w) => a + (w.calories||0), 0));
-    const max = Math.max.apply(null, vals);
-    const base = y + bh - 46, avail = IW - 60;
-    const bw = Math.min(64, avail/bdays.length - 16);
-    bdays.forEach((d,i) => {
-      const bx = P + 30 + (avail/bdays.length)*i + (avail/bdays.length - bw)/2;
-      const hgt = Math.max(14, vals[i]/max*112);
-      const grad = ctx.createLinearGradient(0, base-hgt, 0, base);
-      grad.addColorStop(0,"#a78bfa"); grad.addColorStop(1,"#8b5cf6");
-      ctx.fillStyle = grad; rr(ctx,bx,base-hgt,bw,hgt,8); ctx.fill();
-      ctx.textAlign = "center"; ctx.fillStyle = "#5b6070"; ctx.font = F(15,700);
-      ctx.fillText(vals[i], bx+bw/2, base-hgt-12);
-      ctx.fillStyle = "#9298a4"; ctx.font = F(14,400);
-      ctx.fillText(mdLabel(d), bx+bw/2, base+24); ctx.textAlign = "left";
-    });
-    y += bh + 16;
+  {
+    const yy = Number(key.slice(0,4)), mm = Number(key.slice(5,7));
+    const totalDays = new Date(yy, mm, 0).getDate();
+    const weeks = [];
+    for(let w = 0; w < Math.ceil(totalDays/7); w++){
+      const from = w*7+1, to = Math.min((w+1)*7, totalDays);
+      let wk = 0;
+      for(let d = from; d <= to; d++){
+        const dk = key + "-" + (d<10?"0":"") + d;
+        if(gd[dk]) gd[dk].forEach(x => { if(isDone(x)) wk += (x.calories||0); });
+      }
+      weeks.push({label: from + "-" + to, kcal: wk});
+    }
+    const weekVals = weeks.filter(w => w.kcal > 0);
+    if(weekVals.length){
+      const bh = 250; card(ctx,P,y,IW,bh);
+      ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("热量消耗趋势", P+26, y+42);
+      ctx.fillStyle = "#9298a4"; ctx.font = F(15,400); ctx.fillText("按周汇总", P+180, y+42);
+      const vals = weeks.map(w => w.kcal);
+      const max = Math.max.apply(null, vals);
+      const base = y + bh - 46, avail = IW - 60;
+      const bw = Math.min(88, avail/weeks.length - 20);
+      weeks.forEach((w,i) => {
+        const bx = P + 30 + (avail/weeks.length)*i + (avail/weeks.length - bw)/2;
+        if(!w.kcal){ ctx.fillStyle = "#eae6df"; rr(ctx,bx,base-14,bw,14,8); ctx.fill(); }
+        else{
+          const hgt = Math.max(14, w.kcal/max*112);
+          const grad = ctx.createLinearGradient(0, base-hgt, 0, base);
+          grad.addColorStop(0,"#a78bfa"); grad.addColorStop(1,"#8b5cf6");
+          ctx.fillStyle = grad; rr(ctx,bx,base-hgt,bw,hgt,8); ctx.fill();
+          ctx.textAlign = "center"; ctx.fillStyle = "#5b6070"; ctx.font = F(15,700);
+          ctx.fillText(num(w.kcal), bx+bw/2, base-hgt-12);
+        }
+        ctx.textAlign = "center"; ctx.fillStyle = "#9298a4"; ctx.font = F(14,400);
+        ctx.fillText("W" + (i+1), bx+bw/2, base+18);
+        ctx.font = F(12,400);
+        ctx.fillText(w.label + "日", bx+bw/2, base+36); ctx.textAlign = "left";
+      });
+      y += bh + 16;
+    }
   }
 
   // 本月高光
@@ -2514,35 +2551,18 @@ function drawReport(ctx, W, key){
     y += hh + 16;
   }
 
-  // 月度总结
-  const txt = summaryText(s);
-  ctx.font = F(18,400);
-  let lines = 1, lw = "";
-  for(const ch of txt){ if(ctx.measureText(lw+ch).width > IW-52){ lines++; lw = ch; } else lw += ch; }
-  const sh = 58 + lines*32 + 16;
-  card(ctx,P,y,IW,sh);
-  ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("月度总结", P+26, y+42);
-  ctx.fillStyle = "#5b6070"; ctx.font = F(18,400);
-  wrapText(ctx, txt, P+26, y+76, IW-52, 32);
-  y += sh + 16;
 
-  // 身体变化 + 下月计划
-  const halfW = (IW-14)/2, halfH = 130;
-  card(ctx,P,y,halfW,halfH);
+
+  // 身体变化
+  const bvH = 110;
+  card(ctx,P,y,IW,bvH);
   ctx.fillStyle = "#1d1f26"; ctx.font = F(19,700); ctx.fillText("身体变化", P+22, y+40);
   const last = bodyData.slice().sort((a,b) => a.date < b.date ? 1 : -1)[0];
   ctx.fillStyle = "#9298a4"; ctx.font = F(16,400);
   ctx.fillText(g ? "目标 " + g.metric + " " + g.target : "—", P+22, y+72);
   ctx.fillStyle = last ? "#1d1f26" : "#b6b1a6"; ctx.font = F(last ? 26 : 20, last ? 800 : 500);
-  ctx.fillText(last ? (g ? goalCurrent(g) : (last.fat || last.weight || "—")) : "当前数据待记录", P+22, y+106);
-
-  card(ctx,P+halfW+14,y,halfW,halfH);
-  ctx.fillStyle = "#1d1f26"; ctx.font = F(19,700); ctx.fillText("下月计划", P+halfW+36, y+40);
-  ctx.fillStyle = "#9298a4"; ctx.font = F(16,400);
-  ctx.fillText("待记录", P+halfW+36, y+72);
-  ctx.fillStyle = "#b6b1a6"; ctx.font = F(15,400);
-  ctx.fillText("先把这个月走完，再决定。", P+halfW+36, y+100);
-  y += halfH + 30;
+  ctx.fillText(last ? (g ? goalCurrent(g) : (last.fat || last.weight || "—")) : "当前数据待记录", P+22, y+94);
+  y += bvH + 30;
 
   // 页脚
   ctx.textAlign = "center";
