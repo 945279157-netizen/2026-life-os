@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-31T15:35:44.788Z",
+  "updatedAt": "2026-08-31T15:36:14.383Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -863,6 +863,13 @@
       "date": "2026-08-14",
       "weight": 48.7,
       "fat": 21.1,
+      "note": ""
+    },
+    {
+      "id": "b-mthehrgylx5w",
+      "date": "2026-08-29",
+      "weight": null,
+      "fat": 20.4,
       "note": ""
     }
   ],
