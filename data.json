@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-31T15:36:19.265Z",
+  "updatedAt": "2026-09-01T17:13:11.307Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -15,7 +15,7 @@
     {
       "id": "w-20260704-2",
       "date": "2026-07-04",
-      "type": "yoga",
+      "type": "recovery",
       "name": "哈他瑜伽",
       "duration": "",
       "distance": null,
@@ -115,7 +115,7 @@
     {
       "id": "w-20260718-1",
       "date": "2026-07-18",
-      "type": "yoga",
+      "type": "recovery",
       "name": "筋膜松解",
       "duration": "",
       "distance": null,
@@ -135,7 +135,7 @@
     {
       "id": "w-20260719-2",
       "date": "2026-07-19",
-      "type": "yoga",
+      "type": "recovery",
       "name": "理疗瑜伽",
       "duration": "",
       "distance": null,
@@ -145,7 +145,7 @@
     {
       "id": "w-20260719-3",
       "date": "2026-07-19",
-      "type": "yoga",
+      "type": "recovery",
       "name": "内观顺位",
       "duration": "",
       "distance": null,
@@ -245,7 +245,7 @@
     {
       "id": "w-20260725-1",
       "date": "2026-07-25",
-      "type": "yoga",
+      "type": "recovery",
       "name": "哈他瑜伽",
       "duration": "",
       "distance": null,
@@ -255,7 +255,7 @@
     {
       "id": "w-20260725-2",
       "date": "2026-07-25",
-      "type": "yoga",
+      "type": "recovery",
       "name": "筋膜松解",
       "duration": "",
       "distance": null,
@@ -285,7 +285,7 @@
     {
       "id": "w-20260728-1",
       "date": "2026-07-28",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox耐力",
       "duration": "",
       "distance": null,
@@ -305,7 +305,7 @@
     {
       "id": "w-20260729-2",
       "date": "2026-07-29",
-      "type": "yoga",
+      "type": "recovery",
       "name": "筋膜松解",
       "duration": "",
       "distance": null,
@@ -335,7 +335,7 @@
     {
       "id": "w-20260730-1",
       "date": "2026-07-30",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox力量",
       "duration": "",
       "distance": null,
@@ -355,7 +355,7 @@
     {
       "id": "w-msy6o038do4g",
       "date": "2026-07-30",
-      "type": "yoga",
+      "type": "recovery",
       "name": "瑜伽恢复",
       "duration": "",
       "distance": null,
@@ -415,7 +415,7 @@
     {
       "id": "w-20260806-1",
       "date": "2026-08-06",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox力量",
       "duration": "",
       "distance": null,
@@ -425,7 +425,7 @@
     {
       "id": "w-20260806-2",
       "date": "2026-08-06",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox完整",
       "duration": "",
       "distance": null,
@@ -455,7 +455,7 @@
     {
       "id": "w-20260807-2",
       "date": "2026-08-07",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox完整",
       "duration": "",
       "distance": null,
@@ -485,7 +485,7 @@
     {
       "id": "w-20260809-1",
       "date": "2026-08-09",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox综合",
       "duration": "",
       "distance": null,
@@ -595,7 +595,7 @@
     {
       "id": "w-mst3f8mmy5l9",
       "date": "2026-08-14",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox基础",
       "duration": "",
       "distance": null,
@@ -615,7 +615,7 @@
     {
       "id": "w-mst3g3c64yqm",
       "date": "2026-08-14",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox综合",
       "duration": "",
       "distance": null,
@@ -625,7 +625,7 @@
     {
       "id": "w-msvsjhh118i9",
       "date": "2026-08-15",
-      "type": "yoga",
+      "type": "recovery",
       "name": "瑜伽恢复",
       "duration": "",
       "distance": null,
@@ -715,7 +715,7 @@
     {
       "id": "w-mt77v7b5mapd",
       "date": "2026-08-23",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox",
       "duration": "",
       "distance": null,
@@ -745,7 +745,7 @@
     {
       "id": "w-mt8kmvsq1t6l",
       "date": "2026-08-25",
-      "type": "cardio",
+      "type": "hyrox",
       "name": "hyrox",
       "duration": "",
       "distance": null,
@@ -840,6 +840,16 @@
       "duration": "",
       "distance": null,
       "calories": 151,
+      "status": "completed"
+    },
+    {
+      "id": "w-mtixeam1cvdf",
+      "date": "2026-09-01",
+      "type": "cardio",
+      "name": "爬坡",
+      "duration": "",
+      "distance": null,
+      "calories": 222,
       "status": "completed"
     }
   ],
