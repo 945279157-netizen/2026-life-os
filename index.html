@@ -155,10 +155,10 @@ button{font:inherit}
 .total{margin-top:16px;padding-top:14px;border-top:1px solid #eee;display:flex;justify-content:space-between;align-items:baseline}
 .total b{font-size:26px;font-weight:800}
 #reportImg{width:100%;border-radius:14px;display:block;box-shadow:0 8px 30px #0000001a}
-.report-style-picker{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 10px;margin:0 28px 8px 0;scrollbar-width:none}
+.report-style-picker{display:flex;gap:4px;overflow-x:auto;padding:1px 1px 6px;margin:0 22px 5px 0;scrollbar-width:none}
 .report-style-picker::-webkit-scrollbar{display:none}
-.report-style-picker button{flex:none;border:1px solid #ddd9e5;background:#fff;color:#777b86;border-radius:999px;padding:7px 11px;font:600 11px inherit;cursor:pointer;transition:.15s}
-.report-style-picker button.active{border-color:var(--ac);background:var(--ac-l);color:var(--ac-d);box-shadow:0 0 0 2px var(--ac-r)}
+.report-style-picker button{flex:none;border:1px solid #ddd9e5;background:#fff;color:#777b86;border-radius:999px;padding:4px 7px;font-family:inherit;font-size:10px;font-weight:600;line-height:1.15;cursor:pointer;transition:.15s}
+.report-style-picker button.active{border-color:var(--ac);background:var(--ac-l);color:var(--ac-d);box-shadow:0 0 0 1px var(--ac-r)}
 .report-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
 .report-hint{font-size:11px;color:#8b8f99;margin:10px 0 0}
 .loading{padding:40px;color:#8b8f99;font-size:13px}
@@ -2414,9 +2414,9 @@ function renderManage(){
 const REPORT_STYLES = {
   soft:{name:"柔光渐变",bg:["#faf7f1","#f6f4f0","#f3f0f7"],card:"#ffffff",ink:"#1d1f26",text:"#5b6070",muted:"#9298a4",pale:"#a9a396",line:"#f0ece2",track:"#f2efe9",accent:"#8b5cf6",accent2:"#a78bfa",gold:"#c9a96e",border:"#efe4d2",shadow:"rgba(30,25,15,.06)",font:"sans",decor:"glow"},
   minimal:{name:"留白极简",bg:["#f7f8fa","#f7f8fa","#f7f8fa"],card:"#ffffff",ink:"#111318",text:"#555b66",muted:"#8b929e",pale:"#aeb4bd",line:"#e8eaee",track:"#eef0f3",accent:"#17191f",accent2:"#515762",gold:"#6f7681",border:"#e5e7eb",shadow:"rgba(17,19,24,.045)",font:"sans",decor:"grid"},
-  editorial:{name:"编辑杂志",bg:["#f4efe6","#f1ebe1","#ebe3d7"],card:"#fffdf8",ink:"#181714",text:"#504c45",muted:"#7f796f",pale:"#a39b8f",line:"#e3d9ca",track:"#eee6da",accent:"#b13d2f",accent2:"#d16b55",gold:"#8a6538",border:"#d9cdbd",shadow:"rgba(55,39,24,.055)",font:"serif",decor:"editorial"},
-  energy:{name:"动感渐变",bg:["#f2efff","#edf5ff","#fff4f1"],card:"rgba(255,255,255,.94)",ink:"#17162a",text:"#57536b",muted:"#8d88a1",pale:"#aaa4ba",line:"#e4def6",track:"#ebe7f5",accent:"#6d4aff",accent2:"#ff6b75",gold:"#f08a4b",border:"#ddd5f6",shadow:"rgba(70,50,150,.09)",font:"sans",decor:"energy"},
-  envelope:{name:"信封怀旧",bg:["#efe1c9","#ead9bd","#e6d2b2"],card:"#fffaf0",ink:"#3c3026",text:"#66584d",muted:"#938477",pale:"#ad9c8b",line:"#ddcbb0",track:"#eadcc6",accent:"#9b3f35",accent2:"#c7775d",gold:"#a8753e",border:"#d8c29e",shadow:"rgba(80,50,25,.10)",font:"serif",decor:"envelope"}
+  editorial:{name:"编辑杂志",bg:["#f1eee7","#ebe6dc","#e2ddd3"],card:"#fffefa",ink:"#11110f",text:"#48443e",muted:"#777168",pale:"#9e968a",line:"#ddd3c5",track:"#eee7dd",accent:"#8f342d",accent2:"#a8554c",gold:"#806b55",border:"#d4c8b8",shadow:"rgba(40,32,22,.05)",font:"serif",decor:"editorial"},
+  energy:{name:"动感渐变",bg:["#252132","#342e42","#51495e"],card:"rgba(252,251,253,.97)",ink:"#24202d",text:"#5d5867",muted:"#88828f",pale:"#aaa4b0",line:"#e5e1e9",track:"#efedf2",accent:"#75688f",accent2:"#9387a8",gold:"#a59bad",border:"#d9d3df",shadow:"rgba(28,22,38,.16)",font:"sans",decor:"energy"},
+  envelope:{name:"信封怀旧",bg:["#d7c3a5","#cdb797","#bea787"],card:"#fffaf0",ink:"#3b342d",text:"#675e55",muted:"#8b8176",pale:"#a69a8c",line:"#ddcdb8",track:"#eadfce",accent:"#5b7180",accent2:"#82939e",gold:"#8f785d",border:"#d0bb9d",shadow:"rgba(66,50,34,.12)",font:"serif",decor:"envelope"}
 };
 let reportStyle = "soft", REPORT_THEME_ACTIVE = REPORT_STYLES.soft;
 function rr(ctx,x,y,w,h,r){
@@ -2443,15 +2443,26 @@ function wrapText(ctx,text,x,y,maxW,lh){
 }
 function card(ctx,x,y,w,h){
   const t = REPORT_THEME_ACTIVE;
-  const editorial = t.decor === "editorial";
+  const editorial = t.decor === "editorial", energy = t.decor === "energy", envelope = t.decor === "envelope";
+  const radius = editorial ? 2 : (envelope ? 7 : (energy ? 26 : 20));
   ctx.save();
   ctx.shadowColor = t.shadow;
-  ctx.shadowBlur = editorial ? 7 : (t.decor === "minimal" ? 8 : 18);
-  ctx.shadowOffsetY = editorial ? 2 : 6;
-  ctx.fillStyle = t.card; rr(ctx,x,y,w,h,editorial ? 3 : 20); ctx.fill();
+  ctx.shadowBlur = editorial ? 5 : (envelope ? 10 : (t.decor === "minimal" ? 8 : 18));
+  ctx.shadowOffsetY = editorial ? 1 : (envelope ? 3 : 6);
+  ctx.fillStyle = t.card; rr(ctx,x,y,w,h,radius); ctx.fill();
   ctx.restore();
-  if(t.decor === "envelope" || editorial){
-    ctx.strokeStyle = t.border; ctx.lineWidth = 1; rr(ctx,x,y,w,h,editorial ? 3 : 20); ctx.stroke();
+  if(editorial){
+    ctx.save(); ctx.strokeStyle = t.border; ctx.lineWidth = 1;
+    rr(ctx,x,y,w,h,radius); ctx.stroke(); ctx.restore();
+  }else if(envelope){
+    ctx.save(); ctx.strokeStyle = t.border; ctx.lineWidth = 1.2; ctx.setLineDash([7,5]);
+    rr(ctx,x,y,w,h,radius); ctx.stroke(); ctx.restore();
+  }else if(energy){
+    ctx.save();
+    const edge = ctx.createLinearGradient(x,y,x+w,y);
+    edge.addColorStop(0,t.accent); edge.addColorStop(.55,t.accent2); edge.addColorStop(1,t.gold);
+    ctx.fillStyle = edge; rr(ctx,x+20,y,x+w-(x+20)-20,4,2); ctx.fill();
+    ctx.restore();
   }
 }
 function reportSectionTitle(ctx,label,x,y,no){
@@ -2464,9 +2475,28 @@ function reportSectionTitle(ctx,label,x,y,no){
     const start = x + Math.max(150,ctx.measureText(label).width+58);
     ctx.strokeStyle = t.border; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(start,y-6); ctx.lineTo(x+596,y-6); ctx.stroke();
+  }else if(t.decor === "energy"){
+    const grad = ctx.createLinearGradient(x,y-21,x+38,y+5);
+    grad.addColorStop(0,t.accent); grad.addColorStop(1,t.accent2);
+    ctx.fillStyle = grad; rr(ctx,x,y-24,36,28,14); ctx.fill();
+    ctx.textAlign = "center"; ctx.fillStyle = "#fff"; ctx.font = F(12,800);
+    ctx.fillText(String(no).padStart(2,"0"),x+18,y-5); ctx.textAlign = "left";
+    ctx.fillStyle = t.ink; ctx.font = F(21,800); ctx.fillText(label,x+50,y);
+  }else if(t.decor === "envelope"){
+    ctx.save(); ctx.strokeStyle = t.accent2; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(x+14,y-8,14,0,Math.PI*2); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillStyle = t.accent; ctx.font = F(11,800);
+    ctx.fillText(String(no).padStart(2,"0"),x+14,y-4); ctx.textAlign = "left";
+    ctx.fillStyle = t.ink; ctx.font = F(20,700); ctx.fillText(label,x+42,y);
+    const lineStart = x + Math.max(148,42+ctx.measureText(label).width+24);
+    ctx.strokeStyle = t.border; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(lineStart,y-7); ctx.lineTo(x+596,y-7); ctx.stroke(); ctx.restore();
   }else{
     ctx.fillStyle = t.ink; ctx.font = F(21,700); ctx.fillText(label,x,y);
   }
+}
+function reportCategoryColor(t,kind){
+  return ["editorial","energy","envelope"].indexOf(t.decor) > -1 ? t.accent : kind.fg;
 }
 
 function drawReport(ctx, W, key, styleId){
@@ -2497,6 +2527,34 @@ function drawReport(ctx, W, key, styleId){
     ctx.beginPath(); ctx.moveTo(P,y); ctx.lineTo(P+IW,y); ctx.stroke(); y += 22;
     ctx.fillStyle = t.muted; ctx.font = F(16,500);
     ctx.fillText("训练 · 节奏 · 恢复 / 一份关于持续成长的月度记录", P, y); y += 34;
+  }else if(t.decor === "energy"){
+    const issue = key.slice(5,7), year = key.slice(0,4);
+    ctx.fillStyle = "rgba(255,255,255,.72)"; ctx.font = F(14,800);
+    ctx.fillText("MONTHLY PERFORMANCE / " + year, P, y);
+    y += 24;
+    const titleGrad = ctx.createLinearGradient(P,y,P+360,y+70);
+    titleGrad.addColorStop(0,"#ffffff"); titleGrad.addColorStop(.56,"#ddd9e5"); titleGrad.addColorStop(1,"#b7afc1");
+    ctx.fillStyle = titleGrad; ctx.font = F(62,900); ctx.fillText("运动月报",P,y+52);
+    const tagGrad = ctx.createLinearGradient(P+IW-126,y,P+IW,y+64);
+    tagGrad.addColorStop(0,t.accent); tagGrad.addColorStop(1,t.accent2);
+    ctx.fillStyle = tagGrad; rr(ctx,P+IW-126,y+2,126,58,29); ctx.fill();
+    ctx.textAlign = "center"; ctx.fillStyle = "#fff"; ctx.font = F(24,900);
+    ctx.fillText(issue + " / MOVE",P+IW-63,y+39); ctx.textAlign = "left";
+    y += 80;
+    ctx.fillStyle = "rgba(255,255,255,.78)"; ctx.font = F(16,600);
+    ctx.fillText("MOVE · BUILD · RECOVER · REPEAT",P,y); y += 38;
+  }else if(t.decor === "envelope"){
+    const issue = key.slice(5,7), year = key.slice(0,4);
+    ctx.fillStyle = t.accent2; ctx.font = F(13,800); ctx.fillText("TO / FUTURE ME",P,y);
+    ctx.fillStyle = t.muted; ctx.font = F(13,600); ctx.fillText("FROM / LIFE OS · " + year + "." + issue,P,y+23);
+    ctx.fillStyle = t.ink; ctx.font = F(54,800); ctx.fillText(Number(issue) + "月训练来信",P,y+82);
+    ctx.save(); ctx.translate(P+IW-64,y+36); ctx.rotate(-.08);
+    ctx.strokeStyle = t.accent; ctx.lineWidth = 2; ctx.strokeRect(-54,-28,108,68);
+    ctx.textAlign = "center"; ctx.fillStyle = t.accent; ctx.font = F(12,800);
+    ctx.fillText("LIFE OS",0,-8); ctx.font = F(18,800); ctx.fillText(issue + " / " + year,0,18); ctx.restore();
+    y += 110;
+    ctx.save(); ctx.strokeStyle = t.accent2; ctx.lineWidth = 2; ctx.setLineDash([10,7]);
+    ctx.beginPath(); ctx.moveTo(P,y); ctx.lineTo(P+IW,y); ctx.stroke(); ctx.restore(); y += 34;
   }else{
     ctx.fillStyle = t.gold; ctx.font = F(20,700);
     ctx.fillText(key.slice(0,4) + " · " + key.slice(5,7), P, y); y += 46;
@@ -2519,6 +2577,14 @@ function drawReport(ctx, W, key, styleId){
       ctx.fillStyle = t.accent; ctx.fillRect(P,y,6,_sh);
       ctx.fillStyle = t.accent; ctx.font = F(13,800); ctx.fillText("EDITOR'S NOTE", P+26, y+34);
       ctx.fillStyle = t.ink; ctx.font = F(17,800); ctx.fillText("本月结论", P+146, y+34);
+    }else if(t.decor === "energy"){
+      const mark = ctx.createLinearGradient(P+26,y,P+184,y);
+      mark.addColorStop(0,t.accent); mark.addColorStop(1,t.accent2);
+      ctx.fillStyle = mark; ctx.font = F(13,900); ctx.fillText("MONTH IN MOTION",P+26,y+35);
+      ctx.fillStyle = t.ink; ctx.font = F(17,800); ctx.fillText("本月结论",P+194,y+35);
+    }else if(t.decor === "envelope"){
+      ctx.fillStyle = t.accent2; ctx.font = F(13,800); ctx.fillText("LETTER SUMMARY",P+26,y+35);
+      ctx.fillStyle = t.accent; ctx.font = F(17,800); ctx.fillText("本月结论",P+172,y+35);
     }else{
       ctx.fillStyle = t.gold; ctx.font = F(17,700); ctx.fillText("本 月 结 论", P+26, y+36);
     }
@@ -2533,8 +2599,12 @@ function drawReport(ctx, W, key, styleId){
     if(t.decor === "editorial"){
       ctx.fillStyle = t.accent; ctx.fillRect(P,y,6,h);
       ctx.fillStyle = t.accent; ctx.font = F(12,800); ctx.fillText("MONTHLY GOAL", P+26, y+31);
+    }else if(t.decor === "energy"){
+      ctx.fillStyle = t.accent2; ctx.font = F(12,900); ctx.fillText("TARGET ZONE",P+26,y+31);
+    }else if(t.decor === "envelope"){
+      ctx.fillStyle = t.accent2; ctx.font = F(12,800); ctx.fillText("NEXT LETTER GOAL",P+26,y+31);
     }
-    const goalShift = t.decor === "editorial" ? 8 : 0;
+    const goalShift = ["editorial","energy","envelope"].indexOf(t.decor) > -1 ? 8 : 0;
     ctx.fillStyle = t.muted; ctx.font = F(18,600);
     ctx.fillText(Number(g.month.slice(5,7)) + " 月目标", P+26, y+40+goalShift);
     ctx.fillStyle = t.text; ctx.font = F(20,500);
@@ -2591,7 +2661,7 @@ function drawReport(ctx, W, key, styleId){
       const kind = TYPES[workoutType(w)], n = Math.min(items.length,4);
       const dotW = Math.min(11, (cw-14)/n - 3);
       const startX = cx + cw/2 - (n*(dotW+3) - 3)/2;
-      ctx.fillStyle = isDone(w) ? kind.fg : t.line;
+      ctx.fillStyle = isDone(w) ? reportCategoryColor(t,kind) : t.line;
       rr(ctx, startX + i*(dotW+3), cy+30, dotW, 7, 3.5); ctx.fill();
     });
     const kc = items.filter(isDone).reduce((a,w) => a + (w.calories||0), 0);
@@ -2613,7 +2683,7 @@ function drawReport(ctx, W, key, styleId){
       ctx.textAlign = "right"; ctx.fillStyle = t.ink; ctx.font = F(17,700);
       ctx.fillText(c.count + " 次 · " + c.pct + "%", P+IW-26, ly+14); ctx.textAlign = "left";
       ctx.fillStyle = t.track; rr(ctx,P+26,ly+24,IW-52,8,4); ctx.fill();
-      if(c.pct){ ctx.fillStyle = kind.fg; rr(ctx,P+26,ly+24,(IW-52)*c.pct/100,8,4); ctx.fill(); }
+      if(c.pct){ ctx.fillStyle = reportCategoryColor(t,kind); rr(ctx,P+26,ly+24,(IW-52)*c.pct/100,8,4); ctx.fill(); }
     });
     ctx.fillStyle = t.line; ctx.fillRect(P+26,y+70+rowsData.length*42,IW-52,1);
     ctx.fillStyle = t.text; ctx.font = F(16,500);
@@ -2658,11 +2728,12 @@ function drawReport(ctx, W, key, styleId){
     if(weekVals.length){
       const bh = 250; card(ctx,P,y,IW,bh);
       reportSectionTitle(ctx,"热量记录",P+26,y+42,4);
-      if(t.decor === "editorial"){
+      const themedHeading = ["editorial","energy","envelope"].indexOf(t.decor) > -1;
+      if(t.decor === "editorial" || t.decor === "envelope"){
         ctx.fillStyle = t.card; ctx.fillRect(P+456,y+24,192,24);
       }
       ctx.fillStyle = t.muted; ctx.font = F(15,400);
-      ctx.fillText("辅助参考 · 按周汇总", t.decor === "editorial" ? P+470 : P+132, y+42);
+      ctx.fillText("辅助参考 · 按周汇总", themedHeading ? P+470 : P+132, y+42);
       const vals = weeks.map(w => w.kcal);
       const max = Math.max.apply(null, vals);
       const base = y + bh - 46, avail = IW - 60;
@@ -2692,17 +2763,32 @@ function drawReport(ctx, W, key, styleId){
   if(top){
     const items = top.items;
     const hh = 130 + items.length*38 + 14;
-    const editorial = t.decor === "editorial";
+    const editorial = t.decor === "editorial", energy = t.decor === "energy", envelope = t.decor === "envelope";
+    const hiRadius = editorial ? 2 : (envelope ? 7 : (energy ? 26 : 20));
     ctx.save();
-    ctx.shadowColor = t.shadow; ctx.shadowBlur = editorial ? 7 : 20; ctx.shadowOffsetY = editorial ? 2 : 8;
+    ctx.shadowColor = t.shadow; ctx.shadowBlur = editorial ? 5 : (envelope ? 10 : 20); ctx.shadowOffsetY = editorial ? 1 : 8;
     const grad = ctx.createLinearGradient(P, y, P+IW, y+hh);
-    grad.addColorStop(0,t.card); grad.addColorStop(1,editorial ? t.card : t.bg[2]);
-    ctx.fillStyle = grad; rr(ctx,P,y,IW,hh,editorial ? 3 : 20); ctx.fill(); ctx.restore();
-    ctx.strokeStyle = t.border; ctx.lineWidth = 1; rr(ctx,P,y,IW,hh,editorial ? 3 : 20); ctx.stroke();
+    if(energy){ grad.addColorStop(0,"#ebe8ef"); grad.addColorStop(.52,"#f8f7f9"); grad.addColorStop(1,"#e3dfe8"); }
+    else if(envelope){ grad.addColorStop(0,t.card); grad.addColorStop(1,"#f3e4cb"); }
+    else{ grad.addColorStop(0,t.card); grad.addColorStop(1,editorial ? t.card : t.bg[2]); }
+    ctx.fillStyle = grad; rr(ctx,P,y,IW,hh,hiRadius); ctx.fill(); ctx.restore();
+    ctx.save(); ctx.strokeStyle = t.border; ctx.lineWidth = 1;
+    if(envelope) ctx.setLineDash([7,5]); rr(ctx,P,y,IW,hh,hiRadius); ctx.stroke(); ctx.restore();
     if(editorial){
       ctx.fillStyle = t.accent; ctx.fillRect(P,y,IW,6);
       ctx.fillStyle = t.accent; ctx.font = F(13,800); ctx.fillText("05 / COVER STORY", P+26, y+40);
       ctx.fillStyle = t.ink; ctx.font = F(16,800); ctx.fillText("本月高光", P+170, y+40);
+    }else if(energy){
+      const peak = ctx.createLinearGradient(P+26,y,P+204,y);
+      peak.addColorStop(0,t.accent); peak.addColorStop(1,t.accent2);
+      ctx.fillStyle = peak; rr(ctx,P+26,y+22,174,28,14); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.font = F(12,900); ctx.fillText("05 / PEAK MOMENT",P+42,y+41);
+      ctx.fillStyle = t.ink; ctx.font = F(16,800); ctx.fillText("本月高光",P+216,y+41);
+    }else if(envelope){
+      ctx.fillStyle = t.accent2; ctx.font = F(12,800); ctx.fillText("05 / POSTCARD HIGHLIGHT",P+26,y+40);
+      ctx.save(); ctx.translate(P+IW-54,y+38); ctx.rotate(-.12);
+      ctx.strokeStyle = t.accent; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(0,0,24,0,Math.PI*2); ctx.stroke();
+      ctx.textAlign = "center"; ctx.fillStyle = t.accent; ctx.font = F(9,800); ctx.fillText("HIGHLIGHT",0,3); ctx.restore();
     }else{
       ctx.fillStyle = t.gold; ctx.font = F(15,700); ctx.fillText("本 月 高 光", P+26, y+40);
     }
@@ -2738,10 +2824,19 @@ function drawReport(ctx, W, key, styleId){
 
   // 页脚
   ctx.textAlign = "center";
-  ctx.fillStyle = t.gold; ctx.font = F(15,600);
-  ctx.fillText("2026 LIFE OS", W/2, y); y += 28;
-  ctx.fillStyle = t.pale; ctx.font = F(15,400);
-  ctx.fillText("把每一次训练，留下来。", W/2, y); y += 24;
+  if(t.decor === "editorial"){
+    ctx.fillStyle = t.accent; ctx.font = F(13,800); ctx.fillText("END OF ISSUE / 2026 LIFE OS",W/2,y); y += 28;
+    ctx.fillStyle = t.pale; ctx.font = F(14,400); ctx.fillText("记录不是总结，而是下一期的开始。",W/2,y); y += 24;
+  }else if(t.decor === "energy"){
+    ctx.fillStyle = "rgba(255,255,255,.92)"; ctx.font = F(19,900); ctx.fillText("KEEP MOVING",W/2,y); y += 28;
+    ctx.fillStyle = "rgba(255,255,255,.62)"; ctx.font = F(14,600); ctx.fillText("BUILD · RECOVER · REPEAT",W/2,y); y += 24;
+  }else if(t.decor === "envelope"){
+    ctx.fillStyle = t.accent2; ctx.font = F(15,700); ctx.fillText("YOURS, LIFE OS",W/2,y); y += 28;
+    ctx.fillStyle = t.muted; ctx.font = F(15,400); ctx.fillText("寄给未来的自己。",W/2,y); y += 24;
+  }else{
+    ctx.fillStyle = t.gold; ctx.font = F(15,600); ctx.fillText("2026 LIFE OS", W/2, y); y += 28;
+    ctx.fillStyle = t.pale; ctx.font = F(15,400); ctx.fillText("把每一次训练，留下来。", W/2, y); y += 24;
+  }
   ctx.textAlign = "left";
   return y;
 }
@@ -2759,15 +2854,33 @@ function paintReportBackground(ctx,W,H,t){
     for(let x=24;x<W;x+=24){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
     for(let y=24;y<H;y+=24){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
   }else if(t.decor === "editorial"){
-    ctx.fillStyle=t.accent; ctx.fillRect(0,0,12,H); ctx.fillRect(W-12,0,12,H);
-    ctx.strokeStyle=t.border; ctx.lineWidth=1; ctx.beginPath();ctx.moveTo(30,0);ctx.lineTo(30,H);ctx.stroke();
+    ctx.fillStyle=t.accent; ctx.fillRect(0,0,10,H);
+    ctx.fillStyle=t.ink; ctx.fillRect(W-10,0,10,H);
+    ctx.strokeStyle=t.border; ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(28,0);ctx.lineTo(28,H);ctx.moveTo(W-28,0);ctx.lineTo(W-28,H);ctx.stroke();
+    ctx.fillStyle=t.accent;
+    for(let yy=120;yy<H;yy+=360) ctx.fillRect(14,yy,8,54);
   }else if(t.decor === "energy"){
-    ctx.globalAlpha=.12; ctx.fillStyle=t.accent; ctx.beginPath();ctx.arc(W+30,80,250,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle=t.accent2; ctx.beginPath();ctx.arc(-50,H*.48,180,0,Math.PI*2);ctx.fill();
+    ctx.globalAlpha=.22;
+    const g1=ctx.createRadialGradient(W*.82,120,8,W*.82,120,290); g1.addColorStop(0,"#9a90aa"); g1.addColorStop(1,"#9a90aa00"); ctx.fillStyle=g1; ctx.fillRect(0,0,W,500);
+    const g2=ctx.createRadialGradient(40,H*.52,8,40,H*.52,260); g2.addColorStop(0,"#756b86"); g2.addColorStop(1,"#756b8600"); ctx.fillStyle=g2; ctx.fillRect(0,H*.42,W,520);
+    ctx.globalAlpha=.12; ctx.strokeStyle="#ffffff"; ctx.lineWidth=1;
+    for(let yy=-W;yy<H;yy+=92){ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(W,yy+W*.42);ctx.stroke();}
+    ctx.globalAlpha=.95;
+    let ribbon=ctx.createLinearGradient(0,0,W,0); ribbon.addColorStop(0,t.accent); ribbon.addColorStop(.55,t.accent2); ribbon.addColorStop(1,t.gold);
+    ctx.fillStyle=ribbon; ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(W,0);ctx.lineTo(W,12);ctx.lineTo(0,34);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(0,H-18);ctx.lineTo(W,H-40);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
   }else if(t.decor === "envelope"){
-    ctx.strokeStyle=t.accent; ctx.lineWidth=7; ctx.setLineDash([18,12]); ctx.strokeRect(18,18,W-36,H-36); ctx.setLineDash([]);
-    ctx.strokeStyle=t.gold; ctx.lineWidth=2; ctx.beginPath();ctx.arc(W-95,82,42,0,Math.PI*2);ctx.stroke();
-    ctx.font=F(13,700);ctx.fillStyle=t.gold;ctx.textAlign="center";ctx.fillText("LIFE OS",W-95,78);ctx.fillText("MONTHLY",W-95,96);ctx.textAlign="left";
+    const stripe=26;
+    for(let x=12,i=0;x<W-12;x+=stripe,i++){
+      ctx.fillStyle=i%2?t.accent2:t.accent;
+      ctx.beginPath();ctx.moveTo(x,12);ctx.lineTo(Math.min(x+18,W-12),12);ctx.lineTo(Math.min(x+8,W-12),22);ctx.lineTo(Math.max(12,x-10),22);ctx.closePath();ctx.fill();
+      ctx.beginPath();ctx.moveTo(x,H-22);ctx.lineTo(Math.min(x+18,W-12),H-22);ctx.lineTo(Math.min(x+8,W-12),H-12);ctx.lineTo(Math.max(12,x-10),H-12);ctx.closePath();ctx.fill();
+    }
+    for(let yy=28,i=0;yy<H-28;yy+=30,i++){
+      ctx.fillStyle=i%2?t.accent:t.accent2; ctx.fillRect(12,yy,10,20); ctx.fillRect(W-22,yy,10,20);
+    }
+    ctx.strokeStyle="rgba(255,250,240,.72)"; ctx.lineWidth=2; ctx.strokeRect(28,28,W-56,H-56);
   }
   ctx.restore();
 }
