@@ -155,6 +155,10 @@ button{font:inherit}
 .total{margin-top:16px;padding-top:14px;border-top:1px solid #eee;display:flex;justify-content:space-between;align-items:baseline}
 .total b{font-size:26px;font-weight:800}
 #reportImg{width:100%;border-radius:14px;display:block;box-shadow:0 8px 30px #0000001a}
+.report-style-picker{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 10px;margin:0 28px 8px 0;scrollbar-width:none}
+.report-style-picker::-webkit-scrollbar{display:none}
+.report-style-picker button{flex:none;border:1px solid #ddd9e5;background:#fff;color:#777b86;border-radius:999px;padding:7px 11px;font:600 11px inherit;cursor:pointer;transition:.15s}
+.report-style-picker button.active{border-color:var(--ac);background:var(--ac-l);color:var(--ac-d);box-shadow:0 0 0 2px var(--ac-r)}
 .report-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
 .report-hint{font-size:11px;color:#8b8f99;margin:10px 0 0}
 .loading{padding:40px;color:#8b8f99;font-size:13px}
@@ -1053,21 +1057,24 @@ let bodyData    = [];
 let goalData    = [];
 let EXTRA_MONTHS = [];
 
-/* 训练类型字典：全部课程收成四大类，具体课程名写在每条记录的 name 里 */
+/* 训练类型与具体训练项目分开：类型固定为五类，项目名称保留在每条记录的 name 中 */
 const TYPES = {
-  run:      {label:"跑步",     emoji:"🏃", cls:"run",      bg:"#dff1d8", fg:"#39743a"},
-  strength: {label:"力量训练", emoji:"💪", cls:"strength", bg:"#f7d5e8", fg:"#963b76"},
-  cardio:   {label:"耐力/有氧", emoji:"🔥", cls:"cardio",   bg:"#ffdcae", fg:"#965b19"},
-  yoga:     {label:"瑜伽恢复", emoji:"🧘", cls:"yoga",     bg:"#dce9f7", fg:"#37658b"}
+  strength: {label:"力量", emoji:"💪", cls:"strength", bg:"#f7d5e8", fg:"#963b76"},
+  hyrox:    {label:"HYROX", emoji:"🔥", cls:"hyrox", bg:"#ffe0c2", fg:"#b55a16"},
+  run:      {label:"跑步", emoji:"🏃🏻‍♀️", cls:"run", bg:"#dff1d8", fg:"#39743a"},
+  cardio:   {label:"有氧", emoji:"❤️", cls:"cardio", bg:"#ffe1e5", fg:"#b84a58"},
+  recovery: {label:"恢复", emoji:"🧘🏻‍♀️", cls:"recovery", bg:"#dce9f7", fg:"#37658b"}
 };
+const TYPE_ORDER = ["hyrox","strength","cardio","run","recovery"];
 
-/* 日历筛选：与四大类一一对应 */
+/* 日历筛选：训练类型和训练项目保持独立 */
 const FILTERS = [
-  {key:"all",      label:"全部",         types:null},
-  {key:"run",      label:"🏃 跑步",      types:["run"]},
-  {key:"strength", label:"💪 力量训练",  types:["strength"]},
-  {key:"cardio",   label:"🔥 耐力/有氧", types:["cardio"]},
-  {key:"yoga",     label:"🧘 瑜伽恢复",  types:["yoga"]}
+  {key:"all", label:"全部", types:null},
+  {key:"strength", label:"💪 力量", types:["strength"]},
+  {key:"hyrox", label:"🔥 HYROX", types:["hyrox"]},
+  {key:"run", label:"🏃🏻‍♀️ 跑步", types:["run"]},
+  {key:"cardio", label:"❤️ 有氧", types:["cardio"]},
+  {key:"recovery", label:"🧘🏻‍♀️ 恢复", types:["recovery"]}
 ];
 
 /* 导航（已移除日记 / 旅行） */
@@ -1120,12 +1127,17 @@ let dataState = {source:"default", dirty:false, updatedAt:null, remoteAt:null};
 function sortWorkouts(list){
   return list.slice().sort((a,b) => a.date === b.date ? 0 : (a.date < b.date ? -1 : 1));
 }
-/* 旧数据兼容：以前的八个类型合并成四大类，本机旧草稿也能正常打开 */
-const LEGACY_TYPE = {fight:"cardio", mixed:"cardio", endurance:"cardio", aerobic:"cardio", complete:"cardio", basic:"cardio"};
+/* 旧数据兼容：HYROX 曾记录为 cardio，瑜伽/拉伸等曾记录为 yoga */
+const LEGACY_TYPE = {fight:"cardio", mixed:"cardio", endurance:"cardio", aerobic:"cardio", complete:"cardio", basic:"cardio", yoga:"recovery"};
 function normType(t){ return TYPES[t] ? t : (LEGACY_TYPE[t] || "cardio"); }
+function workoutType(w){
+  const name = String(w && w.name || "").toLowerCase();
+  if(name.indexOf("hyrox") > -1) return "hyrox";
+  return normType(w && w.type);
+}
 function applyData(d){
   d = d || {};
-  workoutData  = sortWorkouts(d.workouts || []).map(w => Object.assign({}, w, {id: w.id || uid("w"), type: normType(w.type)}));
+  workoutData  = sortWorkouts(d.workouts || []).map(w => Object.assign({}, w, {id: w.id || uid("w"), type: workoutType(w)}));
   bodyData     = (d.body  || []).map(b => Object.assign({}, b, {id: b.id || uid("b")}));
   goalData     = (d.goals || []).map(g => Object.assign({}, g, {id: g.id || uid("g")}));
   EXTRA_MONTHS = d.extraMonths || [];
@@ -1443,8 +1455,72 @@ function stats(key){
 }
 function typeCounts(list){
   const m = {};
-  list.forEach(w => { m[w.type] = (m[w.type] || 0) + 1; });
-  return Object.keys(m).sort((a,b) => m[b]-m[a]).map(k => ({type:k, count:m[k]}));
+  list.forEach(w => { const type = workoutType(w); m[type] = (m[type] || 0) + 1; });
+  return TYPE_ORDER.filter(k => m[k]).map(k => ({type:k, count:m[k]}));
+}
+function monthContinuity(key, done){
+  const yy = Number(key.slice(0,4)), mm = Number(key.slice(5,7));
+  const total = new Date(yy,mm,0).getDate();
+  const now = new Date();
+  const currentKey = now.getFullYear() + "-" + pad2(now.getMonth()+1);
+  const observed = key === currentKey ? Math.min(now.getDate(), total) : total;
+  const trained = new Set(done.map(w => Number(w.date.slice(8,10))).filter(d => d >= 1 && d <= observed));
+  let longest = 0, run = 0;
+  for(let d=1; d<=observed; d++){
+    if(trained.has(d)){ run++; longest = Math.max(longest,run); }
+    else run = 0;
+  }
+  return {trained:trained.size, rest:Math.max(0,observed-trained.size), longest:longest, observed:observed};
+}
+function representativeHighlight(s){
+  const grouped = byDate(s.done);
+  let best = null;
+  Object.keys(grouped).forEach(date => {
+    const items = grouped[date];
+    const hyrox = items.filter(w => workoutType(w) === "hyrox").length;
+    const pr = items.filter(w => /(^|\b)pr(\b|$)|纪录|最佳/i.test((w.name||"") + " " + (w.detail||""))).length;
+    const kcal = items.reduce((a,w) => a + (w.calories||0),0);
+    const score = (items.length >= 3 ? 300 + items.length*30 : items.length*20) + hyrox*45 + pr*80 + kcal/10000;
+    let reason = items.length >= 3 ? CN_NUM[items.length] + "练同日完成" : hyrox ? "完成 HYROX" : pr ? "创造新纪录" : "稳定完成训练";
+    if(items.length >= 3 && hyrox) reason += "，包含 " + hyrox + " 次 HYROX";
+    if(pr) reason += "，并创造 PR";
+    const cur = {date:date,count:items.length,kcal:kcal,items:items,hyrox:hyrox,pr:pr,score:score,reason:reason};
+    if(!best || cur.score > best.score) best = cur;
+  });
+  return best;
+}
+function monthAnalysis(key){
+  const s = stats(key), counts = typeCounts(s.done);
+  const structure = TYPE_ORDER.map(type => {
+    const found = counts.find(c => c.type === type);
+    const count = found ? found.count : 0;
+    return {type:type,count:count,pct:s.sessions ? Math.round(count/s.sessions*100) : 0};
+  });
+  const ranked = structure.filter(x => x.count).slice().sort((a,b) => b.count-a.count);
+  const lead = ranked.slice(0,2).map(x => TYPES[x.type].label).join("和");
+  const strength = structure.find(x => x.type === "strength");
+  const recovery = structure.find(x => x.type === "recovery");
+  let observation = lead ? "本月训练以" + lead + "为主" : "本月训练结构待形成";
+  if(strength && strength.pct < 20) observation += "，力量训练相对较少";
+  else if(recovery && recovery.pct < 8) observation += "，恢复安排相对较少";
+  else observation += "，整体结构较均衡";
+  observation += "。";
+  const continuity = monthContinuity(key,s.done);
+  const highlight = representativeHighlight(s);
+  const g = goalData.find(x => x.month === key);
+  let conclusion = Number(key.slice(5,7)) + "月，你一共完成 " + s.sessions + " 次训练，" + s.days + " 天保持运动。" + observation;
+  if(g){
+    const current = goalCurrent(g), gap = goalGap(g);
+    if(current && current !== "待记录") conclusion += g.metric + "来到 " + current + (gap ? "，距离 " + g.target + " 的目标" + gap.replace(/^还差/,"还差") : "，已达到目标") + "。";
+  }
+  const suggestions = [];
+  if(strength && strength.pct < 20) suggestions.push("力量训练适当增加，补足基础能力");
+  else suggestions.push("保持当前力量训练节奏");
+  const hyrox = structure.find(x => x.type === "hyrox");
+  if(hyrox && hyrox.count) suggestions.push("HYROX 保持稳定，不以热量作为加量依据");
+  if(recovery && recovery.pct < 10) suggestions.push("安排恢复日，让休息成为训练的一部分");
+  else suggestions.push("继续保留恢复与休息节奏");
+  return {stats:s,structure:structure,observation:observation,continuity:continuity,highlight:highlight,conclusion:conclusion,suggestions:suggestions.slice(0,3)};
 }
 
 /* ==========================================================
@@ -1669,7 +1745,7 @@ function renderGoal(el){
 function renderDist(el, key){
   const counts = typeCounts(inMonth(key).filter(isDone));
   if(!counts.length){ el.innerHTML = '<div class="empty-tip">这个月还没有训练记录</div>'; return; }
-  const max = counts[0].count;
+  const max = Math.max.apply(null, counts.map(c => c.count));
   el.innerHTML = counts.map(c => {
     const t = TYPES[c.type];
     return '<div><div class="dl"><span>' + t.emoji + ' ' + t.label + '</span><b>' + c.count + ' 次</b></div>' +
@@ -1708,18 +1784,18 @@ function renderUpcoming(){
 function renderHighlight(){
   const s = stats(activeMonth);
   const el = $("highlightCard");
-  if(!s.top){ el.innerHTML = '<h2>本月高光</h2><div class="empty-tip">这个月还没有训练记录</div>'; return; }
-  const items = byDate(s.done)[s.top.date];
+  const top = representativeHighlight(s);
+  if(!top){ el.innerHTML = '<h2>本月高光</h2><div class="empty-tip">这个月还没有训练记录</div>'; return; }
   el.innerHTML =
-    '<div class="hl-top"><span class="hl-tag">本月高光</span><span class="hl-date">' + mdLabel(s.top.date) +
-      ' · ' + CN_NUM[s.top.count] + '练</span></div>' +
-    '<div class="hl-kcal">' + num(s.top.kcal) + '<span>kcal · 当天合计</span></div>' +
-    '<div class="hl-items">' + items.map(w => {
-      const t = TYPES[w.type];
+    '<div class="hl-top"><span class="hl-tag">本月高光</span><span class="hl-date">' + mdLabel(top.date) +
+      ' · ' + CN_NUM[top.count] + '练</span></div>' +
+    '<div class="hl-kcal">' + top.reason + '<span>' + (top.kcal ? num(top.kcal) + ' kcal · 辅助记录' : '代表性训练日') + '</span></div>' +
+    '<div class="hl-items">' + top.items.map(w => {
+      const type = workoutType(w), t = TYPES[type];
       const sub = metricTags(w).join(" · ") || "已完成";
       return '<div class="hl-item"><b>' + t.emoji + ' ' + w.name + '</b><small>' + sub + '</small></div>';
     }).join("") + '</div>' +
-    '<div class="note">同一天里把力量、跑步和有氧连起来完成，是这个月目前最有代表性的一天。</div>';
+    '<div class="note">' + top.reason + '，是这个月最有代表性的一天。</div>';
 }
 
 /* 当月看到今天为止；翻到过去的月份则取那个月最后一次训练 */
@@ -2335,6 +2411,14 @@ function renderManage(){
 /* ==========================================================
    4. 月报长图（canvas 生成，可保存到手机相册）
    ========================================================== */
+const REPORT_STYLES = {
+  soft:{name:"柔光渐变",bg:["#faf7f1","#f6f4f0","#f3f0f7"],card:"#ffffff",ink:"#1d1f26",text:"#5b6070",muted:"#9298a4",pale:"#a9a396",line:"#f0ece2",track:"#f2efe9",accent:"#8b5cf6",accent2:"#a78bfa",gold:"#c9a96e",border:"#efe4d2",shadow:"rgba(30,25,15,.06)",font:"sans",decor:"glow"},
+  minimal:{name:"留白极简",bg:["#f7f8fa","#f7f8fa","#f7f8fa"],card:"#ffffff",ink:"#111318",text:"#555b66",muted:"#8b929e",pale:"#aeb4bd",line:"#e8eaee",track:"#eef0f3",accent:"#17191f",accent2:"#515762",gold:"#6f7681",border:"#e5e7eb",shadow:"rgba(17,19,24,.045)",font:"sans",decor:"grid"},
+  editorial:{name:"编辑杂志",bg:["#f4efe6","#f1ebe1","#ebe3d7"],card:"#fffdf8",ink:"#181714",text:"#504c45",muted:"#7f796f",pale:"#a39b8f",line:"#e3d9ca",track:"#eee6da",accent:"#b13d2f",accent2:"#d16b55",gold:"#8a6538",border:"#d9cdbd",shadow:"rgba(55,39,24,.055)",font:"serif",decor:"editorial"},
+  energy:{name:"动感渐变",bg:["#f2efff","#edf5ff","#fff4f1"],card:"rgba(255,255,255,.94)",ink:"#17162a",text:"#57536b",muted:"#8d88a1",pale:"#aaa4ba",line:"#e4def6",track:"#ebe7f5",accent:"#6d4aff",accent2:"#ff6b75",gold:"#f08a4b",border:"#ddd5f6",shadow:"rgba(70,50,150,.09)",font:"sans",decor:"energy"},
+  envelope:{name:"信封怀旧",bg:["#efe1c9","#ead9bd","#e6d2b2"],card:"#fffaf0",ink:"#3c3026",text:"#66584d",muted:"#938477",pale:"#ad9c8b",line:"#ddcbb0",track:"#eadcc6",accent:"#9b3f35",accent2:"#c7775d",gold:"#a8753e",border:"#d8c29e",shadow:"rgba(80,50,25,.10)",font:"serif",decor:"envelope"}
+};
+let reportStyle = "soft", REPORT_THEME_ACTIVE = REPORT_STYLES.soft;
 function rr(ctx,x,y,w,h,r){
   ctx.beginPath();
   ctx.moveTo(x+r,y);
@@ -2342,7 +2426,12 @@ function rr(ctx,x,y,w,h,r){
   ctx.arcTo(x,y+h,x,y,r);     ctx.arcTo(x,y,x+w,y,r);
   ctx.closePath();
 }
-function F(size,weight){ return (weight||400) + " " + size + 'px -apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif'; }
+function F(size,weight){
+  const family = REPORT_THEME_ACTIVE.font === "serif"
+    ? '"Songti SC","Noto Serif SC",Georgia,serif'
+    : '-apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif';
+  return (weight||400) + " " + size + "px " + family;
+}
 function wrapText(ctx,text,x,y,maxW,lh){
   let line = "", cy = y;
   for(const ch of text){
@@ -2353,77 +2442,128 @@ function wrapText(ctx,text,x,y,maxW,lh){
   return cy + lh;
 }
 function card(ctx,x,y,w,h){
+  const t = REPORT_THEME_ACTIVE;
+  const editorial = t.decor === "editorial";
   ctx.save();
-  ctx.shadowColor = "rgba(30,25,15,.06)"; ctx.shadowBlur = 18; ctx.shadowOffsetY = 6;
-  ctx.fillStyle = "#ffffff"; rr(ctx,x,y,w,h,20); ctx.fill();
+  ctx.shadowColor = t.shadow;
+  ctx.shadowBlur = editorial ? 7 : (t.decor === "minimal" ? 8 : 18);
+  ctx.shadowOffsetY = editorial ? 2 : 6;
+  ctx.fillStyle = t.card; rr(ctx,x,y,w,h,editorial ? 3 : 20); ctx.fill();
   ctx.restore();
+  if(t.decor === "envelope" || editorial){
+    ctx.strokeStyle = t.border; ctx.lineWidth = 1; rr(ctx,x,y,w,h,editorial ? 3 : 20); ctx.stroke();
+  }
+}
+function reportSectionTitle(ctx,label,x,y,no){
+  const t = REPORT_THEME_ACTIVE;
+  if(t.decor === "editorial"){
+    ctx.fillStyle = t.accent; ctx.font = F(13,800);
+    ctx.fillText(String(no).padStart(2,"0"),x,y);
+    ctx.fillStyle = t.ink; ctx.font = F(20,800);
+    ctx.fillText(label,x+38,y);
+    const start = x + Math.max(150,ctx.measureText(label).width+58);
+    ctx.strokeStyle = t.border; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(start,y-6); ctx.lineTo(x+596,y-6); ctx.stroke();
+  }else{
+    ctx.fillStyle = t.ink; ctx.font = F(21,700); ctx.fillText(label,x,y);
+  }
 }
 
-function drawReport(ctx, W, key){
+function drawReport(ctx, W, key, styleId){
+  REPORT_THEME_ACTIVE = REPORT_STYLES[styleId] || REPORT_STYLES.soft;
+  const t = REPORT_THEME_ACTIVE;
   const P = 46, IW = W - P*2;
-  const s = stats(key);
+  const analysis = monthAnalysis(key);
+  const s = analysis.stats;
   const g = goalData.find(x => x.month === key);
   let y = 62;
 
   // 头部
-  ctx.textAlign = "left"; ctx.fillStyle = "#c9a96e"; ctx.font = F(20,700);
-  ctx.fillText(key.slice(0,4) + " · " + key.slice(5,7), P, y); y += 46;
-  ctx.fillStyle = "#1d1f26"; ctx.font = F(54,800);
-  ctx.fillText("运动月报", P, y); y += 28;
-  ctx.fillStyle = "#8a8479"; ctx.font = F(19,400);
-  ctx.fillText("2026 Life OS · 运动成长档案", P, y); y += 22;
-  ctx.strokeStyle = "#e4d9c4"; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(P, y); ctx.lineTo(P + 62, y); ctx.stroke(); y += 34;
+  ctx.textAlign = "left";
+  if(t.decor === "editorial"){
+    const issue = key.slice(5,7), year = key.slice(0,4);
+    ctx.fillStyle = t.accent; ctx.font = F(14,800);
+    ctx.fillText("LIFE OS / MONTHLY JOURNAL", P, y);
+    ctx.textAlign = "right"; ctx.fillStyle = t.muted; ctx.font = F(13,700);
+    ctx.fillText("ISSUE " + issue + "  ·  " + year, P+IW, y); ctx.textAlign = "left";
+    y += 24;
+    ctx.fillStyle = t.ink; ctx.font = F(62,900);
+    ctx.fillText("运动月报", P, y+48);
+    ctx.fillStyle = t.accent; ctx.fillRect(P+IW-116,y+4,116,54);
+    ctx.textAlign = "center"; ctx.fillStyle = t.card; ctx.font = F(27,900);
+    ctx.fillText(issue + " 月", P+IW-58, y+40); ctx.textAlign = "left";
+    y += 78;
+    ctx.strokeStyle = t.ink; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(P,y); ctx.lineTo(P+IW,y); ctx.stroke(); y += 22;
+    ctx.fillStyle = t.muted; ctx.font = F(16,500);
+    ctx.fillText("训练 · 节奏 · 恢复 / 一份关于持续成长的月度记录", P, y); y += 34;
+  }else{
+    ctx.fillStyle = t.gold; ctx.font = F(20,700);
+    ctx.fillText(key.slice(0,4) + " · " + key.slice(5,7), P, y); y += 46;
+    ctx.fillStyle = t.ink; ctx.font = F(54,800);
+    ctx.fillText("运动月报", P, y); y += 28;
+    ctx.fillStyle = t.muted; ctx.font = F(19,400);
+    ctx.fillText("2026 Life OS · 运动成长档案", P, y); y += 22;
+    ctx.strokeStyle = t.border; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(P, y); ctx.lineTo(P + 62, y); ctx.stroke(); y += 34;
+  }
 
-  // 月度总结（一句话）
+  // 本月结论：回答“我这个月练得怎么样？”
   if(s.sessions){
-    const cut = cutoffLabel(s);
-    const oneLiner = fullMonthLabel(s.key) + (cut ? "截至 " + cut + "，" : "，") +
-      "完成 " + s.days + " 个训练日、" + s.sessions + " 次训练，累计消耗 " + num(s.calories) + " kcal" +
-      (s.distance ? "，跑步 " + s.distance + " km" : "") + "。";
     ctx.font = F(18,400);
     let _lines = 1, _lw = "";
-    for(const ch of oneLiner){ if(ctx.measureText(_lw+ch).width > IW-52){ _lines++; _lw = ch; } else _lw += ch; }
-    const _sh = 52 + _lines*30 + 12;
+    for(const ch of analysis.conclusion){ if(ctx.measureText(_lw+ch).width > IW-52){ _lines++; _lw = ch; } else _lw += ch; }
+    const _sh = 58 + _lines*31 + 14;
     card(ctx,P,y,IW,_sh);
-    ctx.fillStyle = "#c9a96e"; ctx.font = F(17,700); ctx.fillText("月 度 总 结", P+26, y+34);
-    ctx.fillStyle = "#5b6070"; ctx.font = F(17,400);
-    wrapText(ctx, oneLiner, P+26, y+62, IW-52, 30);
+    if(t.decor === "editorial"){
+      ctx.fillStyle = t.accent; ctx.fillRect(P,y,6,_sh);
+      ctx.fillStyle = t.accent; ctx.font = F(13,800); ctx.fillText("EDITOR'S NOTE", P+26, y+34);
+      ctx.fillStyle = t.ink; ctx.font = F(17,800); ctx.fillText("本月结论", P+146, y+34);
+    }else{
+      ctx.fillStyle = t.gold; ctx.font = F(17,700); ctx.fillText("本 月 结 论", P+26, y+36);
+    }
+    ctx.fillStyle = t.text; ctx.font = F(18,500);
+    wrapText(ctx, analysis.conclusion, P+26, y+68, IW-52, 31);
     y += _sh + 16;
   }
 
   // 目标卡
   if(g){
     const h = 150; card(ctx,P,y,IW,h);
-    ctx.fillStyle = "#8a8f99"; ctx.font = F(18,600);
-    ctx.fillText(Number(g.month.slice(5,7)) + " 月目标", P+26, y+40);
-    ctx.fillStyle = "#5b6070"; ctx.font = F(20,500);
-    ctx.fillText(g.metric, P+26, y+74);
-    ctx.fillStyle = "#8b5cf6"; ctx.font = F(44,800);
-    ctx.textAlign = "right"; ctx.fillText(g.target, P+IW-26, y+76); ctx.textAlign = "left";
-    ctx.strokeStyle = "#f0ece2"; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(P+26, y+100); ctx.lineTo(P+IW-26, y+100); ctx.stroke();
-    ctx.fillStyle = "#9298a4"; ctx.font = F(17,400);
-    ctx.fillText("当前", P+26, y+128);
+    if(t.decor === "editorial"){
+      ctx.fillStyle = t.accent; ctx.fillRect(P,y,6,h);
+      ctx.fillStyle = t.accent; ctx.font = F(12,800); ctx.fillText("MONTHLY GOAL", P+26, y+31);
+    }
+    const goalShift = t.decor === "editorial" ? 8 : 0;
+    ctx.fillStyle = t.muted; ctx.font = F(18,600);
+    ctx.fillText(Number(g.month.slice(5,7)) + " 月目标", P+26, y+40+goalShift);
+    ctx.fillStyle = t.text; ctx.font = F(20,500);
+    ctx.fillText(g.metric, P+26, y+74+goalShift);
+    ctx.fillStyle = t.accent; ctx.font = F(44,800);
+    ctx.textAlign = "right"; ctx.fillText(g.target, P+IW-26, y+76+goalShift); ctx.textAlign = "left";
+    ctx.strokeStyle = t.line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(P+26, y+100+goalShift); ctx.lineTo(P+IW-26, y+100+goalShift); ctx.stroke();
+    ctx.fillStyle = t.muted; ctx.font = F(17,400);
+    ctx.fillText("当前", P+26, y+128+goalShift);
     const gGap = goalGap(g);
-    ctx.textAlign = "right"; ctx.fillStyle = "#1d1f26"; ctx.font = F(22,700);
-    ctx.fillText(goalCurrent(g) + (gGap ? "  ·  " + gGap : ""), P+IW-26, y+128); ctx.textAlign = "left";
+    ctx.textAlign = "right"; ctx.fillStyle = t.ink; ctx.font = F(22,700);
+    ctx.fillText(goalCurrent(g) + (gGap ? "  ·  " + gGap : ""), P+IW-26, y+128+goalShift); ctx.textAlign = "left";
     y += h + 16;
   }
 
-  // 月度数据 2×2
+  // 月度核心数据 2×2：持续性优先，热量降为辅助信息
   const cellW = (IW - 14) / 2, cellH = 108;
   const cells = [
     ["训练天数", s.days + " 天"],
     ["训练次数", s.sessions + " 次"],
-    ["消耗热量", num(s.calories) + " kcal"],
+    ["最长连续训练", analysis.continuity.longest + " 天"],
     ["跑步距离", s.distance + " km"]
   ];
   cells.forEach((c,i) => {
     const cx = P + (i%2)*(cellW+14), cy = y + Math.floor(i/2)*(cellH+14);
     card(ctx,cx,cy,cellW,cellH);
-    ctx.fillStyle = "#9298a4"; ctx.font = F(17,500); ctx.fillText(c[0], cx+22, cy+38);
-    ctx.fillStyle = "#1d1f26"; ctx.font = F(34,800); ctx.fillText(c[1], cx+22, cy+82);
+    ctx.fillStyle = t.muted; ctx.font = F(17,500); ctx.fillText(c[0], cx+22, cy+38);
+    ctx.fillStyle = t.ink; ctx.font = F(34,800); ctx.fillText(c[1], cx+22, cy+82);
   });
   y += cellH*2 + 14 + 16;
 
@@ -2435,48 +2575,68 @@ function drawReport(ctx, W, key){
   const cw = (IW - 52) / 7, chh = 62;
   const calH = 58 + 26 + rows*chh + 22;
   card(ctx,P,y,IW,calH);
-  ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("训练日历", P+26, y+42);
+  reportSectionTitle(ctx,"训练日历",P+26,y+42,1);
   const grouped = byDate(inMonth(key));
-  ctx.textAlign = "center"; ctx.fillStyle = "#a9a396"; ctx.font = F(14,500);
+  ctx.textAlign = "center"; ctx.fillStyle = t.pale; ctx.font = F(14,500);
   ["一","二","三","四","五","六","日"].forEach((w,i) =>
     ctx.fillText(w, P+26+cw*i+cw/2, y+76));
   for(let d = 1; d <= total; d++){
     const idx = offset + d - 1;
     const cx = P + 26 + (idx%7)*cw, cy = y + 88 + Math.floor(idx/7)*chh;
     const items = grouped[key + "-" + pad2(d)] || [];
-    if(items.length){ ctx.fillStyle = "#faf8f4"; rr(ctx,cx+2,cy,cw-4,chh-6,9); ctx.fill(); }
-    ctx.fillStyle = items.length ? "#1d1f26" : "#cfcabf"; ctx.font = F(15, items.length ? 700 : 400);
+    if(items.length){ ctx.fillStyle = t.track; rr(ctx,cx+2,cy,cw-4,chh-6,9); ctx.fill(); }
+    ctx.fillStyle = items.length ? t.ink : t.pale; ctx.font = F(15, items.length ? 700 : 400);
     ctx.fillText(String(d), cx+cw/2, cy+20);
     items.slice(0,4).forEach((w,i) => {
-      const t = TYPES[w.type], n = Math.min(items.length,4);
+      const kind = TYPES[workoutType(w)], n = Math.min(items.length,4);
       const dotW = Math.min(11, (cw-14)/n - 3);
       const startX = cx + cw/2 - (n*(dotW+3) - 3)/2;
-      ctx.fillStyle = isDone(w) ? t.fg : "#dcd7cc";
+      ctx.fillStyle = isDone(w) ? kind.fg : t.line;
       rr(ctx, startX + i*(dotW+3), cy+30, dotW, 7, 3.5); ctx.fill();
     });
     const kc = items.filter(isDone).reduce((a,w) => a + (w.calories||0), 0);
-    if(kc){ ctx.fillStyle = "#a08e6a"; ctx.font = F(11,600); ctx.fillText(kc, cx+cw/2, cy+50); }
+    if(kc){ ctx.fillStyle = t.gold; ctx.font = F(11,600); ctx.fillText(kc, cx+cw/2, cy+50); }
   }
   ctx.textAlign = "left";
   y += calH + 16;
 
-  // 类型分布
-  const counts = typeCounts(inMonth(key).filter(isDone));
-  if(counts.length){
-    const dh = 58 + counts.length*40 + 14;
+  // 训练结构分析：次数、占比与一句观察
+  if(s.sessions){
+    const rowsData = analysis.structure;
+    const dh = 70 + rowsData.length*42 + 58;
     card(ctx,P,y,IW,dh);
-    ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("训练类型分布", P+26, y+42);
-    const max = counts[0].count;
-    counts.forEach((c,i) => {
-      const t = TYPES[c.type], ly = y + 70 + i*40;
-      ctx.fillStyle = "#5b6070"; ctx.font = F(17,500);
-      ctx.fillText(t.emoji + " " + t.label, P+26, ly+14);
-      ctx.textAlign = "right"; ctx.fillStyle = "#1d1f26"; ctx.font = F(17,700);
-      ctx.fillText(c.count + " 次", P+IW-26, ly+14); ctx.textAlign = "left";
-      ctx.fillStyle = "#f2efe9"; rr(ctx,P+26,ly+24,IW-52,8,4); ctx.fill();
-      ctx.fillStyle = t.fg; rr(ctx,P+26,ly+24,(IW-52)*c.count/max,8,4); ctx.fill();
+    reportSectionTitle(ctx,"训练结构分析",P+26,y+42,2);
+    rowsData.forEach((c,i) => {
+      const kind = TYPES[c.type], ly = y + 70 + i*42;
+      ctx.fillStyle = t.text; ctx.font = F(17,500);
+      ctx.fillText(kind.emoji + " " + kind.label, P+26, ly+14);
+      ctx.textAlign = "right"; ctx.fillStyle = t.ink; ctx.font = F(17,700);
+      ctx.fillText(c.count + " 次 · " + c.pct + "%", P+IW-26, ly+14); ctx.textAlign = "left";
+      ctx.fillStyle = t.track; rr(ctx,P+26,ly+24,IW-52,8,4); ctx.fill();
+      if(c.pct){ ctx.fillStyle = kind.fg; rr(ctx,P+26,ly+24,(IW-52)*c.pct/100,8,4); ctx.fill(); }
     });
+    ctx.fillStyle = t.line; ctx.fillRect(P+26,y+70+rowsData.length*42,IW-52,1);
+    ctx.fillStyle = t.text; ctx.font = F(16,500);
+    ctx.fillText(analysis.observation, P+26, y+70+rowsData.length*42+34);
     y += dh + 16;
+  }
+
+  // 训练连续性
+  {
+    const ch = 142; card(ctx,P,y,IW,ch);
+    reportSectionTitle(ctx,"训练连续性",P+26,y+40,3);
+    const continuity = [
+      ["训练天数",analysis.continuity.trained + " 天"],
+      ["休息天数",analysis.continuity.rest + " 天"],
+      ["最长连续",analysis.continuity.longest + " 天"]
+    ];
+    continuity.forEach((c,i) => {
+      const x = P+26+i*(IW-52)/3;
+      ctx.fillStyle = t.muted; ctx.font = F(14,500); ctx.fillText(c[0],x,y+72);
+      ctx.fillStyle = i===1 ? t.gold : t.ink; ctx.font = F(25,800); ctx.fillText(c[1],x,y+104);
+    });
+    ctx.fillStyle = t.pale; ctx.font = F(14,500); ctx.fillText("休息也是训练的一部分。",P+26,y+128);
+    y += ch + 16;
   }
 
   // 热量趋势（按周）
@@ -2497,24 +2657,28 @@ function drawReport(ctx, W, key){
     const weekVals = weeks.filter(w => w.kcal > 0);
     if(weekVals.length){
       const bh = 250; card(ctx,P,y,IW,bh);
-      ctx.fillStyle = "#1d1f26"; ctx.font = F(21,700); ctx.fillText("热量消耗趋势", P+26, y+42);
-      ctx.fillStyle = "#9298a4"; ctx.font = F(15,400); ctx.fillText("按周汇总", P+180, y+42);
+      reportSectionTitle(ctx,"热量记录",P+26,y+42,4);
+      if(t.decor === "editorial"){
+        ctx.fillStyle = t.card; ctx.fillRect(P+456,y+24,192,24);
+      }
+      ctx.fillStyle = t.muted; ctx.font = F(15,400);
+      ctx.fillText("辅助参考 · 按周汇总", t.decor === "editorial" ? P+470 : P+132, y+42);
       const vals = weeks.map(w => w.kcal);
       const max = Math.max.apply(null, vals);
       const base = y + bh - 46, avail = IW - 60;
       const bw = Math.min(88, avail/weeks.length - 20);
       weeks.forEach((w,i) => {
         const bx = P + 30 + (avail/weeks.length)*i + (avail/weeks.length - bw)/2;
-        if(!w.kcal){ ctx.fillStyle = "#eae6df"; rr(ctx,bx,base-14,bw,14,8); ctx.fill(); }
+        if(!w.kcal){ ctx.fillStyle = t.track; rr(ctx,bx,base-14,bw,14,8); ctx.fill(); }
         else{
           const hgt = Math.max(14, w.kcal/max*112);
           const grad = ctx.createLinearGradient(0, base-hgt, 0, base);
-          grad.addColorStop(0,"#a78bfa"); grad.addColorStop(1,"#8b5cf6");
+          grad.addColorStop(0,t.pale); grad.addColorStop(1,t.gold);
           ctx.fillStyle = grad; rr(ctx,bx,base-hgt,bw,hgt,8); ctx.fill();
-          ctx.textAlign = "center"; ctx.fillStyle = "#5b6070"; ctx.font = F(15,700);
+          ctx.textAlign = "center"; ctx.fillStyle = t.text; ctx.font = F(15,700);
           ctx.fillText(num(w.kcal), bx+bw/2, base-hgt-12);
         }
-        ctx.textAlign = "center"; ctx.fillStyle = "#9298a4"; ctx.font = F(14,400);
+        ctx.textAlign = "center"; ctx.fillStyle = t.muted; ctx.font = F(14,400);
         ctx.fillText("W" + (i+1), bx+bw/2, base+18);
         ctx.font = F(12,400);
         ctx.fillText(w.label + "日", bx+bw/2, base+36); ctx.textAlign = "left";
@@ -2523,79 +2687,135 @@ function drawReport(ctx, W, key){
     }
   }
 
-  // 本月高光
-  if(s.top){
-    const items = gd[s.top.date] || [];
-    const hh = 122 + items.length*38 + 14;
+  // 本月高光：多练、HYROX、PR 优先，热量仅作辅助
+  const top = analysis.highlight;
+  if(top){
+    const items = top.items;
+    const hh = 130 + items.length*38 + 14;
+    const editorial = t.decor === "editorial";
     ctx.save();
-    ctx.shadowColor = "rgba(160,140,90,.14)"; ctx.shadowBlur = 20; ctx.shadowOffsetY = 8;
+    ctx.shadowColor = t.shadow; ctx.shadowBlur = editorial ? 7 : 20; ctx.shadowOffsetY = editorial ? 2 : 8;
     const grad = ctx.createLinearGradient(P, y, P+IW, y+hh);
-    grad.addColorStop(0,"#fffdf8"); grad.addColorStop(1,"#f4eeff");
-    ctx.fillStyle = grad; rr(ctx,P,y,IW,hh,20); ctx.fill(); ctx.restore();
-    ctx.strokeStyle = "#efe4d2"; ctx.lineWidth = 1; rr(ctx,P,y,IW,hh,20); ctx.stroke();
-    ctx.fillStyle = "#c9a96e"; ctx.font = F(15,700);
-    ctx.fillText("本 月 高 光", P+26, y+40);
-    ctx.fillStyle = "#1d1f26"; ctx.font = F(28,800);
-    ctx.fillText(mdLabel(s.top.date) + " · " + CN_NUM[s.top.count] + "练", P+26, y+80);
-    ctx.textAlign = "right"; ctx.font = F(44,800); ctx.fillStyle = "#8b5cf6";
-    ctx.fillText(num(s.top.kcal), P+IW-72, y+80);
-    ctx.font = F(16,600); ctx.fillStyle = "#9298a4"; ctx.fillText("kcal", P+IW-26, y+80);
-    ctx.textAlign = "left";
+    grad.addColorStop(0,t.card); grad.addColorStop(1,editorial ? t.card : t.bg[2]);
+    ctx.fillStyle = grad; rr(ctx,P,y,IW,hh,editorial ? 3 : 20); ctx.fill(); ctx.restore();
+    ctx.strokeStyle = t.border; ctx.lineWidth = 1; rr(ctx,P,y,IW,hh,editorial ? 3 : 20); ctx.stroke();
+    if(editorial){
+      ctx.fillStyle = t.accent; ctx.fillRect(P,y,IW,6);
+      ctx.fillStyle = t.accent; ctx.font = F(13,800); ctx.fillText("05 / COVER STORY", P+26, y+40);
+      ctx.fillStyle = t.ink; ctx.font = F(16,800); ctx.fillText("本月高光", P+170, y+40);
+    }else{
+      ctx.fillStyle = t.gold; ctx.font = F(15,700); ctx.fillText("本 月 高 光", P+26, y+40);
+    }
+    ctx.fillStyle = t.ink; ctx.font = F(28,800);
+    ctx.fillText(mdLabel(top.date) + " · " + CN_NUM[top.count] + "练", P+26, y+80);
+    ctx.textAlign = "right"; ctx.font = F(17,600); ctx.fillStyle = t.muted;
+    ctx.fillText(top.kcal ? num(top.kcal) + " kcal · 辅助记录" : "代表性训练日", P+IW-26, y+80);
+    ctx.textAlign = "left"; ctx.fillStyle = t.accent; ctx.font = F(16,700);
+    ctx.fillText(top.reason, P+26, y+110);
     items.forEach((w,i) => {
-      const t = TYPES[w.type], ly = y + 112 + i*38;
-      ctx.fillStyle = "#5b6070"; ctx.font = F(17,500);
-      ctx.fillText(t.emoji + " " + w.name, P+26, ly+14);
-      ctx.textAlign = "right"; ctx.fillStyle = "#1d1f26"; ctx.font = F(16,600);
+      const kind = TYPES[workoutType(w)], ly = y + 124 + i*38;
+      ctx.fillStyle = t.text; ctx.font = F(17,500);
+      ctx.fillText(kind.emoji + " " + w.name, P+26, ly+14);
+      ctx.textAlign = "right"; ctx.fillStyle = t.ink; ctx.font = F(16,600);
       ctx.fillText(metricTags(w).join(" · ") || "已完成", P+IW-26, ly+14); ctx.textAlign = "left";
     });
     y += hh + 16;
+  }
+
+  // 下月建议：规则化生成 2–3 条，不做复杂训练计划
+  if(analysis.suggestions.length){
+    const ah = 64 + analysis.suggestions.length*34 + 18;
+    card(ctx,P,y,IW,ah);
+    reportSectionTitle(ctx,"下月建议",P+26,y+42,6);
+    analysis.suggestions.forEach((tip,i) => {
+      ctx.fillStyle = t.accent; ctx.beginPath(); ctx.arc(P+31,y+70+i*34,4,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = t.text; ctx.font = F(16,500); ctx.fillText(tip,P+46,y+76+i*34);
+    });
+    y += ah + 16;
   }
 
   y += 14;
 
   // 页脚
   ctx.textAlign = "center";
-  ctx.fillStyle = "#c9a96e"; ctx.font = F(15,600);
+  ctx.fillStyle = t.gold; ctx.font = F(15,600);
   ctx.fillText("2026 LIFE OS", W/2, y); y += 28;
-  ctx.fillStyle = "#a9a396"; ctx.font = F(15,400);
+  ctx.fillStyle = t.pale; ctx.font = F(15,400);
   ctx.fillText("把每一次训练，留下来。", W/2, y); y += 24;
   ctx.textAlign = "left";
   return y;
 }
 
-function openReport(){
-  const key = activeMonth;
-  $("reportBody").innerHTML = '<div class="loading">月报生成中…</div>';
-  $("reportModal").classList.add("show");
+let reportKey = "";
+function paintReportBackground(ctx,W,H,t){
+  const bg = ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,t.bg[0]); bg.addColorStop(.55,t.bg[1]); bg.addColorStop(1,t.bg[2]);
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+  ctx.save();
+  if(t.decor === "glow"){
+    const g1=ctx.createRadialGradient(W*.84,120,10,W*.84,120,250); g1.addColorStop(0,"#d9ccff77"); g1.addColorStop(1,"#d9ccff00"); ctx.fillStyle=g1; ctx.fillRect(0,0,W,420);
+  }else if(t.decor === "grid"){
+    ctx.strokeStyle="#1113180b"; ctx.lineWidth=1;
+    for(let x=24;x<W;x+=24){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=24;y<H;y+=24){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  }else if(t.decor === "editorial"){
+    ctx.fillStyle=t.accent; ctx.fillRect(0,0,12,H); ctx.fillRect(W-12,0,12,H);
+    ctx.strokeStyle=t.border; ctx.lineWidth=1; ctx.beginPath();ctx.moveTo(30,0);ctx.lineTo(30,H);ctx.stroke();
+  }else if(t.decor === "energy"){
+    ctx.globalAlpha=.12; ctx.fillStyle=t.accent; ctx.beginPath();ctx.arc(W+30,80,250,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=t.accent2; ctx.beginPath();ctx.arc(-50,H*.48,180,0,Math.PI*2);ctx.fill();
+  }else if(t.decor === "envelope"){
+    ctx.strokeStyle=t.accent; ctx.lineWidth=7; ctx.setLineDash([18,12]); ctx.strokeRect(18,18,W-36,H-36); ctx.setLineDash([]);
+    ctx.strokeStyle=t.gold; ctx.lineWidth=2; ctx.beginPath();ctx.arc(W-95,82,42,0,Math.PI*2);ctx.stroke();
+    ctx.font=F(13,700);ctx.fillStyle=t.gold;ctx.textAlign="center";ctx.fillText("LIFE OS",W-95,78);ctx.fillText("MONTHLY",W-95,96);ctx.textAlign="left";
+  }
+  ctx.restore();
+}
+function reportStyleButtons(){
+  return '<div class="report-style-picker">' + Object.keys(REPORT_STYLES).map(id =>
+    '<button class="' + (id === reportStyle ? 'active' : '') + '" onclick="setReportStyle(\'' + id + '\')">' + REPORT_STYLES[id].name + '</button>'
+  ).join('') + '</div>';
+}
+function setReportStyle(id){
+  if(!REPORT_STYLES[id] || id === reportStyle) return;
+  reportStyle = id;
+  renderReport();
+}
+function renderReport(){
+  const key = reportKey || activeMonth;
+  $("reportBody").innerHTML = reportStyleButtons() + '<div class="loading">月报生成中…</div>';
   setTimeout(() => {
     try{
-      const W = 750, S = 2;
+      const W = 750, S = 2, t = REPORT_STYLES[reportStyle];
       const big = document.createElement("canvas");
-      big.width = W*S; big.height = 4000*S;
+      big.width = W*S; big.height = 5000*S;
       const bc = big.getContext("2d"); bc.scale(S,S);
-      const endY = drawReport(bc, W, key);
+      const endY = drawReport(bc, W, key, reportStyle);
       const H = Math.ceil(endY + 34);
 
       const out = document.createElement("canvas");
       out.width = W*S; out.height = H*S;
       const oc = out.getContext("2d"); oc.scale(S,S);
-      const bg = oc.createLinearGradient(0,0,W,H);
-      bg.addColorStop(0,"#faf7f1"); bg.addColorStop(.55,"#f6f4f0"); bg.addColorStop(1,"#f3f0f7");
-      oc.fillStyle = bg; oc.fillRect(0,0,W,H);
+      paintReportBackground(oc,W,H,t);
       oc.drawImage(big, 0, 0, W*S, H*S, 0, 0, W, H);
 
       const url = out.toDataURL("image/png");
-      $("reportBody").innerHTML =
-        '<img id="reportImg" src="' + url + '" alt="' + fullMonthLabel(key) + '运动月报">' +
+      $("reportBody").innerHTML = reportStyleButtons() +
+        '<img id="reportImg" src="' + url + '" alt="' + fullMonthLabel(key) + t.name + '运动月报">' +
         '<div class="report-actions">' +
-          '<a class="btn" download="LifeOS_' + key.replace("-","_") + '_运动月报.png" href="' + url + '">保存图片</a>' +
+          '<a class="btn" download="LifeOS_' + key.replace("-","_") + '_' + t.name + '_运动月报.png" href="' + url + '">保存图片</a>' +
           '<button class="btn ghost" onclick="closeModal(\'reportModal\')">关闭</button>' +
         '</div>' +
-        '<p class="report-hint">手机上长按图片即可保存到相册</p>';
+        '<p class="report-hint">可切换5种风格；手机上长按图片即可保存到相册</p>';
     }catch(err){
-      $("reportBody").innerHTML = '<div class="loading">月报生成失败：' + err.message + '</div>';
+      $("reportBody").innerHTML = reportStyleButtons() + '<div class="loading">月报生成失败：' + err.message + '</div>';
     }
-  }, 60);
+  }, 30);
+}
+function openReport(){
+  reportKey = activeMonth;
+  $("reportModal").classList.add("show");
+  renderReport();
 }
 
 /* ==========================================================
