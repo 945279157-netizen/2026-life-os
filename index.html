@@ -10,7 +10,7 @@
 *{box-sizing:border-box}
 body{margin:0;background:#f5f6f8;color:#17191f;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit}
-.app{max-width:1280px;margin:auto;display:grid;grid-template-columns:210px 1fr;min-height:100vh}
+.app{width:100%;display:grid;grid-template-columns:210px minmax(0,1fr);min-height:100vh}
 .side{background:#11141c;color:#fff;padding:28px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
 .brand{font-size:25px;font-weight:800;margin-bottom:28px}.brand small{display:block;color:#aab0bd;font-size:12px;letter-spacing:2px;font-weight:600}
 .nav button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:11px 12px;border-radius:10px;color:#b9bdc8;font-size:13px;margin:4px 0;cursor:pointer;transition:.15s}
@@ -2438,8 +2438,8 @@ function renderManage(){
 const REPORT_STYLES = {
   soft:{name:"柔光渐变",bg:["#faf7f1","#f6f4f0","#f3f0f7"],card:"#ffffff",ink:"#1d1f26",text:"#5b6070",muted:"#9298a4",pale:"#a9a396",line:"#f0ece2",track:"#f2efe9",accent:"#8b5cf6",accent2:"#a78bfa",gold:"#c9a96e",border:"#efe4d2",shadow:"rgba(30,25,15,.06)",font:"sans",decor:"glow"},
   minimal:{name:"留白极简",bg:["#f7f8fa","#f7f8fa","#f7f8fa"],card:"#ffffff",ink:"#111318",text:"#555b66",muted:"#8b929e",pale:"#aeb4bd",line:"#e8eaee",track:"#eef0f3",accent:"#17191f",accent2:"#515762",gold:"#6f7681",border:"#e5e7eb",shadow:"rgba(17,19,24,.045)",font:"sans",decor:"grid"},
-  editorial:{name:"报纸剪报",bg:["#f4f2ec","#efede6","#e9e6de"],card:"#fbfaf6",ink:"#171717",text:"#424242",muted:"#727272",pale:"#9a9a96",line:"#d7d5ce",track:"#ebe9e2",accent:"#252525",accent2:"#555555",gold:"#77736b",border:"#bcbab3",shadow:"rgba(20,20,18,.025)",font:"serif",decor:"editorial"},
-  energy:{name:"动感渐变",bg:["#f3f0f6","#edeaf2","#e7e2ed"],card:"rgba(255,255,255,.94)",ink:"#292531",text:"#615b69",muted:"#8d8793",pale:"#b1abb7",line:"#e8e4eb",track:"#f1eef3",accent:"#8a7d9e",accent2:"#aaa0b7",gold:"#b8b0bf",border:"#ded9e3",shadow:"rgba(54,45,66,.07)",font:"sans",decor:"energy"},
+  editorial:{name:"报纸剪报",bg:["#f4f2ec","#efede6","#e9e6de"],card:"#fbfaf6",ink:"#171717",text:"#424242",muted:"#727272",pale:"#9a9a96",line:"#dedcd5",track:"#ebe9e2",accent:"#252525",accent2:"#555555",gold:"#77736b",border:"#cfcdc6",shadow:"rgba(20,20,18,.025)",font:"serif",decor:"editorial"},
+  energy:{name:"动感渐变",bg:["#f3edff","#ebe2fb","#dfd2f5"],card:"rgba(255,255,255,.94)",ink:"#2d243d",text:"#635875",muted:"#8d819e",pale:"#b0a4c1",line:"#e8e0f1",track:"#f1ecf6",accent:"#8264c6",accent2:"#a58ae3",gold:"#c0ace6",border:"#ddd2ee",shadow:"rgba(74,49,112,.09)",font:"sans",decor:"energy"},
   envelope:{name:"信封怀旧",bg:["#f1e8da","#ecdfcc","#e5d5bd"],card:"#fffdf8",ink:"#453e37",text:"#6e655c",muted:"#968b80",pale:"#b2a79a",line:"#e6d8c5",track:"#f0e7da",accent:"#7f97a4",accent2:"#a8b8c0",gold:"#a18d74",border:"#ddcbb2",shadow:"rgba(74,58,40,.07)",font:"serif",decor:"envelope"}
 };
 let reportStyle = "soft", REPORT_THEME_ACTIVE = REPORT_STYLES.soft;
@@ -2477,9 +2477,8 @@ function card(ctx,x,y,w,h){
   ctx.restore();
   if(editorial){
     ctx.save();
-    ctx.strokeStyle = t.ink; ctx.lineWidth = 1.1; ctx.strokeRect(x+.5,y+.5,w-1,h-1);
-    ctx.fillStyle = t.ink; ctx.fillRect(x,y,7,7); ctx.fillRect(x+w-7,y+h-7,7,7);
-    ctx.strokeStyle = t.line; ctx.lineWidth = 1;
+    ctx.strokeStyle = t.border; ctx.lineWidth = 1; ctx.strokeRect(x+.5,y+.5,w-1,h-1);
+    ctx.strokeStyle = t.line;
     ctx.beginPath(); ctx.moveTo(x+14,y+12); ctx.lineTo(x+w-14,y+12); ctx.stroke();
     ctx.restore();
   }else if(envelope){
@@ -2502,9 +2501,9 @@ function reportSectionTitle(ctx,label,x,y,no){
     ctx.fillStyle = t.ink; ctx.font = F(19,800);
     ctx.fillText(label,x+46,y);
     const start = x + Math.max(154,ctx.measureText(label).width+66);
-    ctx.strokeStyle = t.ink; ctx.lineWidth = 1;
+    ctx.strokeStyle = t.border; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(start,y-7); ctx.lineTo(x+596,y-7); ctx.stroke();
-    ctx.strokeStyle = t.border;
+    ctx.strokeStyle = t.line;
     ctx.beginPath(); ctx.moveTo(start,y-3); ctx.lineTo(x+596,y-3); ctx.stroke();
   }else if(t.decor === "energy"){
     const grad = ctx.createLinearGradient(x,y-21,x+38,y+5);
@@ -2805,11 +2804,11 @@ function drawReport(ctx, W, key, styleId){
     ctx.save();
     ctx.shadowColor = t.shadow; ctx.shadowBlur = editorial ? 0 : (envelope ? 7 : 14); ctx.shadowOffsetY = editorial ? 0 : (envelope ? 2 : 5);
     const grad = ctx.createLinearGradient(P, y, P+IW, y+hh);
-    if(energy){ grad.addColorStop(0,"#f6f4f8"); grad.addColorStop(.52,"#ffffff"); grad.addColorStop(1,"#efecf3"); }
+    if(energy){ grad.addColorStop(0,"#f7f2ff"); grad.addColorStop(.52,"#ffffff"); grad.addColorStop(1,"#eee5fb"); }
     else if(envelope){ grad.addColorStop(0,t.card); grad.addColorStop(1,"#f8efe2"); }
     else{ grad.addColorStop(0,t.card); grad.addColorStop(1,editorial ? t.card : t.bg[2]); }
     ctx.fillStyle = grad; rr(ctx,P,y,IW,hh,hiRadius); ctx.fill(); ctx.restore();
-    ctx.save(); ctx.strokeStyle = editorial ? t.ink : t.border; ctx.lineWidth = editorial ? 1.2 : 1;
+    ctx.save(); ctx.strokeStyle = t.border; ctx.lineWidth = 1;
     if(envelope) ctx.setLineDash([7,5]); rr(ctx,P,y,IW,hh,hiRadius); ctx.stroke(); ctx.restore();
     if(editorial){
       ctx.fillStyle = t.ink; ctx.fillRect(P,y,IW,50);
@@ -2891,21 +2890,13 @@ function paintReportBackground(ctx,W,H,t){
     for(let x=24;x<W;x+=24){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
     for(let y=24;y<H;y+=24){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
   }else if(t.decor === "editorial"){
-    ctx.strokeStyle="rgba(23,23,23,.18)"; ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(28,0);ctx.lineTo(28,H);ctx.moveTo(W-28,0);ctx.lineTo(W-28,H);ctx.stroke();
-    ctx.strokeStyle="rgba(23,23,23,.035)";
+    ctx.strokeStyle="rgba(23,23,23,.035)"; ctx.lineWidth=1;
     for(let yy=92;yy<H;yy+=184){ctx.beginPath();ctx.moveTo(28,yy);ctx.lineTo(W-28,yy);ctx.stroke();}
-    ctx.fillStyle=t.ink;
-    [[14,42],[W-20,42],[14,H-58],[W-20,H-58]].forEach(p=>ctx.fillRect(p[0],p[1],6,34));
-    ctx.strokeStyle=t.ink; ctx.lineWidth=1.2;
-    [[28,28,1,1],[W-28,28,-1,1],[28,H-28,1,-1],[W-28,H-28,-1,-1]].forEach(p=>{
-      ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(p[0]+18*p[2],p[1]);ctx.moveTo(p[0],p[1]);ctx.lineTo(p[0],p[1]+18*p[3]);ctx.stroke();
-    });
   }else if(t.decor === "energy"){
-    ctx.globalAlpha=.16;
-    const g1=ctx.createRadialGradient(W*.82,120,8,W*.82,120,290); g1.addColorStop(0,"#bdb4c8"); g1.addColorStop(1,"#bdb4c800"); ctx.fillStyle=g1; ctx.fillRect(0,0,W,500);
-    const g2=ctx.createRadialGradient(40,H*.52,8,40,H*.52,260); g2.addColorStop(0,"#c9c1d2"); g2.addColorStop(1,"#c9c1d200"); ctx.fillStyle=g2; ctx.fillRect(0,H*.42,W,520);
-    ctx.globalAlpha=.07; ctx.strokeStyle=t.accent; ctx.lineWidth=1;
+    ctx.globalAlpha=.2;
+    const g1=ctx.createRadialGradient(W*.82,120,8,W*.82,120,290); g1.addColorStop(0,"#b79be9"); g1.addColorStop(1,"#b79be900"); ctx.fillStyle=g1; ctx.fillRect(0,0,W,500);
+    const g2=ctx.createRadialGradient(40,H*.52,8,40,H*.52,260); g2.addColorStop(0,"#c5acef"); g2.addColorStop(1,"#c5acef00"); ctx.fillStyle=g2; ctx.fillRect(0,H*.42,W,520);
+    ctx.globalAlpha=.1; ctx.strokeStyle=t.accent; ctx.lineWidth=1;
     for(let yy=-W;yy<H;yy+=92){ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(W,yy+W*.42);ctx.stroke();}
     ctx.globalAlpha=.62;
     let ribbon=ctx.createLinearGradient(0,0,W,0); ribbon.addColorStop(0,t.accent); ribbon.addColorStop(.55,t.accent2); ribbon.addColorStop(1,t.gold);
