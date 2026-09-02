@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-02T15:30:45.585Z",
+  "updatedAt": "2026-09-02T15:30:52.791Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -850,36 +850,6 @@
       "duration": "",
       "distance": null,
       "calories": 222,
-      "status": "completed"
-    },
-    {
-      "id": "w-mtk957i9m3dm",
-      "date": "2026-09-02",
-      "type": "cardio",
-      "name": "爬坡",
-      "duration": "",
-      "distance": null,
-      "calories": 130,
-      "status": "completed"
-    },
-    {
-      "id": "w-mtk95lvd73ar",
-      "date": "2026-09-02",
-      "type": "cardio",
-      "name": "战绳",
-      "duration": "",
-      "distance": null,
-      "calories": 215,
-      "status": "completed"
-    },
-    {
-      "id": "w-mtk969v9sc92",
-      "date": "2026-09-02",
-      "type": "strength",
-      "name": "杠铃操",
-      "duration": "",
-      "distance": null,
-      "calories": 167,
       "status": "completed"
     }
   ],
