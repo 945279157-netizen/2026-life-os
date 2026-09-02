@@ -108,13 +108,14 @@ button{font:inherit}
 .list div:last-child{border-bottom:0}.list b{font-size:13px}
 .lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .hl{grid-column:1/-1;background:linear-gradient(135deg,#fffdf8 0%,var(--ac-l) 100%);border:1px solid #eee3d6}
-.hl-top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.hl-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .hl-tag{font-size:13px;letter-spacing:2px;color:#c9a96e;font-weight:700}
-.hl-date{font-size:18px;font-weight:800}
-.hl-kcal{font-size:30px;font-weight:800;letter-spacing:-.8px;margin:6px 0 2px}
-.hl-kcal span{font-size:15px;font-weight:600;color:#8a8f99;margin-left:6px;letter-spacing:0}
-.hl-items{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.hl-date{font-size:17px;font-weight:750;color:#4d5260}
+.hl-summary{font-size:20px;font-weight:800;line-height:1.45;letter-spacing:-.3px;margin:10px 0 0;color:#252832}
+.hl-meta{font-size:13px;font-weight:600;color:#8a8f99;margin-top:5px}
+.hl-items{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
 .hl-item{background:#fff;border:1px solid #f0e9e0;border-radius:13px;padding:13px}
+.hl-item b{font-size:13px;line-height:1.45}
 .hl-item small{display:block;color:#8a8f99;font-size:11px;margin-top:5px}
 .note{font-size:11px;color:#8b8f99;line-height:1.8;margin-top:12px}
 .bars{height:150px;display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid #ddd;padding-top:8px}
@@ -206,7 +207,9 @@ button{font:inherit}
   .metrics.pri{grid-template-columns:repeat(3,1fr)}
   .metrics.pri .metric{padding:16px 14px}
   .metrics.pri .metric strong{font-size:24px}
-  .layout,.lower{grid-template-columns:1fr}
+  .layout,.lower{grid-template-columns:1fr;min-width:0}
+  .layout>*,.lower>*{min-width:0}
+  .lower .bars{overflow-x:auto;overflow-y:hidden}
   .main{padding:18px}
   .top{flex-direction:column}.top-right{align-items:flex-start;text-align:left;flex-direction:row;width:100%;justify-content:space-between;align-items:center}
   .quote{display:none}
@@ -227,7 +230,10 @@ button{font:inherit}
   .day{min-height:96px;padding:4px;border-radius:8px}
   .chip{font-size:8px;padding:3px;white-space:normal;word-break:break-all;margin-top:3px}
   .day .kcal,.day .todo{font-size:8px}
-  .hl-kcal{font-size:30px}
+  .hl-top{align-items:flex-start}
+  .hl-date{font-size:15px}
+  .hl-summary{font-size:18px;line-height:1.5;margin-top:9px}
+  .hl-meta{font-size:12px}
   .sum{padding:22px 20px}
   .sum-key{font-size:22px;letter-spacing:-.4px;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:16px;row-gap:4px}
   .sum-key em{font-size:14px;margin-left:5px}
@@ -1399,9 +1405,14 @@ function renderSyncUI(){
   if($("syncBtn")) $("syncBtn").textContent = cfg.token ? "↑ 同步到 GitHub" : "↑ 同步到 GitHub（需先填 Token）";
 }
 
+function currentMonthKey(){
+  const now = new Date();
+  return now.getFullYear() + "-" + pad2(now.getMonth()+1);
+}
 function allMonths(){
   const set = new Set(workoutData.map(w => monthOf(w.date)));
   EXTRA_MONTHS.forEach(m => set.add(m));
+  set.add(currentMonthKey());
   return [...set].sort().reverse();
 }
 function monthRange(){
@@ -1500,18 +1511,31 @@ function monthAnalysis(key){
   const lead = ranked.slice(0,2).map(x => TYPES[x.type].label).join("和");
   const strength = structure.find(x => x.type === "strength");
   const recovery = structure.find(x => x.type === "recovery");
-  let observation = lead ? "本月训练以" + lead + "为主" : "本月训练结构待形成";
-  if(strength && strength.pct < 20) observation += "，力量训练相对较少";
-  else if(recovery && recovery.pct < 8) observation += "，恢复安排相对较少";
-  else observation += "，整体结构较均衡";
-  observation += "。";
+  let observation = "";
+  if(!s.sessions){
+    observation = "本月还没有训练记录。";
+  }else{
+    observation = lead ? "本月训练以" + lead + "为主" : "本月训练结构待形成";
+    if(strength && strength.pct < 20) observation += "，力量训练相对较少";
+    else if(recovery && recovery.pct < 8) observation += "，恢复安排相对较少";
+    else observation += "，整体结构较均衡";
+    observation += "。";
+  }
   const continuity = monthContinuity(key,s.done);
   const highlight = representativeHighlight(s);
   const g = goalData.find(x => x.month === key);
-  let conclusion = Number(key.slice(5,7)) + "月，你一共完成 " + s.sessions + " 次训练，" + s.days + " 天保持运动。" + observation;
-  if(g){
-    const current = goalCurrent(g), gap = goalGap(g);
-    if(current && current !== "待记录") conclusion += g.metric + "来到 " + current + (gap ? "，距离 " + g.target + " 的目标" + gap.replace(/^还差/,"还差") : "，已达到目标") + "。";
+  let conclusion = "";
+  if(!s.sessions){
+    conclusion = Number(key.slice(5,7)) + "月目前还没有训练记录。新月份刚开始，按自己的节奏动起来就很好。";
+  }else{
+    conclusion = Number(key.slice(5,7)) + "月已完成 " + s.sessions + " 次训练，分布在 " + s.days + " 个训练日" + (lead ? "，以" + lead + "为主" : "") + "。";
+    if(g){
+      const current = goalCurrent(g), gap = goalGap(g);
+      if(current && current !== "待记录") conclusion += g.metric + "目前是 " + current + (gap ? "，距离 " + g.target + " 的目标" + gap.replace(/^还差/,"还差") : "，已经达到目标") + "。";
+    }
+    if(continuity.longest >= 3) conclusion += "能连续保持 " + continuity.longest + " 天，说明你已经把运动稳稳放进了生活里，很棒。";
+    else if(ranked.length >= 3) conclusion += "训练有变化，也有自己的节奏，这个月练得很扎实。";
+    else conclusion += "每一次完成都算数，你正在用自己的节奏稳稳向前。";
   }
   const suggestions = [];
   if(strength && strength.pct < 20) suggestions.push("力量训练适当增加，补足基础能力");
@@ -1526,7 +1550,7 @@ function monthAnalysis(key){
 /* ==========================================================
    3. 视图渲染
    ========================================================== */
-let activeMonth = allMonths().find(m => inMonth(m).length) || allMonths()[0];
+let activeMonth = currentMonthKey();
 const calState = {
   home: {month:activeMonth, filter:"all", days:"homeDays", filters:"homeFilters", nav:"homeMonthNav"},
   page: {month:activeMonth, filter:"all", days:"pageDays", filters:"pageFilters", nav:"pageMonthNav"}
@@ -1789,13 +1813,14 @@ function renderHighlight(){
   el.innerHTML =
     '<div class="hl-top"><span class="hl-tag">本月高光</span><span class="hl-date">' + mdLabel(top.date) +
       ' · ' + CN_NUM[top.count] + '练</span></div>' +
-    '<div class="hl-kcal">' + top.reason + '<span>' + (top.kcal ? num(top.kcal) + ' kcal · 辅助记录' : '代表性训练日') + '</span></div>' +
+    '<div class="hl-summary">' + top.reason + '</div>' +
+    '<div class="hl-meta">' + (top.kcal ? num(top.kcal) + ' kcal · 辅助记录' : '代表性训练日') + '</div>' +
     '<div class="hl-items">' + top.items.map(w => {
       const type = workoutType(w), t = TYPES[type];
       const sub = metricTags(w).join(" · ") || "已完成";
       return '<div class="hl-item"><b>' + t.emoji + ' ' + w.name + '</b><small>' + sub + '</small></div>';
     }).join("") + '</div>' +
-    '<div class="note">' + top.reason + '，是这个月最有代表性的一天。</div>';
+    '<div class="note">这一天的训练密度和完成度，让它成为本月最有代表性的一天。</div>';
 }
 
 /* 当月看到今天为止；翻到过去的月份则取那个月最后一次训练 */
@@ -2169,8 +2194,7 @@ function focusMonth(key){
   statsMonth = key;
 }
 function resetMonths(){
-  const ms = allMonths();
-  focusMonth(ms.find(m => inMonth(m).length) || ms[0] || activeMonth);
+  focusMonth(currentMonthKey());
 }
 
 /* ---------- 训练 ---------- */
@@ -2792,11 +2816,11 @@ function drawReport(ctx, W, key, styleId){
     }else{
       ctx.fillStyle = t.gold; ctx.font = F(15,700); ctx.fillText("本 月 高 光", P+26, y+40);
     }
-    ctx.fillStyle = t.ink; ctx.font = F(28,800);
+    ctx.fillStyle = t.ink; ctx.font = F(24,800);
     ctx.fillText(mdLabel(top.date) + " · " + CN_NUM[top.count] + "练", P+26, y+80);
-    ctx.textAlign = "right"; ctx.font = F(17,600); ctx.fillStyle = t.muted;
+    ctx.textAlign = "right"; ctx.font = F(15,600); ctx.fillStyle = t.muted;
     ctx.fillText(top.kcal ? num(top.kcal) + " kcal · 辅助记录" : "代表性训练日", P+IW-26, y+80);
-    ctx.textAlign = "left"; ctx.fillStyle = t.accent; ctx.font = F(16,700);
+    ctx.textAlign = "left"; ctx.fillStyle = t.accent; ctx.font = F(15,700);
     ctx.fillText(top.reason, P+26, y+110);
     items.forEach((w,i) => {
       const kind = TYPES[workoutType(w)], ly = y + 124 + i*38;
