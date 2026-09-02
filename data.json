@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-02T15:30:52.791Z",
+  "updatedAt": "2026-09-02T16:22:16.580Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -846,10 +846,40 @@
       "id": "w-mtixeam1cvdf",
       "date": "2026-09-01",
       "type": "cardio",
-      "name": "爬坡",
+      "name": "爬楼机",
       "duration": "",
       "distance": null,
       "calories": 222,
+      "status": "completed"
+    },
+    {
+      "id": "w-mtkazn15o30x",
+      "date": "2026-09-02",
+      "type": "strength",
+      "name": "杠铃操",
+      "duration": "",
+      "distance": null,
+      "calories": 167,
+      "status": "completed"
+    },
+    {
+      "id": "w-mtkb0645btiz",
+      "date": "2026-09-02",
+      "type": "cardio",
+      "name": "战绳",
+      "duration": "",
+      "distance": null,
+      "calories": 215,
+      "status": "completed"
+    },
+    {
+      "id": "w-mtkb0k65ictg",
+      "date": "2026-09-02",
+      "type": "cardio",
+      "name": "爬楼机",
+      "duration": "",
+      "distance": null,
+      "calories": 130,
       "status": "completed"
     }
   ],
