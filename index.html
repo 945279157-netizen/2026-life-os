@@ -2438,9 +2438,9 @@ function renderManage(){
 const REPORT_STYLES = {
   soft:{name:"柔光渐变",bg:["#faf7f1","#f6f4f0","#f3f0f7"],card:"#ffffff",ink:"#1d1f26",text:"#5b6070",muted:"#9298a4",pale:"#a9a396",line:"#f0ece2",track:"#f2efe9",accent:"#8b5cf6",accent2:"#a78bfa",gold:"#c9a96e",border:"#efe4d2",shadow:"rgba(30,25,15,.06)",font:"sans",decor:"glow"},
   minimal:{name:"留白极简",bg:["#f7f8fa","#f7f8fa","#f7f8fa"],card:"#ffffff",ink:"#111318",text:"#555b66",muted:"#8b929e",pale:"#aeb4bd",line:"#e8eaee",track:"#eef0f3",accent:"#17191f",accent2:"#515762",gold:"#6f7681",border:"#e5e7eb",shadow:"rgba(17,19,24,.045)",font:"sans",decor:"grid"},
-  editorial:{name:"编辑杂志",bg:["#f1eee7","#ebe6dc","#e2ddd3"],card:"#fffefa",ink:"#11110f",text:"#48443e",muted:"#777168",pale:"#9e968a",line:"#ddd3c5",track:"#eee7dd",accent:"#8f342d",accent2:"#a8554c",gold:"#806b55",border:"#d4c8b8",shadow:"rgba(40,32,22,.05)",font:"serif",decor:"editorial"},
-  energy:{name:"动感渐变",bg:["#252132","#342e42","#51495e"],card:"rgba(252,251,253,.97)",ink:"#24202d",text:"#5d5867",muted:"#88828f",pale:"#aaa4b0",line:"#e5e1e9",track:"#efedf2",accent:"#75688f",accent2:"#9387a8",gold:"#a59bad",border:"#d9d3df",shadow:"rgba(28,22,38,.16)",font:"sans",decor:"energy"},
-  envelope:{name:"信封怀旧",bg:["#d7c3a5","#cdb797","#bea787"],card:"#fffaf0",ink:"#3b342d",text:"#675e55",muted:"#8b8176",pale:"#a69a8c",line:"#ddcdb8",track:"#eadfce",accent:"#5b7180",accent2:"#82939e",gold:"#8f785d",border:"#d0bb9d",shadow:"rgba(66,50,34,.12)",font:"serif",decor:"envelope"}
+  editorial:{name:"报纸剪报",bg:["#f4f2ec","#efede6","#e9e6de"],card:"#fbfaf6",ink:"#171717",text:"#424242",muted:"#727272",pale:"#9a9a96",line:"#d7d5ce",track:"#ebe9e2",accent:"#252525",accent2:"#555555",gold:"#77736b",border:"#bcbab3",shadow:"rgba(20,20,18,.025)",font:"serif",decor:"editorial"},
+  energy:{name:"动感渐变",bg:["#f3f0f6","#edeaf2","#e7e2ed"],card:"rgba(255,255,255,.94)",ink:"#292531",text:"#615b69",muted:"#8d8793",pale:"#b1abb7",line:"#e8e4eb",track:"#f1eef3",accent:"#8a7d9e",accent2:"#aaa0b7",gold:"#b8b0bf",border:"#ded9e3",shadow:"rgba(54,45,66,.07)",font:"sans",decor:"energy"},
+  envelope:{name:"信封怀旧",bg:["#f1e8da","#ecdfcc","#e5d5bd"],card:"#fffdf8",ink:"#453e37",text:"#6e655c",muted:"#968b80",pale:"#b2a79a",line:"#e6d8c5",track:"#f0e7da",accent:"#7f97a4",accent2:"#a8b8c0",gold:"#a18d74",border:"#ddcbb2",shadow:"rgba(74,58,40,.07)",font:"serif",decor:"envelope"}
 };
 let reportStyle = "soft", REPORT_THEME_ACTIVE = REPORT_STYLES.soft;
 function rr(ctx,x,y,w,h,r){
@@ -2468,16 +2468,20 @@ function wrapText(ctx,text,x,y,maxW,lh){
 function card(ctx,x,y,w,h){
   const t = REPORT_THEME_ACTIVE;
   const editorial = t.decor === "editorial", energy = t.decor === "energy", envelope = t.decor === "envelope";
-  const radius = editorial ? 2 : (envelope ? 7 : (energy ? 26 : 20));
+  const radius = editorial ? 0 : (envelope ? 7 : (energy ? 26 : 20));
   ctx.save();
   ctx.shadowColor = t.shadow;
-  ctx.shadowBlur = editorial ? 5 : (envelope ? 10 : (t.decor === "minimal" ? 8 : 18));
-  ctx.shadowOffsetY = editorial ? 1 : (envelope ? 3 : 6);
+  ctx.shadowBlur = editorial ? 0 : (envelope ? 7 : (t.decor === "minimal" ? 8 : 14));
+  ctx.shadowOffsetY = editorial ? 0 : (envelope ? 2 : 5);
   ctx.fillStyle = t.card; rr(ctx,x,y,w,h,radius); ctx.fill();
   ctx.restore();
   if(editorial){
-    ctx.save(); ctx.strokeStyle = t.border; ctx.lineWidth = 1;
-    rr(ctx,x,y,w,h,radius); ctx.stroke(); ctx.restore();
+    ctx.save();
+    ctx.strokeStyle = t.ink; ctx.lineWidth = 1.1; ctx.strokeRect(x+.5,y+.5,w-1,h-1);
+    ctx.fillStyle = t.ink; ctx.fillRect(x,y,7,7); ctx.fillRect(x+w-7,y+h-7,7,7);
+    ctx.strokeStyle = t.line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x+14,y+12); ctx.lineTo(x+w-14,y+12); ctx.stroke();
+    ctx.restore();
   }else if(envelope){
     ctx.save(); ctx.strokeStyle = t.border; ctx.lineWidth = 1.2; ctx.setLineDash([7,5]);
     rr(ctx,x,y,w,h,radius); ctx.stroke(); ctx.restore();
@@ -2492,13 +2496,16 @@ function card(ctx,x,y,w,h){
 function reportSectionTitle(ctx,label,x,y,no){
   const t = REPORT_THEME_ACTIVE;
   if(t.decor === "editorial"){
-    ctx.fillStyle = t.accent; ctx.font = F(13,800);
-    ctx.fillText(String(no).padStart(2,"0"),x,y);
-    ctx.fillStyle = t.ink; ctx.font = F(20,800);
-    ctx.fillText(label,x+38,y);
-    const start = x + Math.max(150,ctx.measureText(label).width+58);
-    ctx.strokeStyle = t.border; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(start,y-6); ctx.lineTo(x+596,y-6); ctx.stroke();
+    ctx.fillStyle = t.ink; ctx.fillRect(x,y-24,34,28);
+    ctx.textAlign = "center"; ctx.fillStyle = t.card; ctx.font = F(12,800);
+    ctx.fillText(String(no).padStart(2,"0"),x+17,y-5); ctx.textAlign = "left";
+    ctx.fillStyle = t.ink; ctx.font = F(19,800);
+    ctx.fillText(label,x+46,y);
+    const start = x + Math.max(154,ctx.measureText(label).width+66);
+    ctx.strokeStyle = t.ink; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(start,y-7); ctx.lineTo(x+596,y-7); ctx.stroke();
+    ctx.strokeStyle = t.border;
+    ctx.beginPath(); ctx.moveTo(start,y-3); ctx.lineTo(x+596,y-3); ctx.stroke();
   }else if(t.decor === "energy"){
     const grad = ctx.createLinearGradient(x,y-21,x+38,y+5);
     grad.addColorStop(0,t.accent); grad.addColorStop(1,t.accent2);
@@ -2536,28 +2543,33 @@ function drawReport(ctx, W, key, styleId){
   ctx.textAlign = "left";
   if(t.decor === "editorial"){
     const issue = key.slice(5,7), year = key.slice(0,4);
-    ctx.fillStyle = t.accent; ctx.font = F(14,800);
-    ctx.fillText("LIFE OS / MONTHLY JOURNAL", P, y);
-    ctx.textAlign = "right"; ctx.fillStyle = t.muted; ctx.font = F(13,700);
-    ctx.fillText("ISSUE " + issue + "  ·  " + year, P+IW, y); ctx.textAlign = "left";
-    y += 24;
-    ctx.fillStyle = t.ink; ctx.font = F(62,900);
-    ctx.fillText("运动月报", P, y+48);
-    ctx.fillStyle = t.accent; ctx.fillRect(P+IW-116,y+4,116,54);
-    ctx.textAlign = "center"; ctx.fillStyle = t.card; ctx.font = F(27,900);
-    ctx.fillText(issue + " 月", P+IW-58, y+40); ctx.textAlign = "left";
-    y += 78;
-    ctx.strokeStyle = t.ink; ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.moveTo(P,y); ctx.lineTo(P+IW,y); ctx.stroke(); y += 22;
-    ctx.fillStyle = t.muted; ctx.font = F(16,500);
-    ctx.fillText("训练 · 节奏 · 恢复 / 一份关于持续成长的月度记录", P, y); y += 34;
+    ctx.fillStyle = t.ink; ctx.font = F(12,800);
+    ctx.fillText("THE LIFE OS TRAINING GAZETTE", P, y);
+    ctx.textAlign = "right"; ctx.fillStyle = t.muted; ctx.font = F(12,700);
+    ctx.fillText("NO. " + issue + "  /  " + year, P+IW, y); ctx.textAlign = "left";
+    y += 20;
+    ctx.strokeStyle = t.ink; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(P,y); ctx.lineTo(P+IW,y); ctx.stroke();
+    ctx.strokeStyle = t.border; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(P,y+5); ctx.lineTo(P+IW,y+5); ctx.stroke();
+    y += 18;
+    ctx.textAlign = "center"; ctx.fillStyle = t.ink; ctx.font = F(60,900);
+    ctx.fillText("运动月报", W/2, y+50);
+    ctx.fillStyle = t.muted; ctx.font = F(13,700);
+    ctx.fillText("MONTHLY TRAINING RECORD · DATA / RHYTHM / RECOVERY", W/2, y+77);
+    ctx.textAlign = "left"; y += 94;
+    ctx.fillStyle = t.ink; ctx.fillRect(P,y,IW,28);
+    ctx.fillStyle = t.card; ctx.font = F(12,800);
+    ctx.fillText(year + " 年 " + issue + " 月",P+14,y+19);
+    ctx.textAlign = "right"; ctx.fillText("月度档案 · 第 " + issue + " 期",P+IW-14,y+19); ctx.textAlign = "left";
+    y += 46;
   }else if(t.decor === "energy"){
     const issue = key.slice(5,7), year = key.slice(0,4);
-    ctx.fillStyle = "rgba(255,255,255,.72)"; ctx.font = F(14,800);
+    ctx.fillStyle = t.text; ctx.font = F(14,800);
     ctx.fillText("MONTHLY PERFORMANCE / " + year, P, y);
     y += 24;
     const titleGrad = ctx.createLinearGradient(P,y,P+360,y+70);
-    titleGrad.addColorStop(0,"#ffffff"); titleGrad.addColorStop(.56,"#ddd9e5"); titleGrad.addColorStop(1,"#b7afc1");
+    titleGrad.addColorStop(0,t.ink); titleGrad.addColorStop(.56,t.accent); titleGrad.addColorStop(1,t.accent2);
     ctx.fillStyle = titleGrad; ctx.font = F(62,900); ctx.fillText("运动月报",P,y+52);
     const tagGrad = ctx.createLinearGradient(P+IW-126,y,P+IW,y+64);
     tagGrad.addColorStop(0,t.accent); tagGrad.addColorStop(1,t.accent2);
@@ -2565,7 +2577,7 @@ function drawReport(ctx, W, key, styleId){
     ctx.textAlign = "center"; ctx.fillStyle = "#fff"; ctx.font = F(24,900);
     ctx.fillText(issue + " / MOVE",P+IW-63,y+39); ctx.textAlign = "left";
     y += 80;
-    ctx.fillStyle = "rgba(255,255,255,.78)"; ctx.font = F(16,600);
+    ctx.fillStyle = t.text; ctx.font = F(16,600);
     ctx.fillText("MOVE · BUILD · RECOVER · REPEAT",P,y); y += 38;
   }else if(t.decor === "envelope"){
     const issue = key.slice(5,7), year = key.slice(0,4);
@@ -2598,9 +2610,9 @@ function drawReport(ctx, W, key, styleId){
     const _sh = 58 + _lines*31 + 14;
     card(ctx,P,y,IW,_sh);
     if(t.decor === "editorial"){
-      ctx.fillStyle = t.accent; ctx.fillRect(P,y,6,_sh);
-      ctx.fillStyle = t.accent; ctx.font = F(13,800); ctx.fillText("EDITOR'S NOTE", P+26, y+34);
-      ctx.fillStyle = t.ink; ctx.font = F(17,800); ctx.fillText("本月结论", P+146, y+34);
+      ctx.fillStyle = t.ink; ctx.fillRect(P+20,y+20,112,25);
+      ctx.fillStyle = t.card; ctx.font = F(11,800); ctx.fillText("FRONT PAGE", P+31, y+37);
+      ctx.fillStyle = t.ink; ctx.font = F(17,800); ctx.fillText("本月结论", P+150, y+38);
     }else if(t.decor === "energy"){
       const mark = ctx.createLinearGradient(P+26,y,P+184,y);
       mark.addColorStop(0,t.accent); mark.addColorStop(1,t.accent2);
@@ -2620,17 +2632,18 @@ function drawReport(ctx, W, key, styleId){
   // 目标卡
   if(g){
     const h = 150; card(ctx,P,y,IW,h);
-    if(t.decor === "editorial"){
-      ctx.fillStyle = t.accent; ctx.fillRect(P,y,6,h);
-      ctx.fillStyle = t.accent; ctx.font = F(12,800); ctx.fillText("MONTHLY GOAL", P+26, y+31);
+    const editorialGoal = t.decor === "editorial";
+    if(editorialGoal){
+      ctx.fillStyle = t.ink; ctx.fillRect(P+20,y+18,104,23);
+      ctx.fillStyle = t.card; ctx.font = F(10,800); ctx.fillText("GOAL DESK", P+31, y+34);
     }else if(t.decor === "energy"){
       ctx.fillStyle = t.accent2; ctx.font = F(12,900); ctx.fillText("TARGET ZONE",P+26,y+31);
     }else if(t.decor === "envelope"){
       ctx.fillStyle = t.accent2; ctx.font = F(12,800); ctx.fillText("NEXT LETTER GOAL",P+26,y+31);
     }
-    const goalShift = ["editorial","energy","envelope"].indexOf(t.decor) > -1 ? 8 : 0;
+    const goalShift = ["energy","envelope"].indexOf(t.decor) > -1 ? 8 : 0;
     ctx.fillStyle = t.muted; ctx.font = F(18,600);
-    ctx.fillText(Number(g.month.slice(5,7)) + " 月目标", P+26, y+40+goalShift);
+    ctx.fillText(Number(g.month.slice(5,7)) + " 月目标", editorialGoal ? P+144 : P+26, editorialGoal ? y+36 : y+40+goalShift);
     ctx.fillStyle = t.text; ctx.font = F(20,500);
     ctx.fillText(g.metric, P+26, y+74+goalShift);
     ctx.fillStyle = t.accent; ctx.font = F(44,800);
@@ -2788,20 +2801,20 @@ function drawReport(ctx, W, key, styleId){
     const items = top.items;
     const hh = 130 + items.length*38 + 14;
     const editorial = t.decor === "editorial", energy = t.decor === "energy", envelope = t.decor === "envelope";
-    const hiRadius = editorial ? 2 : (envelope ? 7 : (energy ? 26 : 20));
+    const hiRadius = editorial ? 0 : (envelope ? 7 : (energy ? 26 : 20));
     ctx.save();
-    ctx.shadowColor = t.shadow; ctx.shadowBlur = editorial ? 5 : (envelope ? 10 : 20); ctx.shadowOffsetY = editorial ? 1 : 8;
+    ctx.shadowColor = t.shadow; ctx.shadowBlur = editorial ? 0 : (envelope ? 7 : 14); ctx.shadowOffsetY = editorial ? 0 : (envelope ? 2 : 5);
     const grad = ctx.createLinearGradient(P, y, P+IW, y+hh);
-    if(energy){ grad.addColorStop(0,"#ebe8ef"); grad.addColorStop(.52,"#f8f7f9"); grad.addColorStop(1,"#e3dfe8"); }
-    else if(envelope){ grad.addColorStop(0,t.card); grad.addColorStop(1,"#f3e4cb"); }
+    if(energy){ grad.addColorStop(0,"#f6f4f8"); grad.addColorStop(.52,"#ffffff"); grad.addColorStop(1,"#efecf3"); }
+    else if(envelope){ grad.addColorStop(0,t.card); grad.addColorStop(1,"#f8efe2"); }
     else{ grad.addColorStop(0,t.card); grad.addColorStop(1,editorial ? t.card : t.bg[2]); }
     ctx.fillStyle = grad; rr(ctx,P,y,IW,hh,hiRadius); ctx.fill(); ctx.restore();
-    ctx.save(); ctx.strokeStyle = t.border; ctx.lineWidth = 1;
+    ctx.save(); ctx.strokeStyle = editorial ? t.ink : t.border; ctx.lineWidth = editorial ? 1.2 : 1;
     if(envelope) ctx.setLineDash([7,5]); rr(ctx,P,y,IW,hh,hiRadius); ctx.stroke(); ctx.restore();
     if(editorial){
-      ctx.fillStyle = t.accent; ctx.fillRect(P,y,IW,6);
-      ctx.fillStyle = t.accent; ctx.font = F(13,800); ctx.fillText("05 / COVER STORY", P+26, y+40);
-      ctx.fillStyle = t.ink; ctx.font = F(16,800); ctx.fillText("本月高光", P+170, y+40);
+      ctx.fillStyle = t.ink; ctx.fillRect(P,y,IW,50);
+      ctx.fillStyle = t.card; ctx.font = F(12,800); ctx.fillText("05 / FEATURE CLIPPING", P+22, y+31);
+      ctx.textAlign = "right"; ctx.font = F(15,800); ctx.fillText("本月高光",P+IW-22,y+32); ctx.textAlign = "left";
     }else if(energy){
       const peak = ctx.createLinearGradient(P+26,y,P+204,y);
       peak.addColorStop(0,t.accent); peak.addColorStop(1,t.accent2);
@@ -2849,11 +2862,11 @@ function drawReport(ctx, W, key, styleId){
   // 页脚
   ctx.textAlign = "center";
   if(t.decor === "editorial"){
-    ctx.fillStyle = t.accent; ctx.font = F(13,800); ctx.fillText("END OF ISSUE / 2026 LIFE OS",W/2,y); y += 28;
-    ctx.fillStyle = t.pale; ctx.font = F(14,400); ctx.fillText("记录不是总结，而是下一期的开始。",W/2,y); y += 24;
+    ctx.fillStyle = t.ink; ctx.font = F(13,800); ctx.fillText("END OF EDITION / ARCHIVE COPY",W/2,y); y += 28;
+    ctx.fillStyle = t.muted; ctx.font = F(13,400); ctx.fillText("LIFE OS TRAINING GAZETTE · 每一次完成都值得刊登",W/2,y); y += 24;
   }else if(t.decor === "energy"){
-    ctx.fillStyle = "rgba(255,255,255,.92)"; ctx.font = F(19,900); ctx.fillText("KEEP MOVING",W/2,y); y += 28;
-    ctx.fillStyle = "rgba(255,255,255,.62)"; ctx.font = F(14,600); ctx.fillText("BUILD · RECOVER · REPEAT",W/2,y); y += 24;
+    ctx.fillStyle = t.ink; ctx.font = F(19,900); ctx.fillText("KEEP MOVING",W/2,y); y += 28;
+    ctx.fillStyle = t.muted; ctx.font = F(14,600); ctx.fillText("BUILD · RECOVER · REPEAT",W/2,y); y += 24;
   }else if(t.decor === "envelope"){
     ctx.fillStyle = t.accent2; ctx.font = F(15,700); ctx.fillText("YOURS, LIFE OS",W/2,y); y += 28;
     ctx.fillStyle = t.muted; ctx.font = F(15,400); ctx.fillText("寄给未来的自己。",W/2,y); y += 24;
@@ -2878,19 +2891,23 @@ function paintReportBackground(ctx,W,H,t){
     for(let x=24;x<W;x+=24){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
     for(let y=24;y<H;y+=24){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
   }else if(t.decor === "editorial"){
-    ctx.fillStyle=t.accent; ctx.fillRect(0,0,10,H);
-    ctx.fillStyle=t.ink; ctx.fillRect(W-10,0,10,H);
-    ctx.strokeStyle=t.border; ctx.lineWidth=1;
+    ctx.strokeStyle="rgba(23,23,23,.18)"; ctx.lineWidth=1;
     ctx.beginPath();ctx.moveTo(28,0);ctx.lineTo(28,H);ctx.moveTo(W-28,0);ctx.lineTo(W-28,H);ctx.stroke();
-    ctx.fillStyle=t.accent;
-    for(let yy=120;yy<H;yy+=360) ctx.fillRect(14,yy,8,54);
+    ctx.strokeStyle="rgba(23,23,23,.035)";
+    for(let yy=92;yy<H;yy+=184){ctx.beginPath();ctx.moveTo(28,yy);ctx.lineTo(W-28,yy);ctx.stroke();}
+    ctx.fillStyle=t.ink;
+    [[14,42],[W-20,42],[14,H-58],[W-20,H-58]].forEach(p=>ctx.fillRect(p[0],p[1],6,34));
+    ctx.strokeStyle=t.ink; ctx.lineWidth=1.2;
+    [[28,28,1,1],[W-28,28,-1,1],[28,H-28,1,-1],[W-28,H-28,-1,-1]].forEach(p=>{
+      ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(p[0]+18*p[2],p[1]);ctx.moveTo(p[0],p[1]);ctx.lineTo(p[0],p[1]+18*p[3]);ctx.stroke();
+    });
   }else if(t.decor === "energy"){
-    ctx.globalAlpha=.22;
-    const g1=ctx.createRadialGradient(W*.82,120,8,W*.82,120,290); g1.addColorStop(0,"#9a90aa"); g1.addColorStop(1,"#9a90aa00"); ctx.fillStyle=g1; ctx.fillRect(0,0,W,500);
-    const g2=ctx.createRadialGradient(40,H*.52,8,40,H*.52,260); g2.addColorStop(0,"#756b86"); g2.addColorStop(1,"#756b8600"); ctx.fillStyle=g2; ctx.fillRect(0,H*.42,W,520);
-    ctx.globalAlpha=.12; ctx.strokeStyle="#ffffff"; ctx.lineWidth=1;
+    ctx.globalAlpha=.16;
+    const g1=ctx.createRadialGradient(W*.82,120,8,W*.82,120,290); g1.addColorStop(0,"#bdb4c8"); g1.addColorStop(1,"#bdb4c800"); ctx.fillStyle=g1; ctx.fillRect(0,0,W,500);
+    const g2=ctx.createRadialGradient(40,H*.52,8,40,H*.52,260); g2.addColorStop(0,"#c9c1d2"); g2.addColorStop(1,"#c9c1d200"); ctx.fillStyle=g2; ctx.fillRect(0,H*.42,W,520);
+    ctx.globalAlpha=.07; ctx.strokeStyle=t.accent; ctx.lineWidth=1;
     for(let yy=-W;yy<H;yy+=92){ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(W,yy+W*.42);ctx.stroke();}
-    ctx.globalAlpha=.95;
+    ctx.globalAlpha=.62;
     let ribbon=ctx.createLinearGradient(0,0,W,0); ribbon.addColorStop(0,t.accent); ribbon.addColorStop(.55,t.accent2); ribbon.addColorStop(1,t.gold);
     ctx.fillStyle=ribbon; ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(W,0);ctx.lineTo(W,12);ctx.lineTo(0,34);ctx.closePath();ctx.fill();
     ctx.beginPath();ctx.moveTo(0,H-18);ctx.lineTo(W,H-40);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
@@ -2904,7 +2921,7 @@ function paintReportBackground(ctx,W,H,t){
     for(let yy=28,i=0;yy<H-28;yy+=30,i++){
       ctx.fillStyle=i%2?t.accent:t.accent2; ctx.fillRect(12,yy,10,20); ctx.fillRect(W-22,yy,10,20);
     }
-    ctx.strokeStyle="rgba(255,250,240,.72)"; ctx.lineWidth=2; ctx.strokeRect(28,28,W-56,H-56);
+    ctx.save(); ctx.globalAlpha=.68; ctx.strokeStyle=t.card; ctx.lineWidth=2; ctx.strokeRect(28,28,W-56,H-56); ctx.restore();
   }
   ctx.restore();
 }
