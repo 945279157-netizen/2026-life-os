@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13T09:02:43.209Z",
+  "updatedAt": "2026-09-13T09:03:38.669Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -913,23 +913,13 @@
       "status": "completed"
     },
     {
-      "id": "w-mtzl2wwgrtv9",
+      "id": "w-mtzl6zmejo4v",
       "date": "2026-09-12",
       "type": "cardio",
-      "name": "Bodycombat",
+      "name": "bodycombat",
       "duration": "",
       "distance": null,
       "calories": 363,
-      "status": "completed"
-    },
-    {
-      "id": "w-mtzl492puc7n",
-      "date": "2026-09-12",
-      "type": "recovery",
-      "name": "核心训练",
-      "duration": "",
-      "distance": null,
-      "calories": 148,
       "status": "completed"
     }
   ],
