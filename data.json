@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13T09:03:50.828Z",
+  "updatedAt": "2026-09-14T12:38:08.717Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -920,6 +920,26 @@
       "duration": "",
       "distance": null,
       "calories": 363,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18a9hux4ts",
+      "date": "2026-09-14",
+      "type": "strength",
+      "name": "胸肩训练",
+      "duration": "",
+      "distance": null,
+      "calories": 143,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18aq9e8f50",
+      "date": "2026-09-14",
+      "type": "hyrox",
+      "name": "HYROX",
+      "duration": "",
+      "distance": null,
+      "calories": 228,
       "status": "completed"
     }
   ],
