@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T12:38:18.463Z",
+  "updatedAt": "2026-09-14T12:46:55.640Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -913,6 +913,76 @@
       "status": "completed"
     },
     {
+      "id": "w-mu18l26ikanc",
+      "date": "2026-09-09",
+      "type": "strength",
+      "name": "背部训练",
+      "duration": "",
+      "distance": null,
+      "calories": 221,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18lo2zpbm0",
+      "date": "2026-09-09",
+      "type": "cardio",
+      "name": "战绳",
+      "duration": "",
+      "distance": null,
+      "calories": 203,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18jtbftinh",
+      "date": "2026-09-10",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 346,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18k61qrc33",
+      "date": "2026-09-10",
+      "type": "hyrox",
+      "name": "HYROX",
+      "duration": "",
+      "distance": null,
+      "calories": 222,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18hwy7a85l",
+      "date": "2026-09-11",
+      "type": "strength",
+      "name": "臀腿训练",
+      "duration": "",
+      "distance": null,
+      "calories": 198,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18ip83tqpg",
+      "date": "2026-09-11",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 388,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18j5eyxwks",
+      "date": "2026-09-11",
+      "type": "hyrox",
+      "name": "HYROX",
+      "duration": "",
+      "distance": null,
+      "calories": 203,
+      "status": "completed"
+    },
+    {
       "id": "w-mtzl6zmejo4v",
       "date": "2026-09-12",
       "type": "cardio",
@@ -920,6 +990,26 @@
       "duration": "",
       "distance": null,
       "calories": 363,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18h122vgoz",
+      "date": "2026-09-12",
+      "type": "recovery",
+      "name": "核心训练",
+      "duration": "",
+      "distance": null,
+      "calories": 148,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu18g5nmycu2",
+      "date": "2026-09-13",
+      "type": "cardio",
+      "name": "核心+爬坡",
+      "duration": "",
+      "distance": null,
+      "calories": 260,
       "status": "completed"
     },
     {
