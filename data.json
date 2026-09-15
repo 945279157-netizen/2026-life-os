@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-15T12:25:36.120Z",
+  "updatedAt": "2026-09-15T12:26:44.852Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -910,6 +910,16 @@
       "duration": "",
       "distance": null,
       "calories": 200,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu2nbxtjt883",
+      "date": "2026-09-06",
+      "type": "recovery",
+      "name": "瑜伽",
+      "duration": "",
+      "distance": null,
+      "calories": 122,
       "status": "completed"
     },
     {
