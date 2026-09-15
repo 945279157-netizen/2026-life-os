@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-15T12:12:50.829Z",
+  "updatedAt": "2026-09-15T12:14:32.269Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -913,6 +913,26 @@
       "status": "completed"
     },
     {
+      "id": "w-mu2mvmpcjazv",
+      "date": "2026-09-08",
+      "type": "run",
+      "name": "跑步",
+      "duration": "",
+      "distance": 3.64,
+      "calories": 139,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu2mw0xtwoxq",
+      "date": "2026-09-08",
+      "type": "hyrox",
+      "name": "HYROX 耐力",
+      "duration": "",
+      "distance": null,
+      "calories": 301,
+      "status": "completed"
+    },
+    {
       "id": "w-mu18l26ikanc",
       "date": "2026-09-09",
       "type": "strength",
@@ -1030,6 +1050,16 @@
       "duration": "",
       "distance": null,
       "calories": 228,
+      "status": "completed"
+    },
+    {
+      "id": "w-mu2mw9d25zqu",
+      "date": "2026-09-15",
+      "type": "hyrox",
+      "name": "HYROX",
+      "duration": "",
+      "distance": null,
+      "calories": 354,
       "status": "completed"
     }
   ],
