@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T11:33:52.923Z",
+  "updatedAt": "2026-09-21T11:34:15.605Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1080,6 +1080,16 @@
       "duration": "",
       "distance": null,
       "calories": 354,
+      "status": "completed"
+    },
+    {
+      "id": "w-mub63l4i7quy",
+      "date": "2026-09-21",
+      "type": "strength",
+      "name": "臀腿训练",
+      "duration": "",
+      "distance": null,
+      "calories": 235,
       "status": "completed"
     }
   ],
