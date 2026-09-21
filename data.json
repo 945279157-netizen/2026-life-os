@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T11:34:45.127Z",
+  "updatedAt": "2026-09-21T11:35:25.825Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1080,6 +1080,16 @@
       "duration": "",
       "distance": null,
       "calories": 354,
+      "status": "completed"
+    },
+    {
+      "id": "w-mub652w9qsq8",
+      "date": "2026-09-19",
+      "type": "cardio",
+      "name": "骑行",
+      "duration": "",
+      "distance": null,
+      "calories": 131,
       "status": "completed"
     },
     {
