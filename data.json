@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T11:35:27.606Z",
+  "updatedAt": "2026-09-30T14:08:32.717Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1110,6 +1110,36 @@
       "duration": "",
       "distance": null,
       "calories": 294,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6k7m4slsh",
+      "date": "2026-09-29",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 402,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6kmwlpexm",
+      "date": "2026-09-29",
+      "type": "strength",
+      "name": "自由训练",
+      "duration": "",
+      "distance": null,
+      "calories": 222,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6jpqlhyaq",
+      "date": "2026-09-30",
+      "type": "cardio",
+      "name": "爬楼机有氧",
+      "duration": "",
+      "distance": null,
+      "calories": 234,
       "status": "completed"
     }
   ],
