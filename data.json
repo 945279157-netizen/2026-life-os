@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-30T14:08:41.931Z",
+  "updatedAt": "2026-09-30T14:17:25.798Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1110,6 +1110,76 @@
       "duration": "",
       "distance": null,
       "calories": 294,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6vgp0lu90",
+      "date": "2026-09-22",
+      "type": "strength",
+      "name": "TRX",
+      "duration": "",
+      "distance": null,
+      "calories": 188,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6vzj918k2",
+      "date": "2026-09-22",
+      "type": "hyrox",
+      "name": "HYROX耐力",
+      "duration": "",
+      "distance": null,
+      "calories": 240,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6ty3r4gfq",
+      "date": "2026-09-23",
+      "type": "cardio",
+      "name": "战绳",
+      "duration": "",
+      "distance": null,
+      "calories": 257,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6uo20k8ko",
+      "date": "2026-09-23",
+      "type": "strength",
+      "name": "背部训练",
+      "duration": "",
+      "distance": null,
+      "calories": 220,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6rvol7l4t",
+      "date": "2026-09-24",
+      "type": "strength",
+      "name": "TRX",
+      "duration": "",
+      "distance": null,
+      "calories": 162,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6slzt02ox",
+      "date": "2026-09-24",
+      "type": "hyrox",
+      "name": "HYROX力量",
+      "duration": "",
+      "distance": null,
+      "calories": 139,
+      "status": "completed"
+    },
+    {
+      "id": "w-muo6on7x226b",
+      "date": "2026-09-28",
+      "type": "cardio",
+      "name": "爬楼梯",
+      "duration": "",
+      "distance": null,
+      "calories": 218,
       "status": "completed"
     },
     {
