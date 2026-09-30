@@ -1754,11 +1754,18 @@ function goalGap(g){
   return d > 0 ? "还差 " + d + unit : "已超出目标 " + Math.abs(d) + unit;
 }
 function renderGoal(el){
-  const g = goalData.find(x => x.month === activeMonth) || goalData[0];
-  if(!g){ el.innerHTML = '<h2>目标</h2><div class="empty-tip">还没有设定目标</div>'; return; }
+  const g = goalData.find(x => x.month === activeMonth);
+  const monthLabel = Number(activeMonth.slice(5,7)) + " 月目标";
+  if(!g){
+    el.innerHTML =
+      '<div class="card-head"><h2>' + monthLabel + '</h2><button class="mini" onclick="openGoalEdit(null, activeMonth)">设置目标</button></div>' +
+      '<div class="empty-tip">这个月还没有设定目标</div>';
+    return;
+  }
   const gap = goalGap(g);
   el.innerHTML =
-    '<div class="g-label">' + Number(g.month.slice(5,7)) + ' 月目标</div>' +
+    '<div class="card-head"><div class="g-label">' + monthLabel + '</div>' +
+      '<button class="mini" onclick="openGoalEdit(\'' + g.id + '\')">编辑目标</button></div>' +
     '<div class="g-metric">' + g.metric + '</div>' +
     '<div class="g-target">' + g.target + '</div>' +
     (gap ? '<div class="g-gap">距目标 <b>' + gap + '</b></div>' : '') +
@@ -2339,14 +2346,15 @@ function deleteBody(id){
 
 /* ---------- 目标 ---------- */
 let editingGoalId = null;
-function openGoalEdit(id){
+function openGoalEdit(id, targetMonth){
   editingGoalId = typeof id === "string" ? id : null;
   const g = editingGoalId ? goalData.find(x => x.id === editingGoalId) : null;
+  const defaultMonth = /^\d{4}-\d{2}$/.test(targetMonth || "") ? targetMonth : (activeMonth || monthOf(todayStr()));
   const val = k => esc(g && g[k] != null ? g[k] : "");
   $("editBody").innerHTML =
     '<div class="date-title">目标</div><h3>' + (g ? "修改目标" : "设一个目标") + '</h3>' +
     '<div class="form">' +
-      fld("月份", '<input type="month" id="g_month" value="' + esc(g ? g.month : monthOf(todayStr())) + '">') +
+      fld("月份", '<input type="month" id="g_month" value="' + esc(g ? g.month : defaultMonth) + '">') +
       fld("目标项", '<input id="g_metric" placeholder="体脂率" value="' + val("metric") + '">') +
       fld("目标值", '<input id="g_target" placeholder="20%" value="' + val("target") + '">') +
       fld("当前值（留空则自动取身体数据）", '<input id="g_current" placeholder="留空即可" value="' + val("current") + '">') +
@@ -2657,13 +2665,13 @@ function drawReport(ctx, W, key, styleId){
     y += h + 16;
   }
 
-  // 月度核心数据 2×2：持续性优先，热量降为辅助信息
+  // 月度核心数据 2×2
   const cellW = (IW - 14) / 2, cellH = 108;
   const cells = [
     ["训练天数", s.days + " 天"],
     ["训练次数", s.sessions + " 次"],
     ["最长连续训练", analysis.continuity.longest + " 天"],
-    ["跑步距离", s.distance + " km"]
+    ["消耗热量", num(s.calories) + " kcal"]
   ];
   cells.forEach((c,i) => {
     const cx = P + (i%2)*(cellW+14), cy = y + Math.floor(i/2)*(cellH+14);
