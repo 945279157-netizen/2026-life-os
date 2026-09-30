@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-30T14:17:30.869Z",
+  "updatedAt": "2026-09-30T17:31:13.309Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1083,6 +1083,46 @@
       "status": "completed"
     },
     {
+      "id": "w-muodsqe3m86d",
+      "date": "2026-09-17",
+      "type": "strength",
+      "name": "肩部训练",
+      "duration": "",
+      "distance": null,
+      "calories": 110,
+      "status": "completed"
+    },
+    {
+      "id": "w-muodt9g8x1vi",
+      "date": "2026-09-17",
+      "type": "cardio",
+      "name": "爬坡➕跑步机",
+      "duration": "",
+      "distance": null,
+      "calories": 262,
+      "status": "completed"
+    },
+    {
+      "id": "w-muodl20435xr",
+      "date": "2026-09-18",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 352,
+      "status": "completed"
+    },
+    {
+      "id": "w-muodpd30vbf5",
+      "date": "2026-09-18",
+      "type": "strength",
+      "name": "背部训练",
+      "duration": "",
+      "distance": null,
+      "calories": 177,
+      "status": "completed"
+    },
+    {
       "id": "w-mub652w9qsq8",
       "date": "2026-09-19",
       "type": "cardio",
@@ -1090,6 +1130,26 @@
       "duration": "",
       "distance": null,
       "calories": 131,
+      "status": "completed"
+    },
+    {
+      "id": "w-muodjxk48ey1",
+      "date": "2026-09-19",
+      "type": "recovery",
+      "name": "瑜伽",
+      "duration": "",
+      "distance": null,
+      "calories": 135,
+      "status": "completed"
+    },
+    {
+      "id": "w-muodmcxh8443",
+      "date": "2026-09-19",
+      "type": "strength",
+      "name": "私教体验",
+      "duration": "",
+      "distance": null,
+      "calories": 85,
       "status": "completed"
     },
     {
