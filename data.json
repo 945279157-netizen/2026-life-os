@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T09:07:21.633Z",
+  "updatedAt": "2026-10-20T09:13:11.316Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1270,6 +1270,66 @@
       "duration": "",
       "distance": null,
       "calories": 234,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggnktk3iax",
+      "date": "2026-10-03",
+      "type": "strength",
+      "name": "自由训练",
+      "duration": "",
+      "distance": null,
+      "calories": 138,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggo0xnsn4s",
+      "date": "2026-10-04",
+      "type": "strength",
+      "name": "自由训练",
+      "duration": "",
+      "distance": null,
+      "calories": 139,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggoh4jtv29",
+      "date": "2026-10-08",
+      "type": "cardio",
+      "name": "徒步",
+      "duration": "",
+      "distance": null,
+      "calories": 218,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggsjb02msx",
+      "date": "2026-10-09",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 300,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggt4tjggzx",
+      "date": "2026-10-10",
+      "type": "recovery",
+      "name": "全面伸展",
+      "duration": "",
+      "distance": null,
+      "calories": 131,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggtt89fala",
+      "date": "2026-10-10",
+      "type": "strength",
+      "name": "TRX",
+      "duration": "",
+      "distance": null,
+      "calories": 195,
       "status": "completed"
     },
     {
