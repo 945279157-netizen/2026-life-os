@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T09:03:25.135Z",
+  "updatedAt": "2026-10-20T09:07:17.800Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1267,6 +1267,76 @@
       "date": "2026-09-30",
       "type": "cardio",
       "name": "爬楼机有氧",
+      "duration": "",
+      "distance": null,
+      "calories": 234,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggkwf72y4h",
+      "date": "2026-10-12",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 339,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvgglfp6zbn5",
+      "date": "2026-10-12",
+      "type": "strength",
+      "name": "背部训练",
+      "duration": "",
+      "distance": null,
+      "calories": 185,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggm8j5sukw",
+      "date": "2026-10-12",
+      "type": "cardio",
+      "name": "爆发",
+      "duration": "",
+      "distance": null,
+      "calories": 276,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggkc1grraz",
+      "date": "2026-10-13",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 279,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggjis6dxrx",
+      "date": "2026-10-14",
+      "type": "strength",
+      "name": "胸肩训练",
+      "duration": "",
+      "distance": null,
+      "calories": 197,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvggimp3mtar",
+      "date": "2026-10-15",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 390,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvgghyx1mfoc",
+      "date": "2026-10-16",
+      "type": "strength",
+      "name": "臀腿训练",
       "duration": "",
       "distance": null,
       "calories": 234,
