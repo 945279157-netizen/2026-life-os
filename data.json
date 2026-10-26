@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T09:13:11.316Z",
+  "updatedAt": "2026-10-26T14:17:27.895Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1470,6 +1470,56 @@
       "duration": "",
       "distance": null,
       "calories": 306,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvpcbmyy9zne",
+      "date": "2026-10-21",
+      "type": "cardio",
+      "name": "战绳",
+      "duration": "",
+      "distance": null,
+      "calories": 259,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvpcc7utbr9e",
+      "date": "2026-10-21",
+      "type": "strength",
+      "name": "臀腿训练",
+      "duration": "",
+      "distance": null,
+      "calories": 204,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvpcataxk8sn",
+      "date": "2026-10-22",
+      "type": "hyrox",
+      "name": "HYROX",
+      "duration": "",
+      "distance": null,
+      "calories": 211,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvpcak1lp7hw",
+      "date": "2026-10-22",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 300,
+      "status": "completed"
+    },
+    {
+      "id": "w-mvpc965r1kl7",
+      "date": "2026-10-25",
+      "type": "cardio",
+      "name": "自由训练",
+      "duration": "",
+      "distance": null,
+      "calories": 165,
       "status": "completed"
     }
   ],
