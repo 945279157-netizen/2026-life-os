@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-26T14:17:38.492Z",
+  "updatedAt": "2026-11-16T12:04:36.406Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1520,6 +1520,156 @@
       "duration": "",
       "distance": null,
       "calories": 165,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj77m7ih1km",
+      "date": "2026-11-03",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 402,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj78hzy77xk",
+      "date": "2026-11-04",
+      "type": "strength",
+      "name": "背部训练",
+      "duration": "",
+      "distance": null,
+      "calories": 174,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj76jeayhod",
+      "date": "2026-11-06",
+      "type": "strength",
+      "name": "臀腿训练",
+      "duration": "",
+      "distance": null,
+      "calories": 223,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj798p2rzs3",
+      "date": "2026-11-06",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 403,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj7afe3g030",
+      "date": "2026-11-07",
+      "type": "cardio",
+      "name": "自由训练",
+      "duration": "",
+      "distance": null,
+      "calories": 214,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj75nbykos7",
+      "date": "2026-11-09",
+      "type": "run",
+      "name": "跑步",
+      "duration": "",
+      "distance": null,
+      "calories": 258,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj754mzb396",
+      "date": "2026-11-11",
+      "type": "run",
+      "name": "跑步",
+      "duration": "",
+      "distance": null,
+      "calories": 203,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj73i1qqg1r",
+      "date": "2026-11-12",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 203,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj72thzhrm3",
+      "date": "2026-11-13",
+      "type": "hyrox",
+      "name": "HYROX",
+      "duration": "",
+      "distance": null,
+      "calories": 180,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj732f8fqev",
+      "date": "2026-11-13",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 345,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj73x9erdfx",
+      "date": "2026-11-13",
+      "type": "strength",
+      "name": "臀腿训练",
+      "duration": "",
+      "distance": null,
+      "calories": 185,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj71vvrewea",
+      "date": "2026-11-14",
+      "type": "recovery",
+      "name": "瑜伽",
+      "duration": "",
+      "distance": null,
+      "calories": 191,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj71ielxq2l",
+      "date": "2026-11-15",
+      "type": "cardio",
+      "name": "自由训练",
+      "duration": "",
+      "distance": null,
+      "calories": 282,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj70qs5pm0s",
+      "date": "2026-11-16",
+      "type": "strength",
+      "name": "背部训练",
+      "duration": "",
+      "distance": null,
+      "calories": 211,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj710ys9wrh",
+      "date": "2026-11-16",
+      "type": "cardio",
+      "name": "bodycombat",
+      "duration": "",
+      "distance": null,
+      "calories": 345,
       "status": "completed"
     }
   ],
