@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-16T12:04:36.406Z",
+  "updatedAt": "2026-11-16T12:26:03.388Z",
   "extraMonths": [],
   "workouts": [
     {
@@ -1520,6 +1520,26 @@
       "duration": "",
       "distance": null,
       "calories": 165,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj8fn73q3e1",
+      "date": "2026-10-28",
+      "type": "cardio",
+      "name": "战绳",
+      "duration": "",
+      "distance": null,
+      "calories": 254,
+      "status": "completed"
+    },
+    {
+      "id": "w-mwj8kbworhbi",
+      "date": "2026-10-28",
+      "type": "strength",
+      "name": "胸肩训练",
+      "duration": "",
+      "distance": null,
+      "calories": 221,
       "status": "completed"
     },
     {
